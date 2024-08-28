@@ -16,7 +16,7 @@ const ProjectsDisplay: React.FC<ProjectsDisplayProps> = ({ projects }) => {
             Projects
           </h2>
           <p className="mt-2 text-lg leading-8 text-white">
-            Here's a list of projects I have worked/working on.
+            Here&apos;s a list of projects I have worked/working on.
           </p>
         </div>
         <ul
@@ -28,10 +28,12 @@ const ProjectsDisplay: React.FC<ProjectsDisplayProps> = ({ projects }) => {
               key={project._id}
               className="mb-6 break-inside-avoid rounded-lg p-5 bg-neutral-800/50 hover:bg-neutral-800/75"
             >
-              <img
-                alt=""
+              <Image
+                alt={project.name}
                 src={project.imageUrl}
-                className="aspect-[3/2] w-full rounded-lg object-cover"
+                width={600}
+                height={400}
+                className="aspect-[3/2] rounded-lg object-cover"
               />
               <div className="flex justify-between items-center mt-6 border-b-2 border-red-500 max-w-7xl">
                 <div className="text-lg font-semibold leading-8 tracking-tight text-white">

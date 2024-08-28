@@ -50,7 +50,7 @@ export default function Technologies() {
             Technology
           </h2>
           <p className="mt-6 text-lg leading-8 text-white">
-            Here's what I typically work with.
+            Here&apos;s what I typically work with.
           </p>
         </div>
         <ul

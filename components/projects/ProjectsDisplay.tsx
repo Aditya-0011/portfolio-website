@@ -1,13 +1,48 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 
 import { Project, Technology } from "@/types/project";
 
-interface ProjectsDisplayProps {
-  projects: Project[];
-}
+export default function ProjectsDisplay() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(false);
 
-const ProjectsDisplay: React.FC<ProjectsDisplayProps> = ({ projects }) => {
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/projects", {
+          headers: { Accept: "application/json", Method: "GET" },
+        });
+        if (response) {
+          const data = await response.json();
+          if (data.status === 200) {
+            setProjects(data.message);
+          } else {
+            console.log(data.message);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, [setProjects, setLoading]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <div className="py-8 sm:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -126,6 +161,4 @@ const ProjectsDisplay: React.FC<ProjectsDisplayProps> = ({ projects }) => {
       </div>
     </div>
   );
-};
-
-export default ProjectsDisplay;
+}

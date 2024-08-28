@@ -43,14 +43,14 @@ export default function Navbar() {
             >
               <div
                 className={
-                  pathname === "/project"
+                  pathname === "/projects"
                     ? "absolute -inset-1.5 bg-blue-500 blur-md opacity-40"
                     : "hidden"
                 }
               />
               <Link
                 href="/projects"
-                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${pathname === "/project" ? "border-2 border-blue-500 text-blue-100" : "text-white hover:text-sky-500"}`}
+                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${pathname === "/projects" ? "border-2 border-blue-500 text-blue-100" : "text-white hover:text-sky-500"}`}
               >
                 Projects
               </Link>

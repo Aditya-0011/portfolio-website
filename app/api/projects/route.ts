@@ -1,8 +1,8 @@
 import { conn, closeClient } from "@/lib/db";
 import { Project } from "@/types/project";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   const db = await conn();
 
   try {
@@ -13,18 +13,28 @@ export async function GET(): Promise<NextResponse> {
       });
     }
 
+    const url = new URL(req.url);
+
+    const featured = url.searchParams.get("featured") === "true";
+
+    const pipeline: any = [
+      {
+        $lookup: {
+          from: "technologies",
+          localField: "technologies",
+          foreignField: "_id",
+          as: "technologies",
+        },
+      },
+    ];
+
+    if (featured) {
+      pipeline.unshift({ $match: { featured: true } });
+    }
+
     const projects = await db
       .collection<Project>("projects")
-      .aggregate([
-        {
-          $lookup: {
-            from: "technologies",
-            localField: "technologies",
-            foreignField: "_id",
-            as: "technologies",
-          },
-        },
-      ])
+      .aggregate(pipeline)
       .toArray();
 
     return NextResponse.json({

@@ -10,7 +10,12 @@ export const metadata: Metadata = {
 export default async function Projects() {
   return (
     <div className="relative min-h-screen bg-neutral-950">
-      <ProjectsDisplay />
+      <ProjectsDisplay
+        url={"/api/projects"}
+        heading={"Projects"}
+        description={"Here's a list of projects I have worked/working on."}
+        featured={false}
+      />
     </div>
   );
 }

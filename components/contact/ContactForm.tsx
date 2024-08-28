@@ -10,7 +10,7 @@ import { addMessage } from "@/actions/db";
 export default function ContactForm() {
   const handleSubmit = async (messageData: FormData) => {
     toast("Sending message...", {
-      duration: 855,
+      duration: 1000,
       onAutoClose: (t) => {
         t.className = "hidden";
       },

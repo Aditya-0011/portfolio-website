@@ -1,12 +1,12 @@
 "use server";
 
-import { conn, closeClient } from "@/lib/db";
+import { conn } from "@/lib/db";
 import { DbMessage, UserMessage, MessageSchema } from "@/types/project";
 
 export async function addMessage(message: UserMessage) {
-  const db = await conn();
+  const client = await conn();
   try {
-    if (!db) {
+    if (!client) {
       return { status: 400, message: ["Database connection failed."] };
     }
 
@@ -20,7 +20,9 @@ export async function addMessage(message: UserMessage) {
       return { status: 400, message: errorMessage };
     }
 
-    const messageCollection = db.collection<DbMessage>("messages");
+    const messageCollection = client
+      .db(process.env.DB_NAME as string)
+      .collection<DbMessage>("messages");
     const existingMessage = await messageCollection.findOne(
       {
         email: message.email,
@@ -55,6 +57,6 @@ export async function addMessage(message: UserMessage) {
   } catch (e) {
     return { status: 400, message: ["Some error occurred."] };
   } finally {
-    await closeClient();
+    await client.close();
   }
 }

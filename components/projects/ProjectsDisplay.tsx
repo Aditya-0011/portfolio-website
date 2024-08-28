@@ -27,8 +27,11 @@ const ProjectsDisplay: React.FC<Props> = ({
     const fetchProjects = async () => {
       try {
         setLoading(true);
+        console.log(url);
         const response = await fetch(url, {
           headers: { Accept: "application/json", Method: "GET" },
+          cache: "force-cache",
+          next: { revalidate: 10000 },
         });
         if (response) {
           const data = await response.json();
@@ -45,7 +48,7 @@ const ProjectsDisplay: React.FC<Props> = ({
       }
     };
     fetchProjects();
-  }, [setProjects, setLoading]);
+  }, [url]);
 
   if (loading) {
     return (

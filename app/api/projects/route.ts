@@ -1,12 +1,12 @@
-import { conn, closeClient } from "@/lib/db";
+import { conn } from "@/lib/db";
 import { Project } from "@/types/project";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
-  const db = await conn();
+  const client = await conn();
 
   try {
-    if (!db) {
+    if (!client) {
       return NextResponse.json({
         status: 400,
         message: ["Database connection failed."],
@@ -32,7 +32,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       pipeline.unshift({ $match: { featured: true } });
     }
 
-    const projects = await db
+    const projects = await client
+      .db(process.env.DB_NAME as string)
       .collection<Project>("projects")
       .aggregate(pipeline)
       .toArray();
@@ -47,6 +48,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       message: [e],
     });
   } finally {
-    await closeClient();
+    await client.close();
   }
 }

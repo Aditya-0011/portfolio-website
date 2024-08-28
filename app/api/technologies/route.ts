@@ -1,20 +1,21 @@
 import { NextResponse } from "next/server";
 
-import { conn, closeClient } from "@/lib/db";
+import { conn } from "@/lib/db";
 import { Technology } from "@/types/project";
 
 export async function GET(): Promise<NextResponse> {
-  const db = await conn();
+  const client = await conn();
 
   try {
-    if (!db) {
+    if (!client) {
       return NextResponse.json({
         status: 400,
         message: ["Database connection failed."],
       });
     }
 
-    const technologies = await db
+    const technologies = await client
+      .db(process.env.DB_NAME as string)
       .collection<Technology>("technologies")
       .aggregate([
         {
@@ -48,6 +49,6 @@ export async function GET(): Promise<NextResponse> {
       message: ["Some error occurred."],
     });
   } finally {
-    await closeClient();
+    await client.close();
   }
 }

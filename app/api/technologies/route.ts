@@ -17,26 +17,8 @@ export async function GET(): Promise<NextResponse> {
     const technologies = await client
       .db(process.env.DB_NAME as string)
       .collection<Technology>("technologies")
-      .aggregate([
-        {
-          $facet: {
-            lang: [{ $match: { category: "lang" } }],
-            frontend: [{ $match: { category: "frontend" } }],
-            backend: [{ $match: { category: "backend" } }],
-            db: [{ $match: { category: "db" } }],
-            tool: [{ $match: { category: "tool" } }],
-          },
-        },
-        {
-          $project: {
-            technologies: {
-              $concatArrays: ["$lang", "$frontend", "$backend", "$db", "$tool"],
-            },
-          },
-        },
-        { $unwind: "$technologies" },
-        { $replaceRoot: { newRoot: "$technologies" } },
-      ])
+      .find({ category: { $ne: "no" } })
+      .sort({ name: 1 })
       .toArray();
 
     return NextResponse.json({

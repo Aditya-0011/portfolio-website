@@ -27,7 +27,6 @@ const ProjectsDisplay: React.FC<Props> = ({
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        console.log(url);
         const response = await fetch(url, {
           headers: { Accept: "application/json", Method: "GET" },
           cache: "force-cache",

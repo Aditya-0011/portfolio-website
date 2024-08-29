@@ -18,7 +18,7 @@ export interface Technology {
   _id: string;
   name: string;
   imageUrl: string;
-  category: "frontend" | "backend" | "db" | "lang" | "no";
+  category: "frontend" | "backend" | "db" | "lang" | "tool" | "acad" | "no";
 }
 
 export interface Project {

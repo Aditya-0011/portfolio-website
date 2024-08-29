@@ -29,7 +29,7 @@ const ProjectsDisplay: React.FC<Props> = ({
         setLoading(true);
         const response = await fetch(url, {
           headers: { Accept: "application/json", Method: "GET" },
-          cache: "force-cache",
+          cache: "no-cache",
           next: { revalidate: 10 },
         });
         if (response) {

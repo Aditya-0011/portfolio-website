@@ -30,7 +30,7 @@ const ProjectsDisplay: React.FC<Props> = ({
         const response = await fetch(url, {
           headers: { Accept: "application/json", Method: "GET" },
           cache: "force-cache",
-          next: { revalidate: 10000 },
+          next: { revalidate: 10 },
         });
         if (response) {
           const data = await response.json();

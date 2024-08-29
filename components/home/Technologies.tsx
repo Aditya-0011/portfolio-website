@@ -17,7 +17,7 @@ export default function Technologies() {
         const response = await fetch("/api/technologies", {
           headers: { Accept: "application/json", Method: "GET" },
           cache: "force-cache",
-          next: { revalidate: 10000 },
+          next: { revalidate: 10 },
         });
         if (response) {
           const data = await response.json();

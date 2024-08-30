@@ -78,11 +78,11 @@ export default function Technologies() {
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
                         width={32}
-                        className="mx-auto rounded-sm hover:bg-neutral-800/75"
+                        className="mx-auto rounded-sm group-hover:hidden"
                         alt={technology.name}
                         priority
                       />
-                      <span className="absolute bottom-full mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 border-2 border-sky-300 rounded-md shadow-lg text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
                         {technology.name}
                       </span>
                     </div>
@@ -109,11 +109,11 @@ export default function Technologies() {
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
                         width={32}
-                        className="mx-auto rounded-sm hover:bg-neutral-800/75"
+                        className="mx-auto rounded-sm group-hover:hidden"
                         alt={technology.name}
                         priority
                       />
-                      <span className="absolute bottom-full mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 border-2 border-sky-300 rounded-md shadow-lg text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
                         {technology.name}
                       </span>
                     </div>
@@ -140,11 +140,11 @@ export default function Technologies() {
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
                         width={32}
-                        className="mx-auto rounded-sm hover:bg-neutral-800/75"
+                        className="mx-auto rounded-sm group-hover:hidden"
                         alt={technology.name}
                         priority
                       />
-                      <span className="absolute bottom-full mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 border-2 border-sky-300 rounded-md shadow-lg text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
                         {technology.name}
                       </span>
                     </div>
@@ -171,11 +171,11 @@ export default function Technologies() {
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
                         width={32}
-                        className="mx-auto rounded-sm hover:bg-neutral-800/75"
+                        className="mx-auto rounded-sm group-hover:hidden"
                         alt={technology.name}
                         priority
                       />
-                      <span className="absolute bottom-full mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 border-2 border-sky-300 rounded-md shadow-lg text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
                         {technology.name}
                       </span>
                     </div>
@@ -202,11 +202,11 @@ export default function Technologies() {
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
                         width={32}
-                        className="mx-auto rounded-sm hover:bg-neutral-800/75"
+                        className="mx-auto rounded-sm group-hover:hidden"
                         alt={technology.name}
                         priority
                       />
-                      <span className="absolute bottom-full mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 border-2 border-sky-300 rounded-md shadow-lg text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
                         {technology.name}
                       </span>
                     </div>
@@ -233,11 +233,11 @@ export default function Technologies() {
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
                         width={32}
-                        className="mx-auto rounded-sm hover:bg-neutral-800/75"
+                        className="mx-auto rounded-sm group-hover:hidden"
                         alt={technology.name}
                         priority
                       />
-                      <span className="absolute bottom-full mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 border-2 border-sky-300 rounded-md shadow-lg text-center text-emerald-300 font-medium text-sm">
+                      <span className="mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
                         {technology.name}
                       </span>
                     </div>

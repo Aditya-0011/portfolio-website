@@ -12,23 +12,23 @@ export default function AboutMe() {
           </h1>
           <div className="mt-6 max-w-7xl text-lg space-y-3 text-white/75 sm:text-xl md:mt-8 md:max-w-3xl">
             <p>
-              a senior-year Computer Science student with a strong grip on
-              Python, JavaScript, and TypeScript. I&apos;m a full-stack
-              developer with a focus on backend work, using stacks like FARM/P,
-              ASP.NET, MERN, and PERN. I have professional experience in C#
-              (ASP.NET Core 8) and basic know-how in Bash along with some basic
-              academic experience in C and Java.
+              a senior-year Computer Science student specializing in full-stack
+              development with a strong focus on backend technologies. My
+              expertise includes working with stacks like FARM/P, ASP.NET, MERN,
+              and PERN. I have professional experience in C# (ASP.NET Core 8),
+              PERN stack and basic Bash scripting. Additionally, I have some
+              foundational academic experience in C and Java.
             </p>
             <p>
-              When it comes to databases, I&apos;m all about SQL. PostgreSQL is
-              my jam, and I prefer it over NoSQL options.
+              When it comes to databases, I&apos;m passionate about SQL,
+              particularly PostgreSQL, which I prefer over NoSQL options.
             </p>
             <p>
               I love designing, developing, and deploying apps from start to
               finish. Whether it&apos;s creating something new or tweaking an
               existing project, I&apos;m always up for it! When I&apos;m not
-              coding, you&apos;ll find me diving into PC games like
-              Assassin&apos;s Creed or Valorant.
+              coding, you&apos;ll find me grinding Assassin&apos;s Creed and
+              Valorant.
             </p>
             <p>
               If it&apos;s about solving problems and building cool stuff,

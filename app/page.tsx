@@ -1,6 +1,13 @@
+import { Metadata } from "next";
+
 import Technologies from "@/components/home/Technologies";
 import ProjectsDisplay from "@/components/projects/ProjectsDisplay";
 import AboutMe from "@/components/home/AboutMe";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "Home page of my portfolio.",
+};
 
 export default function Home() {
   return (

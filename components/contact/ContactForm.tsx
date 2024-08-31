@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 import { toast } from "sonner";
 
@@ -8,36 +9,10 @@ import { MessageSchema, UserMessage } from "@/types/project";
 import { addMessage } from "@/actions/db";
 
 export default function ContactForm() {
-  const handleSubmit = async (messageData: FormData) => {
-    toast("Sending message...", {
-      duration: 1000,
-      onAutoClose: (t) => {
-        t.className = "hidden";
-      },
-      icon: (
-        <svg
-          className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          ></circle>
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          ></path>
-        </svg>
-      ),
-    });
+  const [loading, setLoading] = useState(false);
 
+  const handleSubmit = async (messageData: FormData) => {
+    setLoading(true);
     const message: UserMessage = {
       name: messageData.get("fullName") as string,
       email: messageData.get("email") as string,
@@ -48,17 +23,19 @@ export default function ContactForm() {
       result.error.issues.forEach((issue) => {
         toast.error(issue.message, { duration: 3000 });
       });
+      setLoading(false);
       return;
     }
 
     const response = await addMessage(message);
     if (response.status === 200) {
-      toast(response.message[0], { duration: 3000 });
+      toast.success(response.message[0], { duration: 3000 });
     } else {
       response.message.map((msg) => {
         toast.error(msg, { duration: 3000 });
       });
     }
+    setLoading(false);
   };
 
   return (
@@ -204,12 +181,37 @@ export default function ContactForm() {
           </div>
           <div className="mt-8 flex justify-end">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-blue-500 group-hover:bg-green-500 rounded-lg blur-md group-hover:translate-x-1 opacity-45 py-2" />
+              <div
+                className={
+                  loading
+                    ? "hidden"
+                    : "absolute -inset-1 bg-blue-500 group-hover:bg-green-500 rounded-lg blur-md group-hover:translate-x-1 opacity-45 py-2"
+                }
+              />
               <button
                 type="submit"
-                className="relative rounded-lg px-3 text-xl font-bold text-blue-100 bg-neutral-950 border-2 border-blue-500 py-2 group-hover:translate-x-1 group-hover:border-green-500 group-hover:text-green-100"
+                disabled={loading}
+                className={`relative rounded-lg px-3 text-xl font-bold py-2 border-2 ${loading ? "text-neutral-950 bg-white/75 border-neutral-950 hover:bg-white/50" : "text-blue-100 bg-neutral-950 border-blue-500 group-hover:translate-x-1 group-hover:border-green-500 group-hover:text-green-100"}`}
               >
-                Send message
+                {loading ? (
+                  <div className="flex items-center gap-x-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-6 animate-spin"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M4.755 10.059a7.5 7.5 0 0 1 12.548-3.364l1.903 1.903h-3.183a.75.75 0 1 0 0 1.5h4.992a.75.75 0 0 0 .75-.75V4.356a.75.75 0 0 0-1.5 0v3.18l-1.9-1.9A9 9 0 0 0 3.306 9.67a.75.75 0 1 0 1.45.388Zm15.408 3.352a.75.75 0 0 0-.919.53 7.5 7.5 0 0 1-12.548 3.364l-1.902-1.903h3.183a.75.75 0 0 0 0-1.5H2.984a.75.75 0 0 0-.75.75v4.992a.75.75 0 0 0 1.5 0v-3.18l1.9 1.9a9 9 0 0 0 15.059-4.035.75.75 0 0 0-.53-.918Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Loading
+                  </div>
+                ) : (
+                  "Send message"
+                )}
               </button>
             </div>
           </div>
@@ -218,28 +220,3 @@ export default function ContactForm() {
     </div>
   );
 }
-
-const loadingIcon = () => {
-  return (
-    <svg
-      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        stroke-width="4"
-      ></circle>
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-      ></path>
-    </svg>
-  );
-};

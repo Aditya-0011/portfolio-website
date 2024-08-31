@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function AboutMe() {
   return (
     <div className="relative bg-neutral-950">
-      <div className="mx-auto w-full max-w-7xl py-16 text-left">
+      <div className="mx-auto w-full max-w-7xl sm:py-16 py-8 text-left">
         <div className="px-6 sm:px-8 lg:w-1/2 xl:pr-16">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl text-balance">
             <span className="block xl:inline text-white">Hi, I am </span>
@@ -17,17 +17,14 @@ export default function AboutMe() {
               expertise includes working with stacks like FARM/P, ASP.NET, MERN,
               and PERN. I have professional experience in C# (ASP.NET Core 8),
               PERN stack and basic Bash scripting. Additionally, I have some
-              foundational academic experience in C and Java.
-            </p>
-            <p>
-              When it comes to databases, I&apos;m passionate about SQL,
-              particularly PostgreSQL, which I prefer over NoSQL options.
+              foundational academic experience in C and Java. When it comes to
+              databases, SQL is my jam, and I prefer it over NoSQL options.
             </p>
             <p>
               I love designing, developing, and deploying apps from start to
               finish. Whether it&apos;s creating something new or tweaking an
               existing project, I&apos;m always up for it! When I&apos;m not
-              coding, you&apos;ll find me grinding Assassin&apos;s Creed and
+              coding, you&apos;ll find me locked into Assassin&apos;s Creed or
               Valorant.
             </p>
             <p>
@@ -45,9 +42,9 @@ export default function AboutMe() {
       </div>
       <div className="relative h-64 w-full items-center justify-center sm:h-72 md:h-96 lg:absolute lg:inset-y-10 lg:right-0 lg:h-full lg:w-1/2 hidden lg:flex">
         <div className="group relative h-32 w-32 sm:h-48 sm:w-48 md:h-56 md:w-56 lg:h-72 lg:w-72 xl:h-96 xl:w-96">
-          <div className="absolute -inset-1 rounded-full bg-blue-500/75 py-2 blur-2xl animate-[pulse_4s_cubic-bezier(0.4,_0,_0.6,_1)_infinite]" />
+          <div className="absolute -inset-1 rounded-full bg-blue-500/75 py-2 blur-2xl animate-[pulse_4s_cubic-bezier(0.4,_0,_0.6,_1)_infinite] group-hover:bg-emerald-500/75" />
           <Image
-            className="absolute inset-0 h-full w-full rounded-full object-cover ring-2 ring-blue-500"
+            className="absolute inset-0 h-full w-full rounded-full object-cover ring-2 ring-blue-500 group-hover:ring-emerald-500"
             src="https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg"
             height={400}
             width={400}

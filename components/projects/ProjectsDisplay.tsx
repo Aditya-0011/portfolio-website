@@ -80,7 +80,8 @@ const ProjectsDisplay: React.FC<Props> = ({
                 src={project.imageUrl}
                 width={600}
                 height={400}
-                className="aspect-[3/2] rounded-lg object-cover"
+                className="aspect-[3/2] rounded-lg object-contain"
+                priority
               />
               <div className="flex justify-between items-center mt-6 border-b-2 border-red-500 max-w-7xl">
                 <div className="text-lg font-semibold leading-8 tracking-tight text-white">

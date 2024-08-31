@@ -73,7 +73,7 @@ export default function Technologies() {
                 .filter((tech) => tech.category === "lang")
                 .map((technology: Technology) => (
                   <li key={technology._id} className="relative">
-                    <div className="group inline-block">
+                    <div className="group inline-block text-center truncate">
                       <Image
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
@@ -82,7 +82,7 @@ export default function Technologies() {
                         alt={technology.name}
                         priority
                       />
-                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 rounded-md text-center text-emerald-300 font-medium text-sm max-w-32">
                         {technology.name}
                       </span>
                     </div>

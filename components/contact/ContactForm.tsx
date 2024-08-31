@@ -125,7 +125,11 @@ export default function ContactForm() {
         </div>
       </div>
       <form
-        action={handleSubmit}
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target as HTMLFormElement);
+          await handleSubmit(formData);
+        }}
         className="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
       >
         <div className="mx-auto max-w-xl lg:max-w-lg">

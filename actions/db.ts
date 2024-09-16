@@ -1,6 +1,7 @@
 "use server";
 
 import { conn } from "@/lib/db";
+import transporter from "@/lib/mail";
 import { DbMessage, UserMessage, MessageSchema } from "@/types/project";
 
 export async function addMessage(message: UserMessage) {
@@ -53,8 +54,15 @@ export async function addMessage(message: UserMessage) {
         count: 1,
       });
     }
+    await transporter.sendMail({
+      from: "no-reply@website.com",
+      to: "adityapunmiya@gmail.com",
+      subject: `New message from ${message.name} (${message.email})`,
+      text: message.message,
+    });
     return { status: 200, message: ["Message added."] };
   } catch (e) {
+    console.log(e);
     return { status: 400, message: ["Some error occurred."] };
   } finally {
     await client.close();

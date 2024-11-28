@@ -1,5 +1,5 @@
-import type { Viewport } from "next";
-import Script from 'next/script'
+import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -8,6 +8,34 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  keywords: [
+    "Portfolio",
+    "Home",
+    "Projects",
+    "About Me",
+    "Aditya",
+    "Aditya Punmiya",
+    "Developer",
+    "Web Developement",
+    "Web Developer",
+    "Programming",
+    "Engineering",
+    "Software",
+    "Software Engineer",
+    "Software Developer",
+    "Full Stack",
+    "Full Stack Developer",
+    "Backend",
+    "Backend Developer",
+    "Imagineer",
+    "Udaipur",
+    "Coding",
+    "Manipal University",
+    "Manipal",
+  ],
+};
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -26,14 +54,15 @@ export default function RootLayout({
       className="scrollbar-thin overflow-y-scroll scrollbar-thumb-neutral-900 scrollbar-track-neutral-950"
     >
       <Script id="clarity-script" strategy="afterInteractive">
-          {`
+        {`
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "${process.env.CLARITY_KEY as string}");
+            })(window, document, "clarity", "script", "${process.env
+          .CLARITY_KEY as string}");
           `}
-        </Script>
+      </Script>
       <body className={`${inter.className} min-w-96 overflow-x-hidden`}>
         <Navbar />
         {children}

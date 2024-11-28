@@ -63,7 +63,8 @@ export default function ContactForm() {
                   <path
                     fillRule="evenodd"
                     d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
-                  ></path>
+                  >
+                  </path>
                 </svg>
               </dt>
               <dd>
@@ -109,7 +110,8 @@ export default function ContactForm() {
                   <path
                     d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715zM7.003 8.575a1.546 1.546 0 01-1.548-1.549 1.548 1.548 0 111.547 1.549zm1.336 9.764H5.666V9.75H8.34v8.589zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.003z"
                     clipRule="evenodd"
-                  ></path>
+                  >
+                  </path>
                 </svg>
               </dt>
               <dd>
@@ -186,36 +188,40 @@ export default function ContactForm() {
           <div className="mt-8 flex justify-end">
             <div className="relative group">
               <div
-                className={
-                  loading
-                    ? "hidden"
-                    : "absolute -inset-1 bg-blue-500 group-hover:bg-green-500 rounded-lg blur-md group-hover:translate-x-1 opacity-45 py-2"
-                }
+                className={loading
+                  ? "hidden"
+                  : "absolute -inset-1 bg-blue-500 group-hover:bg-green-500 rounded-lg blur-md group-hover:translate-x-1 opacity-45 py-2"}
               />
               <button
                 type="submit"
                 disabled={loading}
-                className={`relative rounded-lg px-3 text-xl font-bold py-2 border-2 ${loading ? "text-neutral-950 bg-white/75 border-neutral-950 hover:bg-white/50" : "text-blue-100 bg-neutral-950 border-blue-500 group-hover:translate-x-1 group-hover:border-green-500 group-hover:text-green-100"}`}
+                className={`relative rounded-lg px-3 text-xl font-bold py-2 border-2 ${
+                  loading
+                    ? "text-neutral-950 bg-white/75 border-neutral-950 hover:bg-white/50"
+                    : "text-blue-100 bg-neutral-950 border-blue-500 group-hover:translate-x-1 group-hover:border-green-500 group-hover:text-green-100"
+                }`}
               >
-                {loading ? (
-                  <div className="flex items-center gap-x-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6 animate-spin"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M4.755 10.059a7.5 7.5 0 0 1 12.548-3.364l1.903 1.903h-3.183a.75.75 0 1 0 0 1.5h4.992a.75.75 0 0 0 .75-.75V4.356a.75.75 0 0 0-1.5 0v3.18l-1.9-1.9A9 9 0 0 0 3.306 9.67a.75.75 0 1 0 1.45.388Zm15.408 3.352a.75.75 0 0 0-.919.53 7.5 7.5 0 0 1-12.548 3.364l-1.902-1.903h3.183a.75.75 0 0 0 0-1.5H2.984a.75.75 0 0 0-.75.75v4.992a.75.75 0 0 0 1.5 0v-3.18l1.9 1.9a9 9 0 0 0 15.059-4.035.75.75 0 0 0-.53-.918Z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    Loading
-                  </div>
-                ) : (
-                  "Send message"
-                )}
+                {loading
+                  ? (
+                    <div className="flex items-center gap-x-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6 animate-spin"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4.755 10.059a7.5 7.5 0 0 1 12.548-3.364l1.903 1.903h-3.183a.75.75 0 1 0 0 1.5h4.992a.75.75 0 0 0 .75-.75V4.356a.75.75 0 0 0-1.5 0v3.18l-1.9-1.9A9 9 0 0 0 3.306 9.67a.75.75 0 1 0 1.45.388Zm15.408 3.352a.75.75 0 0 0-.919.53 7.5 7.5 0 0 1-12.548 3.364l-1.902-1.903h3.183a.75.75 0 0 0 0-1.5H2.984a.75.75 0 0 0-.75.75v4.992a.75.75 0 0 0 1.5 0v-3.18l1.9 1.9a9 9 0 0 0 15.059-4.035.75.75 0 0 0-.53-.918Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      Loading
+                    </div>
+                  )
+                  : (
+                    "Send message"
+                  )}
               </button>
             </div>
           </div>

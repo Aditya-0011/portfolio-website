@@ -7,7 +7,7 @@ export default function AboutMe() {
       <div className="mx-auto w-full max-w-7xl sm:py-16 py-8 text-left">
         <div className="px-6 sm:px-8 lg:w-1/2 xl:pr-16">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl text-balance">
-            <span className="block xl:inline text-white">Hi, I am </span>
+            <span className="block xl:inline text-white">Hi, I am</span>
             <span className="block text-emerald-500 mt-4">Aditya Punmiya</span>
           </h1>
           <div className="mt-6 max-w-7xl text-lg space-y-3 text-white/75 sm:text-xl md:mt-8 md:max-w-3xl">

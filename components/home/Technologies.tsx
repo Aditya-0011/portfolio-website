@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
+
+import { toast } from "sonner";
 
 import { Technology } from "@/types/project";
 
@@ -24,11 +26,15 @@ export default function Technologies() {
           if (data.status === 200) {
             setTechnologies(data.message);
           } else {
-            console.log(data.message);
+            toast.error(data.message);
           }
         }
       } catch (e) {
-        console.error(e);
+        if (e instanceof Error) {
+          toast.error(e.message);
+        } else {
+          toast.error("An unknown error occurred.");
+        }
       } finally {
         setLoading(false);
       }
@@ -38,7 +44,7 @@ export default function Technologies() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex h-screen items-center justify-center">
         Loading...
       </div>
     );
@@ -57,10 +63,10 @@ export default function Technologies() {
         </div>
         <ul
           role="list"
-          className="mx-auto box-border gap-[1em] columns-1 md:columns-2 lg:columns-3 mt-6"
+          className="mx-auto mt-6 box-border columns-1 gap-[1em] md:columns-2 lg:columns-3"
         >
-          <li className="mb-2 break-inside-avoid rounded-lg p-5 bg-neutral-800/50 hover:bg-neutral-800/75">
-            <div className="flex justify-between items-center border-b-2 border-red-500 max-w-7xl">
+          <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
+            <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
               <div className="text-lg font-semibold leading-8 tracking-tight text-white">
                 Languages
               </div>
@@ -73,7 +79,7 @@ export default function Technologies() {
                 .filter((tech) => tech.category === "lang")
                 .map((technology: Technology) => (
                   <li key={technology._id} className="relative">
-                    <div className="group inline-block text-center truncate">
+                    <div className="group inline-block truncate text-center">
                       <Image
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
                         height={32}
@@ -82,7 +88,7 @@ export default function Technologies() {
                         alt={technology.name}
                         priority
                       />
-                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100 rounded-md text-center text-emerald-300 font-medium text-sm max-w-32">
+                      <span className="mx-auto mb-1 hidden w-max max-w-32 rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur group-hover:inline">
                         {technology.name}
                       </span>
                     </div>
@@ -90,8 +96,8 @@ export default function Technologies() {
                 ))}
             </ul>
           </li>
-          <li className="mb-2 break-inside-avoid rounded-lg p-5 bg-neutral-800/50 hover:bg-neutral-800/75">
-            <div className="flex justify-between items-center border-b-2 border-red-500 max-w-7xl">
+          <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
+            <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
               <div className="text-lg font-semibold leading-8 tracking-tight text-white">
                 Frontend
               </div>
@@ -113,7 +119,7 @@ export default function Technologies() {
                         alt={technology.name}
                         priority
                       />
-                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur group-hover:inline">
                         {technology.name}
                       </span>
                     </div>
@@ -121,8 +127,8 @@ export default function Technologies() {
                 ))}
             </ul>
           </li>
-          <li className="mb-2 break-inside-avoid rounded-lg p-5 bg-neutral-800/50 hover:bg-neutral-800/75">
-            <div className="flex justify-between items-center border-b-2 border-red-500 max-w-7xl">
+          <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
+            <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
               <div className="text-lg font-semibold leading-8 tracking-tight text-white">
                 Backend
               </div>
@@ -144,7 +150,7 @@ export default function Technologies() {
                         alt={technology.name}
                         priority
                       />
-                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur group-hover:inline">
                         {technology.name}
                       </span>
                     </div>
@@ -152,9 +158,9 @@ export default function Technologies() {
                 ))}
             </ul>
           </li>
-          <li className="mb-2 break-inside-avoid rounded-lg p-5 bg-neutral-800/50 hover:bg-neutral-800/75">
-            <div className="flex justify-between items-center border-b-2 border-red-500 max-w-7xl">
-              <div className="text-lg font-semibold leading-8 tracking-tight text-white ">
+          <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
+            <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
+              <div className="text-lg font-semibold leading-8 tracking-tight text-white">
                 Databases
               </div>
             </div>
@@ -175,7 +181,7 @@ export default function Technologies() {
                         alt={technology.name}
                         priority
                       />
-                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur group-hover:inline">
                         {technology.name}
                       </span>
                     </div>
@@ -183,8 +189,8 @@ export default function Technologies() {
                 ))}
             </ul>
           </li>
-          <li className="mb-2 break-inside-avoid rounded-lg p-5 bg-neutral-800/50 hover:bg-neutral-800/75">
-            <div className="flex justify-between items-center border-b-2 border-red-500 max-w-7xl">
+          <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
+            <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
               <div className="text-lg font-semibold leading-8 tracking-tight text-white">
                 Tools
               </div>
@@ -206,7 +212,7 @@ export default function Technologies() {
                         alt={technology.name}
                         priority
                       />
-                      <span className="mx-auto mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
+                      <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur group-hover:inline">
                         {technology.name}
                       </span>
                     </div>
@@ -214,8 +220,8 @@ export default function Technologies() {
                 ))}
             </ul>
           </li>
-          <li className="mb-2 break-inside-avoid rounded-lg p-5 bg-neutral-800/50 hover:bg-neutral-800/75">
-            <div className="flex justify-between items-center border-b-2 border-red-500 max-w-7xl">
+          <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
+            <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
               <div className="text-lg font-semibold leading-8 tracking-tight text-white">
                 Academics
               </div>
@@ -237,7 +243,7 @@ export default function Technologies() {
                         alt={technology.name}
                         priority
                       />
-                      <span className="mb-1 w-max p-1 hidden group-hover:inline bg-transparent backdrop-blur opacity-100  rounded-md text-center text-emerald-300 font-medium text-sm">
+                      <span className="mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur group-hover:inline">
                         {technology.name}
                       </span>
                     </div>

@@ -1,6 +1,6 @@
 import { conn } from "@/lib/db";
 import { Project } from "@/types/project";
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const client = await conn();
@@ -47,7 +47,5 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       status: 400,
       message: [e],
     });
-  } finally {
-    await client.close();
   }
 }

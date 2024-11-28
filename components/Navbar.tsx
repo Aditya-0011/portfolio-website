@@ -16,58 +16,70 @@ export default function Navbar() {
               {pathname === "/"
                 ? "Home"
                 : pathname === "/projects"
-                  ? "Projects"
-                  : "Contact"}
+                ? "Projects"
+                : "Contact"}
             </div>
           </div>
           <div className="flex items-center px-2.5 justify-center space-x-8 sm:justify-start">
             <div
-              className={`relative ${pathname !== "/" ? "hover:-translate-y-1" : "sm:hidden"}`}
+              className={`relative ${
+                pathname !== "/" ? "hover:-translate-y-1" : "sm:hidden"
+              }`}
             >
               <div
-                className={
-                  pathname === "/"
-                    ? "absolute -inset-2 bg-blue-500/40 blur-md"
-                    : "hidden"
-                }
+                className={pathname === "/"
+                  ? "absolute -inset-2 bg-blue-500/40 blur-md"
+                  : "hidden"}
               />
               <Link
                 href="/"
-                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${pathname === "/" ? "border-2 border-blue-500 text-blue-100" : "text-white hover:text-sky-500"}`}
+                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${
+                  pathname === "/"
+                    ? "border-2 border-blue-500 text-blue-100"
+                    : "text-white hover:text-sky-500"
+                }`}
               >
                 Home
               </Link>
             </div>
             <div
-              className={`relative ${pathname !== "/projects" ? "hover:-translate-y-1" : "sm:hidden"}`}
+              className={`relative ${
+                pathname !== "/projects" ? "hover:-translate-y-1" : "sm:hidden"
+              }`}
             >
               <div
-                className={
-                  pathname === "/projects"
-                    ? "absolute -inset-1.5 bg-blue-500 blur-md opacity-40"
-                    : "hidden"
-                }
+                className={pathname === "/projects"
+                  ? "absolute -inset-1.5 bg-blue-500 blur-md opacity-40"
+                  : "hidden"}
               />
               <Link
                 href="/projects"
-                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${pathname === "/projects" ? "border-2 border-blue-500 text-blue-100" : "text-white hover:text-sky-500"}`}
+                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${
+                  pathname === "/projects"
+                    ? "border-2 border-blue-500 text-blue-100"
+                    : "text-white hover:text-sky-500"
+                }`}
               >
                 Projects
               </Link>
             </div>
             <div
-              className={`relative ${pathname !== "/contact" ? "hover:-translate-y-1" : "sm:hidden"}`}
+              className={`relative ${
+                pathname !== "/contact" ? "hover:-translate-y-1" : "sm:hidden"
+              }`}
             >
               <div
-                className={
-                  pathname === "/contact"
-                    ? "absolute -inset-1.5 bg-blue-500 blur-md opacity-40"
-                    : "hidden"
-                }
+                className={pathname === "/contact"
+                  ? "absolute -inset-1.5 bg-blue-500 blur-md opacity-40"
+                  : "hidden"}
               />
               <Link
                 href="/contact"
-                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${pathname === "/contact" ? "border-2 border-blue-500 text-blue-100" : "text-white hover:text-sky-500"}`}
+                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${
+                  pathname === "/contact"
+                    ? "border-2 border-blue-500 text-blue-100"
+                    : "text-white hover:text-sky-500"
+                }`}
               >
                 Contact
               </Link>

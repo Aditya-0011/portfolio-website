@@ -30,7 +30,5 @@ export async function GET(): Promise<NextResponse> {
       status: 400,
       message: ["Some error occurred."],
     });
-  } finally {
-    await client.close();
   }
 }

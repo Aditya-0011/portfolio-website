@@ -2,7 +2,7 @@
 
 import { conn } from "@/lib/db";
 import transporter from "@/lib/mail";
-import { DbMessage, UserMessage, MessageSchema } from "@/types/project";
+import { DbMessage, MessageSchema, UserMessage } from "@/types/project";
 
 export async function addMessage(message: UserMessage) {
   const client = await conn();
@@ -62,9 +62,6 @@ export async function addMessage(message: UserMessage) {
     });
     return { status: 200, message: ["Message added."] };
   } catch (e) {
-    console.log(e);
     return { status: 400, message: ["Some error occurred."] };
-  } finally {
-    await client.close();
   }
 }

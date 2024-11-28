@@ -5,33 +5,29 @@ import ProjectsDisplay from "@/components/projects/ProjectsDisplay";
 import AboutMe from "@/components/home/AboutMe";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Home | Aditya Punmiya",
   description:
     "Explore Aditya Punmiya's bio, featured projects and technologies.",
   metadataBase: new URL("https://adityapunmiya.com"),
   openGraph: {
-    title: "Overview of Aditya Punmiya.",
-    description:
-      "Explore Aditya Punmiya's bio, featured projects and technologies.",
+    title: "Home | Aditya Punmiya",
+    description: "View my bio, featured projects and technologies.",
     siteName: "Aditya Punmiya",
     type: "website",
     url: "https://adityapunmiya.com",
     images: [
       {
-        url:
-          "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
+        url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Overview of Aditya Punmiya",
-    description:
-      "Explore Aditya Punmiya's bio, featured projects and technologies.",
+    title: "Home | Aditya Punmiya",
+    description: "View my bio, featured projects and technologies.",
     images: [
       {
-        url:
-          "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
+        url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
       },
     ],
   },

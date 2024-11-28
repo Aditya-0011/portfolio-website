@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "local": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^15.0.3",
     "mongodb": "^6.8.0",
     "next": "^14.2.18",
     "nodemailer": "^6.9.15",
@@ -24,6 +26,7 @@
     "@types/nodemailer": "^6.4.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "eslint-config-prettier": "^9.1.0",

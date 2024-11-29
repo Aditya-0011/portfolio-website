@@ -81,7 +81,7 @@ export default function Technologies() {
                   <li key={technology._id} className="relative">
                     <div className="group inline-block truncate text-center">
                       <Image
-                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
+                        src={technology.imageUrl}
                         height={32}
                         width={32}
                         className="mx-auto rounded-sm group-hover:hidden"

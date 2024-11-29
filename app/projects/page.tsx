@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://adityapunmiya.com/projects"),
   openGraph: {
     title: "Projects | Aditya Punmiya",
-    description: "Explore my projects.",
+    description: "View my projects.",
     siteName: "Aditya Punmiya",
     type: "website",
     url: "https://adityapunmiya.com/projects",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Projects | Aditya Punmiya",
-    description: "Explore my projects.",
+    description: "View my projects.",
     images: [
       {
         url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",

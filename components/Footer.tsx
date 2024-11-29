@@ -4,15 +4,6 @@ import { JSX, SVGProps, useEffect, useState } from "react";
 
 import Link from "next/link";
 
-const sadNoises = [
-  "CSS is the whore that's fucking with my mind.",
-  "CSS is the one thing that makes me question my damn sanity.",
-  "CSS is the one thing that makes me wanna throw my laptop out the fucking window",
-  "CSS is like solving a Rubik's cube blindfolded while being attacked by a swarm of bees, what a fucking nightmare.",
-  "CSS is a motherfucker that refuses to behave",
-  "CSS is the one thing that makes me go full retard",
-];
-
 const navigation = [
   {
     name: "Instagram",
@@ -35,8 +26,7 @@ const navigation = [
         <path
           d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715zM7.003 8.575a1.546 1.546 0 01-1.548-1.549 1.548 1.548 0 111.547 1.549zm1.336 9.764H5.666V9.75H8.34v8.589zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.003z"
           clipRule="evenodd"
-        >
-        </path>
+        ></path>
       </svg>
     ),
   },
@@ -60,32 +50,15 @@ const navigation = [
         <path
           fillRule="evenodd"
           d="M6 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6Zm.245 2.187a.75.75 0 0 0-.99 1.126l6.25 5.5a.75.75 0 0 0 .99 0l6.25-5.5a.75.75 0 0 0-.99-1.126L12 12.251 6.245 7.187Z"
-        >
-        </path>
+        ></path>
       </svg>
     ),
   },
 ];
 
 export default function Footer() {
-  const [showSadNoise, setShowSadNoise] = useState(false);
-  const [randomSadNoise, setRandomSadNoise] = useState("");
-
-  useEffect(() => {
-    const shouldShow = Math.random() < 0.1;
-    setShowSadNoise(shouldShow);
-    if (shouldShow) {
-      const randomIndex = Math.floor(Math.random() * sadNoises.length);
-      setRandomSadNoise(sadNoises[randomIndex]);
-      const timer = setTimeout(() => {
-        setShowSadNoise(false);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
   return (
-    <footer className="bg-neutral-950 border-t-2 border-red-600">
+    <footer className="border-t-2 border-red-600 bg-neutral-950">
       <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
         <div className="flex justify-center space-x-6 md:order-3">
           {navigation.map((item) => (
@@ -99,13 +72,6 @@ export default function Footer() {
             </Link>
           ))}
         </div>
-        {showSadNoise && (
-          <div className="mt-8 md:order-2 md:mt-0 max-w-96">
-            <p className="text-center text-balance text-base leading-5 text-white">
-              {randomSadNoise}
-            </p>
-          </div>
-        )}
         <div className="mt-8 md:order-1 md:mt-0">
           <p className="text-center text-base leading-5 text-white">
             &copy; Aditya Punmiya

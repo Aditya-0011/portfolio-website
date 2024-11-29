@@ -7,7 +7,7 @@ import AboutMe from "@/components/home/AboutMe";
 export const metadata: Metadata = {
   title: "Home | Aditya Punmiya",
   description:
-    "Explore Aditya Punmiya's bio, featured projects and technologies.",
+    "View my bio, featured projects and technologies.",
   metadataBase: new URL("https://adityapunmiya.com"),
   openGraph: {
     title: "Home | Aditya Punmiya",

@@ -160,7 +160,7 @@ const ProjectsDisplay: React.FC<Props> = ({
                   <li key={technology._id} className="relative mt-4 h-8 w-8">
                     <span className="group">
                       <Image
-                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${technology.imageUrl}`}
+                        src={technology.imageUrl}
                         height={32}
                         width={32}
                         className="w-full"

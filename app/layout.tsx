@@ -29,7 +29,6 @@ export const metadata: Metadata = {
     "Full Stack Developer",
     "Backend",
     "Backend Developer",
-    "Imagineer",
     "Udaipur",
     "Coding",
     "Manipal University",

@@ -66,6 +66,16 @@ export default function RootLayout({
           `}
       </Script>
       <body className={`${inter.className} min-w-96 overflow-x-hidden`}>
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${
+              process.env.G_TAG as string
+            }`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
         <Navbar />
         {children}
         <Footer />

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -53,32 +53,35 @@ export default function RootLayout({
       lang="en"
       className="overflow-y-scroll scrollbar-thin scrollbar-track-neutral-950 scrollbar-thumb-neutral-900"
     >
-      <GoogleTagManager gtmId={process.env.G_TAG as string} />
-      <Script id="clarity-script" strategy="afterInteractive">
-        {`
+      <head>
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.G_TAG as string}`}
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '${process.env.G_TAG as string}');
+        `}
+        </Script>
+        <Script id="clarity-script" strategy="afterInteractive">
+          {`
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "${
-              process.env.CLARITY_KEY as string
-            }");
+            })(window, document, "clarity", "script", "${process.env.CLARITY_KEY as string}");
           `}
-      </Script>
+        </Script>
+      </head>
       <body className={`${inter.className} min-w-96 overflow-x-hidden`}>
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${
-              process.env.G_TAG as string
-            }`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
         <Navbar />
         {children}
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );

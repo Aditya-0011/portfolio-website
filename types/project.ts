@@ -14,11 +14,20 @@ export interface DbMessage extends User {
   count: number;
 }
 
+export type Category =
+  | "frontend"
+  | "backend"
+  | "db"
+  | "lang"
+  | "tool"
+  | "acad"
+  | "no";
+
 export interface Technology {
   _id: string;
   name: string;
   imageUrl: string;
-  category: "frontend" | "backend" | "db" | "lang" | "tool" | "acad" | "no";
+  category: Category;
 }
 
 export interface Project {

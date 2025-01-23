@@ -1,13 +1,12 @@
 import { Metadata } from "next";
 
-import Technologies from "@/components/home/Technologies";
+import TechnologyDisplay from "@/components/home/technologies/TechnologyDisplay";
 import ProjectsDisplay from "@/components/projects/ProjectsDisplay";
 import AboutMe from "@/components/home/AboutMe";
 
 export const metadata: Metadata = {
   title: "Home | Aditya Punmiya",
-  description:
-    "View my bio, featured projects and technologies.",
+  description: "View my bio, featured projects and technologies.",
   metadataBase: new URL("https://adityapunmiya.com"),
   openGraph: {
     title: "Home | Aditya Punmiya",
@@ -37,9 +36,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950">
       <AboutMe />
-      <Technologies />
+      <TechnologyDisplay />
       <ProjectsDisplay
-        url="/api/projects?featured=true"
         heading={"Featured Projects"}
         description={""}
         featured={true}

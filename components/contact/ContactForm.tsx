@@ -46,7 +46,7 @@ export default function ContactForm() {
             Get in touch
           </h2>
           <p className="mt-6 text-lg leading-8 text-white text-balance">
-            I’d love to hear from you! Whether you have a question, feedback, or
+            I&apos;d love to hear from you! Whether you have a question, feedback, or
             just want to connect, feel free to reach out. You can contact me
             through the options below or fill out the form to send a message
             directly.

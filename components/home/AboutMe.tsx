@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function AboutMe() {
+export default async function AboutMe() {
   return (
     <div className="relative bg-neutral-950">
       <div className="mx-auto w-full max-w-7xl py-8 text-left sm:py-16">

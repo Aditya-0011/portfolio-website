@@ -5,35 +5,36 @@ import Link from "next/link";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const page = pathname.slice(1);
+  const name =
+    page === "" ? "Home" : page.charAt(0).toUpperCase() + page.slice(1);
 
   return (
-    <nav className="bg-neutral-950 border-b-2 border-red-600">
+    <nav className="border-b-2 border-red-600 bg-neutral-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex sm:justify-between justify-center h-20">
-          <div className="hidden relative sm:block max-h-12 mt-4">
-            <div className="absolute -inset-1 bg-blue-500 rounded-lg blur-md opacity-45 py-2" />
-            <div className="relative rounded-lg px-3 text-xl font-bold text-blue-100 bg-neutral-950 border-2 border-blue-500 py-2">
-              {pathname === "/"
-                ? "Home"
-                : pathname === "/projects"
-                ? "Projects"
-                : "Contact"}
+        <div className="relative flex h-20 justify-center sm:justify-between">
+          <div className="relative mt-4 hidden max-h-12 sm:block">
+            <div className="absolute -inset-1 rounded-lg bg-blue-500 py-2 opacity-45 blur-md" />
+            <div className="relative rounded-lg border-2 border-blue-500 bg-neutral-950 px-3 py-2 text-xl font-bold text-blue-100">
+              {name}
             </div>
           </div>
-          <div className="flex items-center px-2.5 justify-center space-x-8 sm:justify-start">
+          <div className="flex items-center justify-center space-x-8 px-2.5 sm:justify-start">
             <div
               className={`relative ${
                 pathname !== "/" ? "hover:-translate-y-1" : "sm:hidden"
               }`}
             >
               <div
-                className={pathname === "/"
-                  ? "absolute -inset-2 bg-blue-500/40 blur-md"
-                  : "hidden"}
+                className={
+                  pathname === "/"
+                    ? "absolute -inset-2 bg-blue-500/40 blur-md"
+                    : "hidden"
+                }
               />
               <Link
                 href="/"
-                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${
+                className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
                   pathname === "/"
                     ? "border-2 border-blue-500 text-blue-100"
                     : "text-white hover:text-sky-500"
@@ -48,13 +49,15 @@ export default function Navbar() {
               }`}
             >
               <div
-                className={pathname === "/projects"
-                  ? "absolute -inset-1.5 bg-blue-500 blur-md opacity-40"
-                  : "hidden"}
+                className={
+                  pathname === "/projects"
+                    ? "absolute -inset-1.5 bg-blue-500 opacity-40 blur-md"
+                    : "hidden"
+                }
               />
               <Link
                 href="/projects"
-                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${
+                className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
                   pathname === "/projects"
                     ? "border-2 border-blue-500 text-blue-100"
                     : "text-white hover:text-sky-500"
@@ -69,13 +72,15 @@ export default function Navbar() {
               }`}
             >
               <div
-                className={pathname === "/contact"
-                  ? "absolute -inset-1.5 bg-blue-500 blur-md opacity-40"
-                  : "hidden"}
+                className={
+                  pathname === "/contact"
+                    ? "absolute -inset-1.5 bg-blue-500 opacity-40 blur-md"
+                    : "hidden"
+                }
               />
               <Link
                 href="/contact"
-                className={`relative rounded-lg px-3 py-2 text-xl font-medium bg-neutral-950  ${
+                className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
                   pathname === "/contact"
                     ? "border-2 border-blue-500 text-blue-100"
                     : "text-white hover:text-sky-500"

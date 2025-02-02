@@ -23,23 +23,39 @@ export type Category =
   | "acad"
   | "no";
 
-export interface Technology {
+export interface TechnologyMetadata {
   _id: string;
   name: string;
   imageUrl: string;
+}
+
+export interface Technology extends TechnologyMetadata {
   category: Category;
 }
 
-export interface Project {
+export interface ProjectMetadata {
   _id: string;
   name: string;
+}
+
+export interface Project extends ProjectMetadata {
   description: string;
   imageUrl: string;
   projectUrl?: string;
   githubUrl?: string;
-  technologies?: Technology[];
+  technologies?: TechnologyMetadata[];
   featured: boolean;
   status: "completed" | "wip";
+}
+
+export interface Experience {
+  _id: string;
+  position: string;
+  company: string;
+  start: string;
+  end: string;
+  projects: ProjectMetadata[];
+  technologies: TechnologyMetadata[];
 }
 
 export const MessageSchema = z.object({

@@ -15,7 +15,7 @@ export default function Navbar() {
         <div className="relative flex h-20 justify-center sm:justify-between">
           <div className="relative mt-4 hidden max-h-12 sm:block">
             <div className="absolute -inset-1 rounded-lg bg-blue-500 py-2 opacity-45 blur-md" />
-            <div className="relative rounded-lg border-2 border-blue-500 bg-neutral-950 px-3 py-2 text-xl font-bold text-blue-100">
+            <div className="relative rounded-lg border-2 border-blue-500 bg-neutral-950 px-3 py-2 text-xl font-bold text-blue-100 truncate">
               {name}
             </div>
           </div>

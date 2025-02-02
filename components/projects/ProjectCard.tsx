@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Project, Technology } from "@/types/project";
+import { Project, TechnologyMetadata } from "@/types/project";
 
 interface Props {
   project: Project;
@@ -10,6 +10,7 @@ interface Props {
 export default async function ProjectCard({ project }: Props) {
   return (
     <li
+      id={String(project._id)}
       key={project._id}
       className="mb-6 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75"
     >
@@ -87,7 +88,7 @@ export default async function ProjectCard({ project }: Props) {
         {project.description}
       </p>
       <ul role="list" className="flex items-center justify-evenly gap-x-3">
-        {project.technologies?.map((technology: Technology) => (
+        {project.technologies?.map((technology: TechnologyMetadata) => (
           <li key={technology._id} className="relative mt-4 h-8 w-8">
             <span className="group">
               <Image

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import TechnologyDisplay from "@/components/home/technologies/TechnologyDisplay";
 import ProjectsDisplay from "@/components/projects/ProjectsDisplay";
+// import ExperienceDisplay from "@/components/home/experiences/ExperienceDisplay";
 import AboutMe from "@/components/home/AboutMe";
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default function Home() {
     <div className="min-h-screen bg-neutral-950">
       <AboutMe />
       <TechnologyDisplay />
+      {/* <ExperienceDisplay /> */}
       <ProjectsDisplay
         heading={"Featured Projects"}
         description={""}

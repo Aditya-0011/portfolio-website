@@ -6,7 +6,10 @@ interface Props {
   technologies: Technology[];
 }
 
-const TechnologyCard: React.FC<Props> = ({ category, technologies }) => {
+export default async function TechnologyCard({
+  category,
+  technologies,
+}: Props) {
   return (
     <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
       <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
@@ -48,6 +51,4 @@ const TechnologyCard: React.FC<Props> = ({ category, technologies }) => {
       </ul>
     </li>
   );
-};
-
-export default TechnologyCard;
+}

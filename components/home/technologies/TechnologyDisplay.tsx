@@ -2,8 +2,6 @@ import TechnologyCard from "./TechnologyCard";
 import { Technology, Category } from "@/types/project";
 import getTechnologies from "./data";
 
-export const revalidate = 600;
-
 export default async function TechnologyDisplay() {
   const technologies: Technology[] = await getTechnologies();
 

@@ -10,8 +10,6 @@ interface Props {
   featured: boolean;
 }
 
-export const revalidate = 600;
-
 export default async function ProjectsDisplay({
   heading,
   description,

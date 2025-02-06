@@ -2,6 +2,8 @@ import { Metadata } from "next";
 
 import ProjectsDisplay from "@/components/projects/ProjectsDisplay";
 
+export const revalidate = 600;
+
 export const metadata: Metadata = {
   title: "Projects | Aditya Punmiya",
   description: "Projects by Aditya Punmiya",

@@ -5,6 +5,8 @@ import ProjectsDisplay from "@/components/projects/ProjectsDisplay";
 // import ExperienceDisplay from "@/components/home/experiences/ExperienceDisplay";
 import AboutMe from "@/components/home/AboutMe";
 
+export const revalidate = 600;
+
 export const metadata: Metadata = {
   title: "Home | Aditya Punmiya",
   description: "View my bio, featured projects and technologies.",
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="min-h-screen bg-neutral-950">
       <AboutMe />

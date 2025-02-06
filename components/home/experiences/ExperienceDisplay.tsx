@@ -2,8 +2,6 @@ import ExperienceCard from "./ExperienceCard";
 import { Experience } from "@/types/project";
 import getExperiences from "./data";
 
-export const revalidate = 600;
-
 export default async function ExperienceDisplay() {
   const experiences: Experience[] = await getExperiences();
 

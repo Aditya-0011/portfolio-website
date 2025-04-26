@@ -34,7 +34,16 @@ export const metadata: Metadata = {
     "Coding",
     "Manipal University",
     "Manipal",
+    "NAV",
+    "NAV Fund Administration Group",
+    "NAV Backoffice"
   ],
+  authors: [
+    {
+      name: "Aditya Punmiya",
+      url: "https://adityapunmiya.com",
+    },
+  ]
 };
 
 export const viewport: Viewport = {

@@ -1,5 +1,5 @@
-import { conn } from "@/lib/db";
-import { Technology } from "@/types/project";
+import { conn } from "@/lib/mongo";
+import { Technology } from "@/lib/objects";
 
 export default async function getTechnologies(): Promise<Technology[]> {
   const client = await conn();

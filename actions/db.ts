@@ -1,8 +1,8 @@
 "use server";
 
-import { conn } from "@/lib/db";
+import { conn } from "@/lib/mongo";
 import transporter from "@/lib/mail";
-import { DbMessage, MessageSchema, UserMessage } from "@/types/project";
+import { DbMessage, MessageSchema, UserMessage } from "@/lib/objects";
 
 export async function addMessage(message: UserMessage) {
   const client = await conn();
@@ -11,7 +11,7 @@ export async function addMessage(message: UserMessage) {
       return { status: 400, message: ["Database connection failed."] };
     }
 
-    const result = await MessageSchema.safeParseAsync(message);
+    const result = MessageSchema.safeParse(message);
     if (!result.success) {
       let errorMessage: string[] = [];
       result.error.issues.forEach((issue) => {

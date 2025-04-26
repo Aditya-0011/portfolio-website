@@ -1,5 +1,5 @@
 import ExperienceCard from "./ExperienceCard";
-import { Experience } from "@/types/project";
+import { Experience } from "@/lib/objects";
 import getExperiences from "./data";
 
 export default async function ExperienceDisplay() {

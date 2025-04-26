@@ -1,7 +1,7 @@
 import { Document } from "mongodb";
 
-import { conn } from "@/lib/db";
-import { Project } from "@/types/project";
+import { conn } from "@/lib/mongo";
+import { Project } from "@/lib/objects";
 
 interface Props {
   featured: boolean;

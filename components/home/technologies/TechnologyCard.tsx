@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Technology, Category } from "@/types/project";
+import { Technology, Category } from "@/lib/objects";
 
 interface Props {
   category: Category;
@@ -38,11 +38,11 @@ export default async function TechnologyCard({
                 src={technology.imageUrl}
                 height={32}
                 width={32}
-                className="mx-auto rounded-sm group-hover:hidden"
+                className="mx-auto rounded-xs group-hover:hidden"
                 alt={technology.name}
                 priority
               />
-              <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur group-hover:inline">
+              <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur-sm group-hover:inline">
                 {technology.name}
               </span>
             </div>

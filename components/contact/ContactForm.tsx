@@ -5,8 +5,8 @@ import { useState } from "react";
 
 import { toast } from "sonner";
 
-import { MessageSchema, UserMessage } from "@/types/project";
-import { addMessage } from "@/actions/db";
+import { MessageSchema, UserMessage } from "@/lib/objects";
+import { addMessage } from "@/actions/db"
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export default function ContactForm() {
       email: messageData.get("email") as string,
       message: messageData.get("message") as string,
     };
-    const result = await MessageSchema.safeParseAsync(message);
+    const result = MessageSchema.safeParse(message);
     if (!result.success) {
       result.error.issues.forEach((issue) => {
         toast.error(issue.message, { duration: 3000 });
@@ -148,7 +148,7 @@ export default function ContactForm() {
                   id="fullName"
                   name="fullName"
                   type="text"
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/50 placeholder:text-white bg-neutral-900/25 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-xs ring-1 ring-inset ring-white/50 placeholder:text-white bg-neutral-900/25 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function ContactForm() {
                   id="email"
                   name="email"
                   type="email"
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/50 placeholder:text-white bg-neutral-900/25 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-xs ring-1 ring-inset ring-white/50 placeholder:text-white bg-neutral-900/25 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -180,7 +180,7 @@ export default function ContactForm() {
                   id="message"
                   name="message"
                   rows={4}
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/50 placeholder:text-white bg-neutral-900/25 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-white shadow-xs ring-1 ring-inset ring-white/50 placeholder:text-white bg-neutral-900/25 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>

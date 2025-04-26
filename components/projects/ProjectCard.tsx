@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Project, TechnologyMetadata } from "@/types/project";
+import { Project, TechnologyMetadata } from "@/lib/objects";
 
 interface Props {
   project: Project;
@@ -19,7 +19,7 @@ export default async function ProjectCard({ project }: Props) {
         src={project.imageUrl}
         width={600}
         height={400}
-        className="aspect-[3/2] rounded-lg object-contain"
+        className="aspect-3/2 rounded-lg object-contain"
         priority
       />
       <div className="mt-6 flex max-w-7xl items-center justify-between border-b-2 border-red-500">
@@ -99,7 +99,7 @@ export default async function ProjectCard({ project }: Props) {
                 alt={technology?.name}
                 priority
               />
-              <span className="absolute bottom-full left-1/2 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-100 shadow-lg backdrop-blur group-hover:inline">
+              <span className="absolute bottom-full left-1/2 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-100 shadow-lg backdrop-blur-xs group-hover:inline">
                 {technology.name}
               </span>
             </span>

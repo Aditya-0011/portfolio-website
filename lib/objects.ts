@@ -69,3 +69,5 @@ export const MessageSchema = z.object({
     .trim()
     .min(3, { message: "Message must be at least 3 characters." }),
 });
+
+export type Message = z.infer<typeof MessageSchema>;

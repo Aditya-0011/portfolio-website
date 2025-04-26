@@ -16,10 +16,11 @@ export default async function AboutMe() {
               specializing in full-stack development with a strong focus on
               backend technologies. My expertise includes working with stacks
               like FARM/P, ASP.NET, MERN, and PERN. I have professional
-              experience in C# (ASP.NET Core 8), PERN stack and basic Bash
+              experience in ASP.NET, Nest.js, PERN stack, and Bash
               scripting. Additionally, I have some foundational academic
-              experience in C and Java. When it comes to databases, SQL is my
-              jam, and I prefer it over NoSQL options.
+              experience in C and Java. When it comes to databases, I have 
+              experience working with both NoSQL and SQL databases, designing efficient
+              and scalable database solutions.
             </p>
             <p>
               I love designing, developing, and deploying apps from start to
@@ -30,7 +31,7 @@ export default async function AboutMe() {
             </p>
             <p>
               If it&apos;s about solving problems and building cool stuff,
-              I&apos;m ready to jump in and get started!{" "}
+              I&apos;m ready to jump in and get started!&nbsp;
               <Link
                 href="/contact"
                 className="underline decoration-emerald-500 underline-offset-2 hover:text-emerald-500 hover:no-underline hover:decoration-white"

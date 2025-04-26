@@ -1,6 +1,4 @@
-"use client";
-
-import { JSX, SVGProps, useEffect, useState } from "react";
+import { JSX, SVGProps } from "react";
 
 import Link from "next/link";
 

@@ -1,5 +1,5 @@
-import { conn } from "@/lib/db";
-import { Experience } from "@/types/project";
+import { conn } from "@/lib/mongo";
+import { Experience } from "@/lib/objects";
 
 export default async function getExperiences(): Promise<Experience[]> {
   const client = await conn();

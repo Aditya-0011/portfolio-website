@@ -5,7 +5,7 @@ import {
   ProjectMetadata,
   TechnologyMetadata,
   Experience,
-} from "@/types/project";
+} from "@/lib/objects";
 
 interface Props {
   xp: Experience;
@@ -22,7 +22,7 @@ export default async function ExperienceCard({ xp }: Props) {
           <div className="flex-1 text-lg font-semibold leading-tight tracking-tight text-white">
             {xp.position}
           </div>
-          <div className="flex-shrink-0 pl-4 text-base leading-7 text-white">
+          <div className="shrink-0 pl-4 text-base leading-7 text-white">
             {xp.start} &#45; {xp.end}
           </div>
         </div>
@@ -55,7 +55,7 @@ export default async function ExperienceCard({ xp }: Props) {
                 alt={technology?.name}
                 priority
               />
-              <span className="absolute bottom-full left-1/2 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-100 shadow-lg backdrop-blur group-hover:inline">
+              <span className="absolute bottom-full left-1/2 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-100 shadow-lg backdrop-blur-sm group-hover:inline">
                 {technology.name}
               </span>
             </span>

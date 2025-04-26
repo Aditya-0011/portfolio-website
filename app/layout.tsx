@@ -36,14 +36,14 @@ export const metadata: Metadata = {
     "Manipal",
     "NAV",
     "NAV Fund Administration Group",
-    "NAV Backoffice"
+    "NAV Backoffice",
   ],
   authors: [
     {
       name: "Aditya Punmiya",
       url: "https://adityapunmiya.com",
     },
-  ]
+  ],
 };
 
 export const viewport: Viewport = {
@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="overflow-y-scroll scrollbar-thin scrollbar-track-neutral-950 scrollbar-thumb-neutral-900"
+      className="scrollbar-thin scrollbar-track-neutral-950 scrollbar-thumb-neutral-900 overflow-y-scroll"
     >
       <head>
         <Script

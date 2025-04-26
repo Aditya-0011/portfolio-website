@@ -1,11 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import {
-  ProjectMetadata,
-  TechnologyMetadata,
-  Experience,
-} from "@/lib/objects";
+import { ProjectMetadata, TechnologyMetadata, Experience } from "@/lib/objects";
 
 interface Props {
   xp: Experience;
@@ -19,14 +15,16 @@ export default async function ExperienceCard({ xp }: Props) {
     >
       <div className="flex max-w-7xl flex-col border-b-2 border-red-500 pb-2">
         <div className="flex max-w-7xl items-center justify-between">
-          <div className="flex-1 text-lg font-semibold leading-tight tracking-tight text-white">
+          <div className="flex-1 text-lg leading-tight font-semibold tracking-tight text-white">
             {xp.position}
           </div>
           <div className="shrink-0 pl-4 text-base leading-7 text-white">
             {xp.start} &#45; {xp.end}
           </div>
         </div>
-        <div className="mt-1 text-base leading-7 text-white/75">{xp.company}</div>
+        <div className="mt-1 text-base leading-7 text-white/75">
+          {xp.company}
+        </div>
       </div>
       <div className="mt-2 flex items-start text-base leading-7 text-emerald-300">
         <span>Projects:</span>
@@ -35,7 +33,7 @@ export default async function ExperienceCard({ xp }: Props) {
             <li key={project._id}>
               <Link
                 href={`/projects/#${project._id}`}
-                className="inline-flex items-center whitespace-nowrap rounded-md bg-gray-400/10 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-white"
+                className="inline-flex items-center rounded-md bg-gray-400/10 px-2 py-1 text-xs font-medium whitespace-nowrap text-white ring-1 ring-white ring-inset"
               >
                 {project.name}
               </Link>

@@ -13,7 +13,7 @@ export default async function TechnologyCard({
   return (
     <li className="mb-2 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75">
       <div className="flex max-w-7xl items-center justify-between border-b-2 border-red-500">
-        <div className="text-lg font-semibold leading-8 tracking-tight text-white">
+        <div className="text-lg leading-8 font-semibold tracking-tight text-white">
           {category === "lang"
             ? "Languages"
             : category === "frontend"

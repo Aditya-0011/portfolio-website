@@ -23,10 +23,10 @@ export default async function ProjectCard({ project }: Props) {
         priority
       />
       <div className="mt-6 flex max-w-7xl items-center justify-between border-b-2 border-red-500">
-        <div className="text-lg font-semibold leading-8 tracking-tight text-white">
+        <div className="text-lg leading-8 font-semibold tracking-tight text-white">
           {project.name}{" "}
           {project.status === "wip" ? (
-            <span className="group inline-flex items-center rounded-md bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-500 ring-1 ring-inset ring-yellow-400/20 hover:-translate-y-1 hover:px-2 hover:py-1">
+            <span className="group inline-flex items-center rounded-md bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-500 ring-1 ring-yellow-400/20 ring-inset hover:-translate-y-1 hover:px-2 hover:py-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

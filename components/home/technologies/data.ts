@@ -8,9 +8,9 @@ export default async function getTechnologies(): Promise<Technology[]> {
   }
 
   return await client
-      .db(process.env.DB_NAME as string)
-      .collection<Technology>("technologies")
-      .find({ category: { $ne: "no" } })
-      .sort({ name: 1 })
-      .toArray();
+    .db(process.env.DB_NAME as string)
+    .collection<Technology>("technologies")
+    .find({ category: { $ne: "no" } })
+    .sort({ name: 1 })
+    .toArray();
 }

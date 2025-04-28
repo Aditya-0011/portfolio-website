@@ -86,7 +86,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} min-w-96 overflow-x-hidden`}>
+      <body className={`${inter.className}overflow-x-hidden`}>
         <Navbar />
         {children}
         <Footer />

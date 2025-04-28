@@ -32,23 +32,20 @@ export default async function TechnologyCard({
         className="mx-auto mt-8 grid grid-cols-3 gap-9 text-center lg:mx-0 lg:max-w-none"
       >
         {technologies.map((technology: Technology) => (
-          <li key={technology._id} className="group relative mx-auto h-8 w-8">
-            <input
-              type="radio"
-              name="tech-tooltip"
-              className="peer absolute z-10 h-full w-full cursor-pointer opacity-0"
-            />
-            <Image
-              src={technology.imageUrl}
-              height={32}
-              width={32}
-              className="mx-auto rounded-sm"
-              alt={technology.name}
-              priority
-            />
-            <span className="pointer-events-none absolute bottom-full left-1/2 mb-1 w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-0 shadow-lg backdrop-blur-xs transition-opacity duration-200 group-hover:opacity-100 peer-checked:opacity-100 peer-hover:opacity-100 peer-focus-visible:opacity-100">
-              {technology.name}
-            </span>
+          <li key={technology._id} className="relative">
+            <div className="group inline-block" tabIndex={0}>
+              <Image
+                src={technology.imageUrl}
+                height={32}
+                width={32}
+                className="mx-auto rounded-xs group-hover:hidden group-focus:hidden"
+                alt={technology.name}
+                priority
+              />
+              <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur-sm group-hover:inline-block group-focus:inline-block">
+                {technology.name}
+              </span>
+            </div>
           </li>
         ))}
       </ul>

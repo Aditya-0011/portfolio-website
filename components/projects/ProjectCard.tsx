@@ -89,23 +89,20 @@ export default async function ProjectCard({ project }: Props) {
       </p>
       <ul role="list" className="flex items-center justify-evenly gap-x-3">
         {project.technologies?.map((technology: TechnologyMetadata) => (
-          <li key={technology._id} className="group relative mt-4 h-8 w-8">
-            <input
-              type="radio"
-              name="tech-tooltip"
-              className="peer absolute z-10 h-full w-full cursor-pointer opacity-0"
-            />
-            <Image
-              src={technology.imageUrl}
-              height={32}
-              width={32}
-              className="w-full rounded-sm transition-all"
-              alt={technology?.name}
-              priority
-            />
-            <span className="pointer-events-none absolute bottom-full left-1/2 mb-1 w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-0 shadow-lg backdrop-blur-xs transition-opacity duration-200 group-hover:opacity-100 peer-checked:opacity-100 peer-hover:opacity-100 peer-focus-visible:opacity-100">
-              {technology.name}
-            </span>
+          <li key={technology._id} className="relative mt-4 h-8 w-8">
+            <div className="group inline-block" tabIndex={0}>
+              <Image
+                src={technology.imageUrl}
+                height={32}
+                width={32}
+                className="w-full"
+                alt={technology?.name}
+                priority
+              />
+              <span className="absolute bottom-full left-1/2 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-100 shadow-lg backdrop-blur-xs group-hover:inline-block group-focus:inline-block">
+                {technology.name}
+              </span>
+            </div>
           </li>
         ))}
       </ul>

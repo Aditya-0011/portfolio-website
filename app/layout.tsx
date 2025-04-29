@@ -88,7 +88,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className}overflow-x-hidden`}>
         <Navbar />
-        {children}
+        <main>{children}</main>
         <Footer />
         <SpeedInsights />
       </body>

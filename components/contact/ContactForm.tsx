@@ -70,6 +70,7 @@ export default function ContactForm() {
                 <Link
                   href="mailto:adityapunmiya@gmail.com"
                   className="text-white hover:opacity-50"
+                  target="_blank"
                 >
                   adityapunmiya@gmail.com
                 </Link>
@@ -91,6 +92,7 @@ export default function ContactForm() {
               </dt>
               <dd>
                 <Link
+                  target="_blank"
                   href="https://github.com/Aditya-0011"
                   className="text-white hover:opacity-50"
                 >
@@ -113,12 +115,13 @@ export default function ContactForm() {
                 </svg>
               </dt>
               <dd>
-                <a
+                <Link
+                  target="_blank"
                   href="https://www.linkedin.com/in/aditya-punmiya/"
                   className="text-white hover:opacity-50"
                 >
                   aditya-punmiya
-                </a>
+                </Link>
               </dd>
             </div>
           </dl>

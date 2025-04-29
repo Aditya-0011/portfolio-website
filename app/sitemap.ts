@@ -18,7 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: "https://adityapunmiya.com/projects",
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.9,
+      priority: 1,
+    },
+    {
+      url: "https://adityapunmiya.com/resume.pdf",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
     },
   ];
 }

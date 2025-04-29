@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact | Aditya Punmiyaa",
+    title: "Contact | Aditya Punmiya",
     description: "Contact me",
     images: [
       {

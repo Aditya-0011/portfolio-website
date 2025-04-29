@@ -4,6 +4,27 @@ import Link from "next/link";
 
 const navigation = [
   {
+    name: "Resume",
+    href: "/resume.pdf",
+    icon: (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+      >
+        <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+        <path d="M15 18a3 3 0 1 0-6 0" />
+        <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z" />
+        <circle cx="12" cy="13" r="2" />
+      </svg>
+    ),
+  },
+  {
     name: "Instagram",
     href: "https://www.instagram.com/aditya_punmiya/",
     icon: (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
@@ -64,6 +85,7 @@ export default function Footer() {
               key={item.name}
               href={item.href}
               className="text-white hover:-translate-y-1"
+              target="_blank"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon aria-hidden="true" className="h-6 w-6" />

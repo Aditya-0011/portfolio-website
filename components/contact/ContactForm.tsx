@@ -181,7 +181,7 @@ export default function ContactForm() {
                   id="message"
                   name="message"
                   rows={4}
-                  className="block w-full rounded-md border-0 bg-neutral-900/25 px-3.5 py-2 text-white shadow-xs ring-1 ring-white/50 outline-hidden ring-inset placeholder:text-white focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="block min-h-40 w-full resize-y rounded-md border-0 bg-neutral-900/25 px-3.5 py-2 text-white shadow-xs ring-1 ring-white/50 outline-hidden ring-inset placeholder:text-white focus:ring-2 focus:ring-blue-600 focus:ring-inset sm:text-sm sm:leading-6"
                 />
               </div>
             </div>

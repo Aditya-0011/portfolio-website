@@ -1,6 +1,6 @@
 import TechnologyCard from "./TechnologyCard";
 import { Technology, Category } from "@/lib/objects";
-import getTechnologies from "./data";
+import { getTechnologies } from "./data";
 
 export default async function TechnologyDisplay() {
   const technologies: Technology[] = await getTechnologies();

@@ -1,7 +1,9 @@
+import "server-only"
+
 import { conn } from "@/lib/mongo";
 import { Technology } from "@/lib/objects";
 
-export default async function getTechnologies(): Promise<Technology[]> {
+export async function getTechnologies(): Promise<Technology[]> {
   const client = await conn();
   if (!client) {
     throw new Error("Database connection failed");

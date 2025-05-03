@@ -26,12 +26,15 @@ export default async function ProjectCard({ project }: Props) {
         <div className="text-lg leading-8 font-semibold tracking-tight text-white">
           {project.name}{" "}
           {project.status === "wip" ? (
-            <span className="group inline-flex items-center rounded-md bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-500 ring-1 ring-yellow-400/20 ring-inset hover:-translate-y-1 hover:px-2 hover:py-1">
+            <span
+              className="group inline-flex items-center rounded-md bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-500 ring-1 ring-yellow-400/20 ring-inset hover:-translate-y-1 hover:px-2 hover:py-1 focus:-translate-y-1 focus:px-2 focus:py-1"
+              tabIndex={0}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="h-4 w-4 group-hover:hidden"
+                className="h-4 w-4 group-hover:hidden group-focus:hidden"
               >
                 <path
                   fillRule="evenodd"
@@ -45,7 +48,7 @@ export default async function ProjectCard({ project }: Props) {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="hidden group-hover:inline">
+              <span className="hidden group-hover:inline-flex group-focus:inline-flex">
                 Work in Progress
               </span>
             </span>
@@ -99,7 +102,7 @@ export default async function ProjectCard({ project }: Props) {
                 alt={technology?.name}
                 priority
               />
-              <span className="absolute bottom-full left-1/2 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-sm text-white opacity-100 shadow-lg backdrop-blur-xs group-hover:inline-block group-focus:inline-block">
+              <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-center text-sm break-words whitespace-pre-line text-white opacity-100 shadow-lg backdrop-blur-xs group-hover:inline-block group-focus:inline-block md:w-max">
                 {technology.name}
               </span>
             </div>

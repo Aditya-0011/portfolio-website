@@ -1,3 +1,4 @@
+import "server-only";
 import { Document } from "mongodb";
 
 import { conn } from "@/lib/mongo";
@@ -7,9 +8,7 @@ interface Props {
   featured: boolean;
 }
 
-export default async function getProjects({
-  featured,
-}: Props): Promise<Project[]> {
+export async function getProjects({ featured }: Props): Promise<Project[]> {
   const client = await conn();
   if (!client) {
     throw new Error("Database connection failed");
@@ -19,8 +18,17 @@ export default async function getProjects({
     {
       $lookup: {
         from: "technologies",
-        localField: "technologies",
-        foreignField: "_id",
+        let: { techIds: "$technologies" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $in: ["$_id", "$$techIds"] },
+            },
+          },
+          {
+            $sort: { name: 1 },
+          },
+        ],
         as: "technologies",
       },
     },

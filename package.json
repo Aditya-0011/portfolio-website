@@ -10,13 +10,15 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^15.3.1",
+    "@next/third-parties": "^15.3.1",
     "@vercel/speed-insights": "^1.2.0",
     "mongodb": "^6.16.0",
-    "next": "15.3.1",
+    "next": "^15.3.1",
     "nodemailer": "^6.10.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "sharp": "^0.34.1",
+    "server-only": "^0.0.1",
     "sonner": "^2.0.3",
     "zod": "^3.24.3"
   },

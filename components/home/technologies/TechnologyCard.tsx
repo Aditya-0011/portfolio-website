@@ -42,7 +42,7 @@ export default async function TechnologyCard({
                 alt={technology.name}
                 priority
               />
-              <span className="mx-auto mb-1 hidden w-max rounded-md bg-transparent p-1 text-center text-sm font-medium text-emerald-300 opacity-100 backdrop-blur-sm group-hover:inline-block group-focus:inline-block">
+              <span className="mx-auto mb-1 hidden w-fit rounded-md bg-transparent p-1 text-center text-sm font-medium break-words whitespace-pre-line text-emerald-300 opacity-100 backdrop-blur-sm group-hover:inline-block group-focus:inline-block">
                 {technology.name}
               </span>
             </div>

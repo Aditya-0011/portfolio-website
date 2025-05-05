@@ -1,4 +1,4 @@
-import "server-only"
+import "server-only";
 
 import { conn } from "@/lib/mongo";
 import { Technology } from "@/lib/objects";

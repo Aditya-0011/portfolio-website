@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Project } from "@/lib/objects";
 import ProjectCard from "./ProjectCard";
-import {getProjects} from "./data";
+import { getProjects } from "./data";
 
 interface Props {
   heading: string;

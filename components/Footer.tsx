@@ -5,7 +5,7 @@ import Link from "next/link";
 const navigation = [
   {
     name: "Resume",
-    href: "/resume.pdf",
+    href: "/resume",
     icon: (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
       <svg
         xmlns="http://www.w3.org/2000/svg"

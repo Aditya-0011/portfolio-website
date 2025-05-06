@@ -36,9 +36,7 @@ export default async function Resume() {
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
           Resume - Aditya Punmiya
         </h1>
-        <p className="mb-6 text-lg text-white/75">
-          Redirecting to resume
-        </p>
+        <p className="mb-6 text-lg text-white/75">Redirecting to resume</p>
         <div className="mb-2 flex justify-center">
           <span className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
         </div>

@@ -38,6 +38,8 @@ export const metadata: Metadata = {
     "NAV",
     "NAV Fund Administration Group",
     "NAV Backoffice",
+    "Blowbits Solutions LLP",
+    "Octa GST",
   ],
   authors: [
     {

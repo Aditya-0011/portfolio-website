@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import TechnologyDisplay from "@/components/home/technologies/TechnologyDisplay";
 import ProjectsDisplay from "@/components/projects/ProjectsDisplay";
-// import ExperienceDisplay from "@/components/home/experiences/ExperienceDisplay";
+import ExperienceDisplay from "@/components/home/experiences/ExperienceDisplay";
 import AboutMe from "@/components/home/AboutMe";
 
 export const revalidate = 600;
@@ -40,7 +40,7 @@ export default async function Home() {
     <div className="min-h-screen bg-neutral-950">
       <AboutMe />
       <TechnologyDisplay />
-      {/* <ExperienceDisplay /> */}
+      <ExperienceDisplay />
       <ProjectsDisplay
         heading={"Featured Projects"}
         description={""}

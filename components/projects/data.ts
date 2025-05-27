@@ -28,6 +28,13 @@ export async function getProjects({ featured }: Props): Promise<Project[]> {
           {
             $sort: { name: 1 },
           },
+          {
+            $project: {
+              _id: 1,
+              name: 1,
+              imageUrl: 1,
+            },
+          },
         ],
         as: "technologies",
       },

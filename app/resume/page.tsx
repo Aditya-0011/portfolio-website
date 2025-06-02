@@ -40,10 +40,10 @@ export default async function Resume() {
         <div className="mb-2 flex justify-center">
           <span className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
         </div>
-        <Script strategy="afterInteractive">
+        <Script strategy="beforeInteractive">
           {`
           if (window.clarity) {
-            window.clarity("event", "resume_download");
+            window.clarity("event", "resume_view");
           }
           window.location.href = "/resume.pdf";
         `}

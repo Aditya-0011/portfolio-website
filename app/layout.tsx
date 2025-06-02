@@ -3,13 +3,16 @@ import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
+const sfPro = localFont({
+  src: "./fonts/SF-Pro.ttf",
+  variable: "--font-sf-pro",
+});
 
 export const metadata: Metadata = {
   keywords: [
@@ -78,7 +81,9 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className}overflow-x-hidden`}>
+      <body
+        className={`${sfPro.className} ${sfPro.variable} overflow-x-hidden`}
+      >
         <Navbar />
         <main>{children}</main>
         <Footer />

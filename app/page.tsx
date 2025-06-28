@@ -9,11 +9,11 @@ export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: "Home | Aditya Punmiya",
-  description: "View my bio, featured projects and technologies.",
+  description: "View my bio, work experience, projects and technologies.",
   metadataBase: new URL("https://adityapunmiya.com"),
   openGraph: {
     title: "Home | Aditya Punmiya",
-    description: "View my bio, featured projects and technologies.",
+    description: "View my bio, work experience, projects and technologies.",
     siteName: "Aditya Punmiya",
     type: "website",
     url: "https://adityapunmiya.com",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Home | Aditya Punmiya",
-    description: "View my bio, featured projects and technologies.",
+    description: "View my bio, work experience, projects and technologies.",
     images: [
       {
         url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",

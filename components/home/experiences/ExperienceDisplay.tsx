@@ -1,4 +1,6 @@
-import ExperienceCard from "./ExperienceCard";
+import { Suspense } from "react";
+
+import { ExperienceTabs } from "./ExperienceTabs";
 import { Experience } from "@/lib/objects";
 import getExperiences from "./data";
 
@@ -16,14 +18,9 @@ export default async function ExperienceDisplay() {
             Here&apos;s my professional journey so far.
           </p>
         </div>
-        <ul
-          role="list"
-          className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-x-5 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
-        >
-          {experiences.map((xp, i) => (
-            <ExperienceCard key={`${xp._id}-${i}`} xp={xp} />
-          ))}
-        </ul>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ExperienceTabs experiences={experiences} />
+        </Suspense>
       </div>
     </div>
   );

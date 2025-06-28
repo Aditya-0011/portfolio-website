@@ -54,8 +54,9 @@ export interface Experience {
   company: string;
   start: string;
   end?: string;
+  details: string;
   projects?: ProjectMetadata[];
-  //technologies?: TechnologyMetadata[];
+  technologies?: TechnologyMetadata[];
 }
 
 export const MessageSchema = z.object({

@@ -28,7 +28,7 @@ export default async function getExperiences(): Promise<Experience[]> {
             $project: {
               _id: 1,
               name: 1,
-              //imageUrl: 1,
+              imageUrl: 1,
             },
           },
         ],
@@ -64,8 +64,19 @@ export default async function getExperiences(): Promise<Experience[]> {
     .db(process.env.DB_NAME as string)
     .collection<Experience>("experiences")
     .aggregate(pipeline)
-    .sort({ start: 1 })
+    .sort({ start: -1 })
     .toArray();
 
-  return exp as Experience[];
+  return exp.map((e) => ({
+    ...e,
+    _id: e._id.toString(),
+    projects: e.projects?.map((p: any) => ({
+      ...p,
+      _id: p._id.toString(),
+    })),
+    technologies: e.technologies?.map((t: any) => ({
+      ...t,
+      _id: t._id.toString(),
+    })),
+  })) as Experience[];
 }

@@ -11,7 +11,7 @@ interface Props {
 
 export default function ExperienceCard({ xp, compact }: Props) {
   return (
-    <div className="m-2 flex flex-col justify-between rounded-lg bg-neutral-800/50 text-pretty p-5 hover:bg-neutral-800/75">
+    <div className="flex flex-col justify-between rounded-lg bg-neutral-800/50 p-5 text-pretty hover:bg-neutral-800/75">
       <div>
         <div className="flex items-start justify-between">
           <div className="flex-1 pr-4 text-lg leading-tight font-semibold tracking-tight text-white">

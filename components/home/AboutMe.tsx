@@ -12,7 +12,7 @@ export default async function AboutMe() {
           </h1>
           <div className="mt-6 max-w-7xl space-y-3 text-lg text-white/75 sm:text-xl md:mt-8 md:max-w-3xl">
             <p>
-              a senior-year Computer Science and Engineering student
+              a Computer Science and Engineering graduate
               specializing in full-stack development with a strong focus on
               backend technologies. My expertise includes working with stacks
               like FARM/P, ASP.NET, MERN, and PERN. I have professional

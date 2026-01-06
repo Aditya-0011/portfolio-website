@@ -28,9 +28,9 @@ bun run build
 bun run start
 ```
 
-## Get the CRM
+## Get the PMS
 
-Interested in the [CRM system](https://manager.adityapunmiya.com/) used to manage this portfolio? **[Contact me](mailto:adityapunmiya+crm@gmail.com)** for source code and deployment details.
+Interested in the [PMS](https://manager.adityapunmiya.com/) used to manage this portfolio? **[Contact me](mailto:adityapunmiya+crm@gmail.com)** for source code and deployment details.
 
 ## Credits
 

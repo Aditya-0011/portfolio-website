@@ -4,7 +4,7 @@ import Link from "next/link";
 export default async function AboutMe() {
   return (
     <div className="relative bg-neutral-950">
-      <div className="mx-auto w-full max-w-7xl py-8 text-left sm:py-16">
+      <div className="mx-auto mt-1 h-full w-full max-w-7xl py-8 text-left sm:py-16">
         <div className="px-6 sm:px-8 lg:w-1/2 xl:pr-16">
           <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
             <span className="block text-white xl:inline">Hi, I am </span>
@@ -12,22 +12,19 @@ export default async function AboutMe() {
           </h1>
           <div className="mt-6 max-w-7xl space-y-3 text-lg text-white/75 sm:text-xl md:mt-8 md:max-w-3xl">
             <p>
-              a Computer Science and Engineering graduate
-              specializing in full-stack development with a strong focus on
-              backend technologies. My expertise includes working with stacks
-              like FARM/P, ASP.NET, MERN, and PERN. I have professional
-              experience in ASP.NET, Nest.js, PERN stack, and Bash scripting.
-              Additionally, I have some foundational academic experience in C
-              and Java. When it comes to databases, I have experience working
-              with both NoSQL and SQL databases, designing efficient and
-              scalable database solutions.
+              a Software Engineer specializing in full-stack development with a
+              strong focus on backend technologies. Over the past year, I have
+              gained professional experience working with ASP.NET, Nest.js,
+              Fiber, and the PERN stack, alongside Bash scripting for
+              automation. Additionally, I have some foundational academic
+              experience in C and Java. When it comes to databases, I have
+              experience working with both NoSQL and SQL databases, designing
+              efficient and scalable database solutions.
             </p>
             <p>
               I love designing, developing, and deploying apps from start to
-              finish. Whether it&apos;s creating something new or tweaking an
-              existing project, I&apos;m always up for it! When I&apos;m not
-              coding, you&apos;ll find me locked into Assassin&apos;s Creed or
-              Valorant.
+              finish. Whether it&apos;s creating something new or optimizing an
+              existing project, I&apos;m always up for it!
             </p>
             <p>
               If it&apos;s about solving problems and building cool stuff,

@@ -33,9 +33,12 @@ export const formatMonthYear = (value: string): string => {
   if (!trimmed) {
     return trimmed;
   }
-  const parsed = DateTime.fromFormat(trimmed, "yyyy-MM");
+  const parsed = DateTime.fromFormat(trimmed, "yyyy-MM", {
+    locale: "en",
+    zone: "utc",
+  });
   if (!parsed.isValid) {
     return trimmed;
   }
-  return parsed.toFormat("LLL''yy");
+  return parsed.setLocale("en").toFormat("LLL''yy");
 };

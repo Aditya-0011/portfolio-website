@@ -16,7 +16,6 @@ export async function GetExperiences(): Promise<Experience[]> {
     _id: experience._id.toString(),
     positions: experience.positions.map((position) => ({
       ...position,
-      workDone: Bun.markdown.html(position.workDone),
       projects: position.projects?.map((project) => ({
         ...project,
         _id: project._id.toString(),

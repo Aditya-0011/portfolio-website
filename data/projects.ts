@@ -21,7 +21,6 @@ export async function GetProjects({
   const projects = data.map((project) => ({
     ...project,
     _id: project._id.toString(),
-    description: Bun.markdown.html(project.description),
     technologies: project.technologies?.map((technology) => ({
       ...technology,
       _id: technology._id.toString(),

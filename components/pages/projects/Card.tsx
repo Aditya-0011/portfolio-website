@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import ReactMarkdown from "react-markdown";
 import { Globe, Github } from "lucide-react";
 
 import { type Project } from "@/lib/objects";
@@ -47,10 +48,9 @@ export default function Card({ project }: Props) {
           </Link>
         </div>
       </div>
-      <div
-        className="prose prose-invert prose-emerald mt-2 max-w-none text-base leading-7 text-emerald-300"
-        dangerouslySetInnerHTML={{ __html: project.description }}
-      />
+      <div className="prose prose-invert prose-emerald mt-2 max-w-none text-base leading-7 text-emerald-300">
+        <ReactMarkdown>{project.description}</ReactMarkdown>
+      </div>
       <ul
         role="list"
         className="mt-4 flex flex-wrap items-center justify-evenly gap-4"

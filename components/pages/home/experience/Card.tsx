@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import ReactMarkdown from "react-markdown";
+
 import { formatMonthYear } from "@/lib/utils";
 import { type Experience } from "@/lib/objects";
 
@@ -50,10 +52,9 @@ export default function Card({ experience, compact }: Props) {
               <span className="text-sm font-medium text-emerald-400">
                 Details:
               </span>
-              <div
-                className="prose prose-invert prose-emerald prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 mt-1 ml-1 max-w-none text-sm text-white/75 marker:text-white/40"
-                dangerouslySetInnerHTML={{ __html: position.workDone }}
-              />
+              <div className="prose prose-invert prose-emerald prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 mt-1 ml-1 max-w-none text-sm text-white/75 marker:text-white/40">
+                <ReactMarkdown>{position.workDone}</ReactMarkdown>
+              </div>
             </div>
 
             <div className="mt-3">

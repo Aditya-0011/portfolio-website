@@ -1,6 +1,8 @@
+import "@/lib/env";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ["mongodb"],
   images: { remotePatterns: [{ hostname: "**" }], minimumCacheTTL: 2678400 },
   async headers() {
     return [
@@ -17,9 +19,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = withBundleAnalyzer(nextConfig);
 export default nextConfig;

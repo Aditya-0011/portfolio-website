@@ -1,53 +1,59 @@
-import { MongoClient } from "mongodb";
+import dns from "node:dns";
 
-let client: MongoClient | null = null;
-let isConnecting = false;
+import { Collection, Document, MongoClient } from "mongodb";
 
-export async function conn(): Promise<MongoClient> {
-  if (isConnecting) {
-    while (isConnecting) {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }
-    if (client) {
-      return client;
-    }
-  }
+import { env } from "@/lib/env";
+import {
+  type DbMessages,
+  type UserDetails,
+  type Technology,
+  type Project,
+  type Experience,
+} from "@/lib/objects";
 
-  if (client) {
-    try {
-      await client.db().admin().ping();
-      return client;
-    } catch (error) {
-      console.log("Reconnecting to MongoDB");
-      client = null;
-    }
-  }
+dns.setServers(["1.1.1.1"]);
 
-  isConnecting = true;
+class MongoDb {
+  readonly #client: MongoClient;
 
-  try {
-    const uri = process.env.DB_URL;
-    if (!uri) {
-      throw new Error("DB_URL environment variable is not set");
-    }
-
-    client = new MongoClient(uri, {
+  constructor() {
+    this.#client = new MongoClient(env.MONGODB_URI, {
       maxPoolSize: 10,
       minPoolSize: 2,
       maxIdleTimeMS: 30000,
       serverSelectionTimeoutMS: 5000,
       connectTimeoutMS: 10000,
     });
-
-    await client.connect();
-
-    await client.db().admin().ping();
-
-    return client;
-  } catch (error) {
-    client = null;
-    throw new Error(`Failed to connect to MongoDB: ${error}`);
-  } finally {
-    isConnecting = false;
   }
+
+  #collection<T extends Document = Document>(name: string): Collection<T> {
+    return this.#client.db(env.MONGODB_DB).collection<T>(name);
+  }
+
+  message() {
+    return this.#collection<DbMessages>("message");
+  }
+
+  user() {
+    return this.#collection<UserDetails>("user");
+  }
+
+  technology() {
+    return this.#collection<Technology>("technology");
+  }
+
+  project() {
+    return this.#collection<Project>("project");
+  }
+
+  experience() {
+    return this.#collection<Experience>("experience");
+  }
+}
+
+const globalForMongo = globalThis as unknown as { mongo: MongoDb | undefined };
+export const mongo = globalForMongo.mongo ?? new MongoDb();
+
+if (process.env.ENV && process.env.ENV === "development") {
+  globalForMongo.mongo = mongo;
 }

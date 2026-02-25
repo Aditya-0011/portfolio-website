@@ -1,8 +1,7 @@
 @import "tailwindcss";
-
-@plugin 'tailwind-scrollbar';
-
 @plugin "@tailwindcss/forms";
+@plugin "tailwind-scrollbar";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
@@ -10,20 +9,6 @@
     from 180deg at 50% 50%,
     var(--tw-gradient-stops)
   );
-}
-
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-}
-
-@utility text-balance {
-  text-wrap: balance;
 }
 
 @layer utilities {
@@ -39,6 +24,21 @@
       --background-start-rgb: 0, 0, 0;
       --background-end-rgb: 0, 0, 0;
     }
+  }
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 
   body {

@@ -1,18 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import localFont from "next/font/local";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
-import localFont from "next/font/local";
 import "./globals.css";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-
-const sfPro = localFont({
-  src: "./fonts/SF-Pro.ttf",
-  variable: "--font-sf-pro",
+const font = localFont({
+  src: "../public/fonts/SF-Pro.ttf",
 });
 
 export const metadata: Metadata = {
@@ -40,8 +36,9 @@ export const metadata: Metadata = {
     "Manipal University",
     "Manipal",
     "NAV",
-    "NAV Fund Administration Group",
+    "NAV Fund Services",
     "NAV Backoffice",
+    "NAV India",
     "Blowbits Solutions LLP",
     "Octa GST",
   ],
@@ -67,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scrollbar-thin scrollbar-track-neutral-950 scrollbar-thumb-neutral-900 overflow-y-scroll"
+      className={`scrollbar-thin scrollbar-track-neutral-950 scrollbar-thumb-neutral-900 overflow-y-scroll ${font.className}`}
     >
       <head>
         <GoogleTagManager gtmId={process.env.G_TAG as string} />
@@ -82,12 +79,8 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body
-        className={`${sfPro.className} ${sfPro.variable} overflow-x-hidden`}
-      >
-        <Navbar />
+      <body className="overflow-x-hidden">
         <main>{children}</main>
-        <Footer />
         <SpeedInsights />
         <Analytics />
       </body>

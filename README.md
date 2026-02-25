@@ -17,7 +17,7 @@ This is the source code for [adityapunmiya.com](https://adityapunmiya.com), a pe
    ```
 2. **Run the development server:**
    ```sh
-   bun --bun run dev
+   bun dev
    ```
 3. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
@@ -25,7 +25,7 @@ This is the source code for [adityapunmiya.com](https://adityapunmiya.com), a pe
 
 ```sh
 bun run build
-bun run start
+bun start
 ```
 
 ## Get the PMS

@@ -19,7 +19,7 @@ type User = {
   email: string;
 };
 
-export type DbMessages = User & { message: string[]; count: number };
+export type DbMessages = User & { messages: string[]; count: number };
 
 export const messageFormOptions = formOptions({
   defaultValues: {

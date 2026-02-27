@@ -51,7 +51,7 @@ export async function AddMessage(prev: unknown, formData: FormData) {
           { email: data.email },
           {
             $inc: { count: 1 },
-            $push: { message: data.message },
+            $push: { messages: data.message },
           },
         );
 
@@ -63,7 +63,7 @@ export async function AddMessage(prev: unknown, formData: FormData) {
       await collection.insertOne({
         name: data.name,
         email: data.email,
-        message: [data.message],
+        messages: [data.message],
         count: 1,
       });
 

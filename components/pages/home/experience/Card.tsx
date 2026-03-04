@@ -1,10 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import ReactMarkdown from "react-markdown";
 
 import { formatMonthYear } from "@/lib/utils";
 import { type Experience } from "@/lib/objects";
+
+import TechnologyIcon from "@/components/TechnologyIcon";
 
 interface Props {
   experience: Experience;
@@ -128,20 +129,9 @@ export default function Card({ experience, compact }: Props) {
                 className="relative h-8 w-8 transition-transform duration-200 hover:scale-110"
               >
                 <div className="group inline-block h-full w-full" tabIndex={0}>
-                  <Image
-                    src={technology.imageUrl}
-                    height={32}
-                    width={32}
+                  <TechnologyIcon
+                    technology={technology}
                     className="h-full w-full object-contain"
-                    alt={technology.name}
-                    unoptimized={technology.imageUrl.endsWith(".gif")}
-                    onError={(event) => {
-                      const fallback = technology.fallbackImageUrl;
-                      if (event.currentTarget.src !== fallback) {
-                        event.currentTarget.src = fallback;
-                      }
-                    }}
-                    priority
                   />
                   <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md bg-transparent p-1 text-left text-sm wrap-break-word whitespace-pre-line text-white opacity-100 shadow-lg ring-2 ring-sky-300/75 backdrop-blur-sm group-hover:inline-block group-focus:inline-block sm:text-center md:w-max">
                     {technology.name}

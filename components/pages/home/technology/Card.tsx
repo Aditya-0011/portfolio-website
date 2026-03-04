@@ -1,9 +1,7 @@
-"use client";
-
-import Image from "next/image";
-
 import { getTechnologyCategoryLabel } from "@/lib/utils";
 import { type Technology, type TechnologyCategory } from "@/lib/objects";
+
+import TechnologyIcon from "@/components/TechnologyIcon";
 
 type Props = {
   Category: TechnologyCategory;
@@ -35,20 +33,9 @@ export default function Card({ Category, Technologies }: Props) {
               className="group flex w-full cursor-pointer items-center justify-center"
               tabIndex={0}
             >
-              <Image
-                src={technology.imageUrl}
-                height={32}
-                width={32}
+              <TechnologyIcon
+                technology={technology}
                 className="h-8 w-8 rounded-xs object-contain group-hover:hidden group-focus:hidden"
-                alt={technology?.name}
-                unoptimized={technology.imageUrl.endsWith(".gif")}
-                onError={(event) => {
-                  const fallback = technology.fallbackImageUrl;
-                  if (event.currentTarget.src !== fallback) {
-                    event.currentTarget.src = fallback;
-                  }
-                }}
-                priority
               />
               <span className="hidden w-fit rounded-md bg-transparent p-1 text-center text-sm font-medium wrap-break-word whitespace-pre-line text-emerald-300 opacity-100 backdrop-blur-sm group-hover:block group-focus:block">
                 {technology.name}

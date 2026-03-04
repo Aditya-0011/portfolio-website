@@ -78,6 +78,7 @@ const TechnologySummarySchema = z.object({
   imageUrl: z.url(),
   fallbackImageUrl: z.url(),
 });
+export type TechnologySummary = z.infer<typeof TechnologySummarySchema>;
 
 export const ProjectSchema = z.object({
   _id: z.string(),

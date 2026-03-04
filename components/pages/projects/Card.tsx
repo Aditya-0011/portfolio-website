@@ -49,7 +49,30 @@ export default function Card({ project }: Props) {
         </div>
       </div>
       <div className="prose prose-invert prose-emerald mt-2 max-w-none text-base leading-7 text-emerald-300">
-        <ReactMarkdown>{project.description}</ReactMarkdown>
+        <ReactMarkdown
+          components={{
+            ul: ({ node, className, ...props }) => (
+              <ul className={`list-disc pl-4 ${className ?? ""}`} {...props} />
+            ),
+            ol: ({ node, className, ...props }) => (
+              <ol
+                className={`list-decimal pl-4 ${className ?? ""}`}
+                {...props}
+              />
+            ),
+            a: ({ href, children }) => (
+              <Link
+                href={href!}
+                target="_blank"
+                className="font-bold text-white underline decoration-white underline-offset-2 hover:decoration-emerald-500"
+              >
+                {children}
+              </Link>
+            ),
+          }}
+        >
+          {project.description}
+        </ReactMarkdown>
       </div>
       <ul
         role="list"

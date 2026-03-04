@@ -11,7 +11,7 @@ export default async function NotFound() {
 
   try {
     const res = await fetch(`${process.env.MANAGER_BACKEND_URL}/random`, {
-      next: { revalidate: 15 },
+      next: { revalidate: 600 },
     });
 
     if (!res.ok) {

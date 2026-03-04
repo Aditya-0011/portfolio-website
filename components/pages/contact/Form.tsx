@@ -299,7 +299,7 @@ export default function Form() {
                         {loading ? (
                           <div className="flex items-center gap-x-2">
                             <Loader2 className="size-6 animate-spin" />
-                            Loading
+                            Sending
                           </div>
                         ) : (
                           "Send message"

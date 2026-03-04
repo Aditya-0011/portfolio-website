@@ -2,6 +2,7 @@ import "@/lib/env";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  reactCompiler: true,
   serverExternalPackages: ["mongodb"],
   images: { remotePatterns: [{ hostname: "**" }], minimumCacheTTL: 2678400 },
   async headers() {

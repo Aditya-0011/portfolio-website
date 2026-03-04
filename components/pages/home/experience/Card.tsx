@@ -53,7 +53,33 @@ export default function Card({ experience, compact }: Props) {
                 Details:
               </span>
               <div className="prose prose-invert prose-emerald prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 mt-1 ml-1 max-w-none text-sm text-white/75 marker:text-white/40">
-                <ReactMarkdown>{position.workDone}</ReactMarkdown>
+                <ReactMarkdown
+                  components={{
+                    ul: ({ node, className, ...props }) => (
+                      <ul
+                        className={`list-disc pl-4 ${className ?? ""}`}
+                        {...props}
+                      />
+                    ),
+                    ol: ({ node, className, ...props }) => (
+                      <ol
+                        className={`list-decimal pl-4 ${className ?? ""}`}
+                        {...props}
+                      />
+                    ),
+                    a: ({ href, children }) => (
+                      <Link
+                        href={href!}
+                        target="_blank"
+                        className="font-bold underline decoration-emerald-500 underline-offset-2 hover:text-emerald-500 hover:no-underline hover:decoration-white"
+                      >
+                        {children}
+                      </Link>
+                    ),
+                  }}
+                >
+                  {position.workDone}
+                </ReactMarkdown>
               </div>
             </div>
 

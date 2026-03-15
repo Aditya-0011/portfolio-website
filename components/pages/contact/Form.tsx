@@ -12,6 +12,7 @@ import {
 } from "@tanstack/react-form-nextjs";
 import { toast } from "sonner";
 import { Mail, Github, Linkedin, Loader2 } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 import { messageFormOptions, MessageSchema } from "@/lib/objects";
 import { AddMessage } from "@/actions/message";
@@ -268,7 +269,11 @@ export default function Form() {
               }}
             </Field>
           </div>
-          <div className="mt-8 flex justify-end">
+          <div className="mt-8 flex flex-col items-end gap-6">
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+              options={{ size: "flexible" }}
+            />
             <div className="group relative">
               <Subscribe
                 selector={(formState) => [

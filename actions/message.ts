@@ -30,6 +30,28 @@ const validate = createServerValidate({
 
 export async function AddMessage(prev: unknown, formData: FormData) {
   try {
+    const turnstileResponse = formData.get("cf-turnstile-response");
+    if (!turnstileResponse) {
+      return { status: 400, message: ["Captcha verification failed"] };
+    }
+
+    const verifyResponse = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `secret=${process.env.TURNSTILE_SECRET_KEY}&response=${turnstileResponse}`,
+      }
+    );
+
+    const verifyData = await verifyResponse.json();
+
+    if (!verifyData.success) {
+      return { status: 400, message: ["Invalid captcha response"] };
+    }
+
     const data = await validate(formData);
 
     const collection = mongo.message();

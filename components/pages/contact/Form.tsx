@@ -270,10 +270,12 @@ export default function Form() {
             </Field>
           </div>
           <div className="mt-8 flex flex-col items-end gap-6">
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-              options={{ size: "flexible" }}
-            />
+            <div className="w-full max-w-full overflow-x-auto">
+              <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                options={{ size: "flexible" }}
+              />
+            </div>
             <div className="group relative">
               <Subscribe
                 selector={(formState) => [

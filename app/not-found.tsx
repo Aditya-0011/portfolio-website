@@ -19,7 +19,7 @@ export default async function NotFound() {
     } else {
       data = await res.text();
     }
-  } catch (error) {
+  } catch {
     isError = true;
   }
 

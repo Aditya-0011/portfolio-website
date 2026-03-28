@@ -8,10 +8,7 @@ import {
 import { mongo } from "@/lib/mongo";
 import { mail } from "@/lib/mail";
 
-import {
-  MessageSchema,
-  messageFormOptions,
-} from "@/lib/objects";
+import { MessageSchema, messageFormOptions } from "@/lib/objects";
 
 const validate = createServerValidate({
   ...messageFormOptions,
@@ -43,7 +40,7 @@ export async function AddMessage(prev: unknown, formData: FormData) {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: `secret=${process.env.TURNSTILE_SECRET_KEY}&response=${turnstileResponse}`,
-      }
+      },
     );
 
     const verifyData = await verifyResponse.json();

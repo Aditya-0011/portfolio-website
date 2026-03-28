@@ -10,7 +10,7 @@ export default async function AboutMe() {
 
   return (
     <div className="relative bg-neutral-950">
-      <div className="mx-auto mt-1 h-full w-full max-w-7xl py-8 text-left sm:py-16">
+      <div className="mx-auto h-full w-full max-w-7xl py-8 text-left sm:py-16">
         <div className="px-6 sm:px-8 lg:w-1/2 xl:pr-16">
           <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
             <span className="block text-white xl:inline">Hi, I am </span>

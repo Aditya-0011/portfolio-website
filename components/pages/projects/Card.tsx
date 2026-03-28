@@ -35,14 +35,14 @@ export default function Card({ project }: Props) {
           <Link
             target="_blank"
             href={project?.projectUrl ?? ""}
-            className={project.projectUrl ? "" : "hidden"}
+            className={project.projectUrl ? "text-white" : "hidden"}
           >
             <Globe className="-mt-0.5 h-6 w-6" />
           </Link>
           <Link
             target="_blank"
             href={project?.githubUrl ?? ""}
-            className={project.githubUrl ? "ml-1" : "hidden"}
+            className={project.githubUrl ? "ml-1 text-white" : "hidden"}
           >
             <Github className="-mt-0.5 h-6 w-6" />
           </Link>
@@ -51,10 +51,10 @@ export default function Card({ project }: Props) {
       <div className="prose prose-invert prose-emerald mt-2 max-w-none text-base leading-7 text-emerald-300">
         <ReactMarkdown
           components={{
-            ul: ({ node, className, ...props }) => (
+            ul: ({ className, ...props }) => (
               <ul className={`list-disc pl-4 ${className ?? ""}`} {...props} />
             ),
-            ol: ({ node, className, ...props }) => (
+            ol: ({ className, ...props }) => (
               <ol
                 className={`list-decimal pl-4 ${className ?? ""}`}
                 {...props}
@@ -88,7 +88,7 @@ export default function Card({ project }: Props) {
                 technology={technology}
                 className="h-full w-full object-contain"
               />
-              <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md border-2 border-sky-300/75 bg-transparent p-1 text-left text-sm wrap-break-word whitespace-pre-line text-white opacity-100 shadow-lg backdrop-blur-sm group-hover:inline-block group-focus:inline-block sm:text-center md:w-max">
+              <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md border-2 border-sky-500 bg-transparent p-1 text-left text-sm wrap-break-word whitespace-pre-line text-white opacity-100 shadow-lg backdrop-blur-md group-hover:inline-block group-focus:inline-block sm:text-center md:w-max">
                 {technology.name}
               </span>
             </div>

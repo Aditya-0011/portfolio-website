@@ -18,9 +18,7 @@ if (!parsedEnv.success) {
   console.error("Invalid environment variables:");
 
   parsedEnv.error.issues.forEach((issue) => {
-    console.error(
-      `  - Fix ${String(issue.path[0])}`,
-    );
+    console.error(`  - Fix ${String(issue.path[0])}`);
   });
 
   process.exit(1);

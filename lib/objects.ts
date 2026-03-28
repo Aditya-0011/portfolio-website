@@ -63,7 +63,7 @@ const TechnologyCategorySchema = z.union(
   { error: "Invalid technology category" },
 );
 
-const TechnologySchema = z.object({
+export const TechnologySchema = z.object({
   _id: z.string(),
   name: z.string(),
   imageUrl: z.url(),
@@ -105,7 +105,7 @@ const PositionSchema = z.object({
   projects: z.array(ProjectSummarySchema).optional(),
 });
 
-const ExperienceSchema = z.object({
+export const ExperienceSchema = z.object({
   _id: z.string(),
   company: z.string(),
   start: z.string(),

@@ -56,13 +56,13 @@ export default function Card({ experience, compact }: Props) {
               <div className="prose prose-invert prose-emerald prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 mt-1 ml-1 max-w-none text-sm text-white/75 marker:text-white/40">
                 <ReactMarkdown
                   components={{
-                    ul: ({ node, className, ...props }) => (
+                    ul: ({ className, ...props }) => (
                       <ul
                         className={`list-disc pl-4 ${className ?? ""}`}
                         {...props}
                       />
                     ),
-                    ol: ({ node, className, ...props }) => (
+                    ol: ({ className, ...props }) => (
                       <ol
                         className={`list-decimal pl-4 ${className ?? ""}`}
                         {...props}
@@ -133,7 +133,7 @@ export default function Card({ experience, compact }: Props) {
                     technology={technology}
                     className="h-full w-full object-contain"
                   />
-                  <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md bg-transparent p-1 text-left text-sm wrap-break-word whitespace-pre-line text-white opacity-100 shadow-lg ring-2 ring-sky-300/75 backdrop-blur-sm group-hover:inline-block group-focus:inline-block sm:text-center md:w-max">
+                  <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md bg-transparent p-1 text-left text-sm wrap-break-word whitespace-pre-line text-white opacity-100 shadow-lg ring-2 ring-sky-500 backdrop-blur-md group-hover:inline-block group-focus:inline-block sm:text-center md:w-max">
                     {technology.name}
                   </span>
                 </div>

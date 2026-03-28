@@ -6,18 +6,18 @@ import Card from "@/components/pages/home/technology/Card";
 export default async function Grid() {
   const technologies = await GetTechnologies();
 
-  const categories = Object.values(TechnologyCategory).filter(
-    (category) =>
-      category !== TechnologyCategory.Invalid &&
-      category !== TechnologyCategory.None,
-  ).sort((left, right) => {
-    const leftOrder =
-      left === TechnologyCategory.Language ? 0 : left;
-    const rightOrder =
-      right === TechnologyCategory.Language ? 0 : right;
+  const categories = Object.values(TechnologyCategory)
+    .filter(
+      (category) =>
+        category !== TechnologyCategory.Invalid &&
+        category !== TechnologyCategory.None,
+    )
+    .sort((left, right) => {
+      const leftOrder = left === TechnologyCategory.Language ? 0 : left;
+      const rightOrder = right === TechnologyCategory.Language ? 0 : right;
 
-    return leftOrder - rightOrder;
-  });
+      return leftOrder - rightOrder;
+    });
 
   return (
     <div className="py-8 sm:py-16">

@@ -11,7 +11,7 @@ import {
   useStore,
 } from "@tanstack/react-form-nextjs";
 import { toast } from "sonner";
-import { Mail, Github, Linkedin, Loader2 } from "lucide-react";
+import { Mail, Github, Linkedin, Loader2, Send } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 
 import { messageFormOptions, MessageSchema } from "@/lib/objects";
@@ -28,7 +28,7 @@ export default function Form() {
     transform: useTransform(
       (baseForm) => {
         if (state && typeof state === "object" && !("status" in state)) {
-          return mergeForm(baseForm, state as any);
+          return mergeForm(baseForm, state as Parameters<typeof mergeForm>[1]);
         }
         return baseForm;
       },
@@ -41,8 +41,17 @@ export default function Form() {
   useEffect(() => {
     if (formErrors.length > 0) {
       formErrors.forEach((error) => {
-        const msg = typeof error === "string" ? error : (error as any)?.message;
-        if (msg) toast.error(msg, { duration: 3000 });
+        let msg: unknown;
+        if (typeof error === "string") {
+          msg = error;
+        } else if (
+          typeof error === "object" &&
+          error !== null &&
+          "message" in error
+        ) {
+          msg = (error as Record<string, unknown>).message;
+        }
+        if (typeof msg === "string") toast.error(msg, { duration: 3000 });
       });
     }
 
@@ -270,10 +279,10 @@ export default function Form() {
             </Field>
           </div>
           <div className="mt-8 flex flex-col items-end gap-6">
-            <div className="w-full max-w-full overflow-x-auto">
+            <div className="w-full max-w-full overflow-x-auto overflow-y-hidden sm:overflow-hidden">
               <Turnstile
                 siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                options={{ size: "flexible" }}
+                options={{ size: "flexible", theme: "dark" }}
               />
             </div>
             <div className="group relative">
@@ -309,7 +318,10 @@ export default function Form() {
                             Sending
                           </div>
                         ) : (
-                          "Send message"
+                          <div className="flex items-center gap-x-2">
+                            <Send className="size-4" />
+                            Send
+                          </div>
                         )}
                       </button>
                     </>

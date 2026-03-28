@@ -34,7 +34,7 @@ export default async function Resume() {
     <div className="relative flex min-h-screen flex-col items-center justify-center bg-neutral-950 px-4">
       <div className="mx-auto max-w-2xl rounded-lg p-8 text-center">
         <span className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-        <Script strategy="beforeInteractive">
+        <Script id="resume-redirect" strategy="beforeInteractive">
           {`
           if (window.clarity) {
             window.clarity("event", "resume_view");

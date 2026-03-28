@@ -25,18 +25,11 @@ export default function Navbar() {
                 pathname !== "/" ? "hover:-translate-y-1" : "sm:hidden"
               }`}
             >
-              <div
-                className={
-                  pathname === "/"
-                    ? "absolute -inset-2 bg-blue-500/40 blur-md"
-                    : "hidden"
-                }
-              />
               <Link
                 href="/"
                 className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
                   pathname === "/"
-                    ? "border-2 border-blue-500 text-blue-100"
+                    ? "text-blue-500"
                     : "text-white hover:text-sky-500"
                 }`}
               >
@@ -48,18 +41,11 @@ export default function Navbar() {
                 pathname !== "/projects" ? "hover:-translate-y-1" : "sm:hidden"
               }`}
             >
-              <div
-                className={
-                  pathname === "/projects"
-                    ? "absolute -inset-1.5 bg-blue-500 opacity-40 blur-md"
-                    : "hidden"
-                }
-              />
               <Link
                 href="/projects"
                 className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
                   pathname === "/projects"
-                    ? "border-2 border-blue-500 text-blue-100"
+                    ? "text-blue-500"
                     : "text-white hover:text-sky-500"
                 }`}
               >
@@ -71,18 +57,11 @@ export default function Navbar() {
                 pathname !== "/contact" ? "hover:-translate-y-1" : "sm:hidden"
               }`}
             >
-              <div
-                className={
-                  pathname === "/contact"
-                    ? "absolute -inset-1.5 bg-blue-500 opacity-40 blur-md"
-                    : "hidden"
-                }
-              />
               <Link
                 href="/contact"
                 className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
                   pathname === "/contact"
-                    ? "border-2 border-blue-500 text-blue-100"
+                    ? "text-blue-500"
                     : "text-white hover:text-sky-500"
                 }`}
               >

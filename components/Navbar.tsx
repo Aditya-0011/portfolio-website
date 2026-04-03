@@ -10,59 +10,54 @@ export default function Navbar() {
     page === "" ? "Home" : page.charAt(0).toUpperCase() + page.slice(1);
 
   return (
-    <nav className="border-b-2 border-red-600 bg-neutral-950">
+    <nav className="sticky top-0 z-50 border-b border-red-500/30 bg-neutral-950/70 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-20 justify-center sm:justify-between">
-          <div className="relative mt-4 hidden max-h-12 sm:block">
-            <div className="absolute -inset-1 rounded-lg bg-blue-500 py-2 opacity-45 blur-md" />
-            <div className="relative max-w-64 truncate rounded-lg border-2 border-blue-500 bg-neutral-950 px-3 py-2 text-xl font-bold text-blue-100">
-              {name}
+        <div className="relative flex h-20 items-center justify-center sm:justify-between">
+          <div className="relative hidden items-center sm:flex">
+            <div
+              className={`relative flex max-w-64 items-center truncate rounded-lg px-4 py-2 text-xl font-medium backdrop-blur-sm ${pathname === "/" ? "bg-blue-500/10 text-blue-400 ring ring-blue-500/50" : pathname === "/projects" ? "bg-emerald-500/10 text-emerald-400 ring ring-emerald-500/50" : pathname === "/contact" ? "bg-sky-500/10 text-sky-400 ring ring-sky-500/50" : "bg-neutral-900/80 text-blue-100"}`}
+            >
+              <span>{name}</span>
             </div>
           </div>
-          <div className="flex items-center justify-center space-x-8 px-2.5 sm:justify-start">
+          <div className="flex flex-1 items-center justify-center gap-3 sm:gap-8 px-2.5 sm:justify-end">
             <div
-              className={`relative ${
-                pathname !== "/" ? "hover:-translate-y-1" : "sm:hidden"
-              }`}
+              className={`group relative ${pathname === "/" && "sm:hidden"}`}
             >
               <Link
                 href="/"
-                className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
+                className={`relative flex items-center justify-center rounded-lg px-4 py-2 text-lg font-medium transition-all duration-300 sm:text-xl ${
                   pathname === "/"
-                    ? "text-blue-500"
-                    : "text-white hover:text-sky-500"
+                    ? "bg-blue-500/10 text-blue-400 ring ring-blue-500/50"
+                    : "text-white/70 hover:bg-neutral-800/50 hover:text-white"
                 }`}
               >
                 Home
               </Link>
             </div>
             <div
-              className={`relative ${
-                pathname !== "/projects" ? "hover:-translate-y-1" : "sm:hidden"
-              }`}
+              className={`group relative ${pathname === "/projects" && "sm:hidden"}`}
             >
               <Link
                 href="/projects"
-                className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
+                className={`relative flex items-center justify-center rounded-lg px-4 py-2 text-lg font-medium transition-all duration-300 sm:text-xl ${
                   pathname === "/projects"
-                    ? "text-blue-500"
-                    : "text-white hover:text-sky-500"
+                    ? "bg-emerald-500/10 text-emerald-400 ring ring-emerald-500/50"
+                    : "text-white/70 hover:bg-neutral-800/50 hover:text-white"
                 }`}
               >
                 Projects
               </Link>
             </div>
             <div
-              className={`relative ${
-                pathname !== "/contact" ? "hover:-translate-y-1" : "sm:hidden"
-              }`}
+              className={`group relative ${pathname === "/contact" && "sm:hidden"}`}
             >
               <Link
                 href="/contact"
-                className={`relative rounded-lg bg-neutral-950 px-3 py-2 text-xl font-medium ${
+                className={`relative flex items-center justify-center rounded-lg px-4 py-2 text-lg font-medium transition-all duration-300 sm:text-xl ${
                   pathname === "/contact"
-                    ? "text-blue-500"
-                    : "text-white hover:text-sky-500"
+                    ? "bg-sky-500/10 text-sky-400 ring ring-sky-500/50"
+                    : "text-white/70 hover:bg-neutral-800/50 hover:text-white"
                 }`}
               >
                 Contact

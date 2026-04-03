@@ -68,12 +68,12 @@ export default function Form() {
   }, [state, formErrors, reset]);
 
   return (
-    <div className="mx-auto grid max-w-7xl grid-cols-1 rounded-lg border-2 border-neutral-900/25 lg:grid-cols-2">
-      <div className="relative rounded-lg bg-neutral-900/25 px-6 pt-24 pb-20 sm:pt-32 lg:static lg:px-8 lg:py-48">
+    <div className="mx-auto grid w-full grid-cols-1 gap-4 sm:gap-8 rounded-2xl bg-neutral-900/40 p-2 sm:p-4 lg:grid-cols-2 backdrop-blur-xl border border-white/5 shadow-2xl">
+      <div className="relative rounded-2xl bg-neutral-950/40 p-5 sm:p-12 border border-white/5 flex flex-col justify-center">
         <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-          <h2 className="text-3xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl font-bold tracking-tight text-white">
             Get in touch
-          </h2>
+          </h1>
           <p className="mt-6 text-lg leading-8 text-balance text-white">
             I&apos;d love to hear from you! Whether you have a question,
             feedback, or just want to connect, feel free to reach out. You can
@@ -81,49 +81,42 @@ export default function Form() {
             message directly.
           </p>
           <dl className="mt-10 space-y-4 text-base leading-7 text-gray-600">
-            <div className="flex gap-x-4">
-              <dt className="flex-none">
+            <div className="group/link relative flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-all duration-300 hover:scale-[1.02]">
+              <Link href="mailto:adityapunmiya@gmail.com" target="_blank" className="absolute inset-0 z-10"><span className="sr-only">Email adityapunmiya@gmail.com</span></Link>
+              <dt className="flex-none flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-neutral-900 border border-white/5 group-hover/link:border-emerald-500/50 transition-colors duration-300">
                 <span className="sr-only">Email</span>
-                <Mail className="h-7 w-6 text-white" />
+                <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400" />
               </dt>
-              <dd>
-                <Link
-                  href="mailto:adityapunmiya@gmail.com"
-                  className="text-white hover:opacity-50"
-                  target="_blank"
-                >
+              <dd className="ml-4 min-w-0">
+                <div className="text-white font-medium text-sm sm:text-base truncate group-hover/link:text-emerald-300 transition-colors">
                   adityapunmiya@gmail.com
-                </Link>
+                </div>
               </dd>
             </div>
-            <div className="flex gap-x-4">
-              <dt className="flex-none">
+            
+            <div className="group/link relative flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:scale-[1.02]">
+              <Link href="https://github.com/Aditya-0011" target="_blank" className="absolute inset-0 z-10"><span className="sr-only">Visit Github profile</span></Link>
+              <dt className="flex-none flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-neutral-900 border border-white/5 group-hover/link:border-blue-500/50 transition-colors duration-300">
                 <span className="sr-only">Github</span>
-                <Github className="h-7 w-6 text-white" />
+                <Github className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
               </dt>
-              <dd>
-                <Link
-                  target="_blank"
-                  href="https://github.com/Aditya-0011"
-                  className="text-white hover:opacity-50"
-                >
+              <dd className="ml-4 min-w-0">
+                <div className="text-white font-medium text-sm sm:text-base truncate group-hover/link:text-blue-300 transition-colors">
                   Aditya-0011
-                </Link>
+                </div>
               </dd>
             </div>
-            <div className="flex gap-x-4">
-              <dt className="flex-none">
+            
+            <div className="group/link relative flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-sky-500/30 transition-all duration-300 hover:scale-[1.02]">
+              <Link href="https://www.linkedin.com/in/aditya-punmiya/" target="_blank" className="absolute inset-0 z-10"><span className="sr-only">Visit Linkedin profile</span></Link>
+              <dt className="flex-none flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-neutral-900 border border-white/5 group-hover/link:border-sky-500/50 transition-colors duration-300">
                 <span className="sr-only">Linkedin</span>
-                <Linkedin className="h-7 w-6 text-white" />
+                <Linkedin className="h-5 w-5 sm:h-6 sm:w-6 text-sky-400" />
               </dt>
-              <dd>
-                <Link
-                  target="_blank"
-                  href="https://www.linkedin.com/in/aditya-punmiya/"
-                  className="text-white hover:opacity-50"
-                >
+              <dd className="ml-4 min-w-0">
+                <div className="text-white font-medium text-sm sm:text-base truncate group-hover/link:text-sky-300 transition-colors">
                   aditya-punmiya
-                </Link>
+                </div>
               </dd>
             </div>
           </dl>
@@ -133,10 +126,10 @@ export default function Form() {
       <form
         action={action as never}
         onSubmit={() => handleSubmit()}
-        className="px-6 pt-20 pb-24 sm:pb-32 lg:px-8 lg:py-48"
+        className="flex flex-col justify-center p-5 sm:p-10 lg:p-12"
       >
-        <div className="mx-auto max-w-xl lg:max-w-lg">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <div className="mx-auto w-full max-w-xl lg:max-w-none">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:gap-y-6 sm:grid-cols-2">
             <Field
               name="name"
               validators={{
@@ -164,10 +157,11 @@ export default function Form() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         type="text"
-                        className={`block w-full rounded-md border-0 bg-neutral-900/25 px-3.5 py-2 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 ${
+                        autoComplete="name"
+                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 transition-all duration-300 ${
                           hasError
-                            ? "ring-2 ring-red-500 focus:ring-red-500"
-                            : "ring-1 ring-white/50 ring-inset focus:ring-2 focus:ring-blue-600 focus:ring-inset"
+                            ? "ring-2 ring-red-500 focus:ring-red-500 bg-red-950/20"
+                            : "ring-1 ring-white/10 ring-inset focus:ring-2 focus:ring-emerald-500/50 focus:bg-white/5"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -211,10 +205,11 @@ export default function Form() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         type="email"
-                        className={`block w-full rounded-md border-0 bg-neutral-900/25 px-3.5 py-2 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 ${
+                        autoComplete="email"
+                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 transition-all duration-300 ${
                           hasError
-                            ? "ring-2 ring-red-500 focus:ring-red-500"
-                            : "ring-1 ring-white/50 ring-inset focus:ring-2 focus:ring-blue-600 focus:ring-inset"
+                            ? "ring-2 ring-red-500 focus:ring-red-500 bg-red-950/20"
+                            : "ring-1 ring-white/10 ring-inset focus:ring-2 focus:ring-emerald-500/50 focus:bg-white/5"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -258,10 +253,10 @@ export default function Form() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         rows={4}
-                        className={`block w-full rounded-md border-0 bg-neutral-900/25 px-3.5 py-2 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 ${
+                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 transition-all duration-300 resize-none ${
                           hasError
-                            ? "ring-2 ring-red-500 focus:ring-red-500"
-                            : "ring-1 ring-white/50 ring-inset focus:ring-2 focus:ring-blue-600 focus:ring-inset"
+                            ? "ring-2 ring-red-500 focus:ring-red-500 bg-red-950/20"
+                            : "ring-1 ring-white/10 ring-inset focus:ring-2 focus:ring-emerald-500/50 focus:bg-white/5"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -296,31 +291,24 @@ export default function Form() {
                   const loading = isSubmitting || isPending;
                   return (
                     <>
-                      <div
-                        className={
-                          loading
-                            ? "hidden"
-                            : "absolute -inset-1 rounded-lg bg-blue-500 py-2 opacity-45 blur-md group-hover:translate-x-1 group-hover:bg-green-500"
-                        }
-                      />
                       <button
                         type="submit"
                         disabled={!canSubmit || loading}
-                        className={`relative rounded-lg border-2 px-3 py-2 text-xl font-bold ${
+                        className={`relative w-full sm:w-auto overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-all duration-300 ${
                           loading || !canSubmit
-                            ? "border-neutral-950 bg-white/75 text-neutral-950 hover:bg-white/50"
-                            : "border-blue-500 bg-neutral-950 text-blue-100 group-hover:translate-x-1 group-hover:border-green-500 group-hover:text-green-100"
+                            ? "bg-neutral-900 text-white/40 cursor-not-allowed border border-white/5"
+                            : "bg-neutral-900 text-white border border-white/10 hover:border-emerald-500/50 hover:bg-white/5 shadow-lg hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:-translate-y-0.5"
                         }`}
                       >
                         {loading ? (
-                          <div className="flex items-center gap-x-2">
-                            <Loader2 className="size-6 animate-spin" />
-                            Sending
+                          <div className="flex items-center justify-center gap-x-2">
+                            <Loader2 className="size-5 animate-spin" />
+                            Sending...
                           </div>
                         ) : (
-                          <div className="flex items-center gap-x-2">
-                            <Send className="size-4" />
-                            Send
+                          <div className="flex items-center justify-center gap-x-2">
+                            <Send className="size-5" />
+                            Send Message
                           </div>
                         )}
                       </button>

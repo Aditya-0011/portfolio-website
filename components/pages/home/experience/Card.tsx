@@ -14,8 +14,9 @@ interface Props {
 
 export default function Card({ experience, compact }: Props) {
   return (
-    <div className="flex flex-col justify-between rounded-xl border border-white/5 bg-[#131315]/80 p-6 text-pretty shadow-lg transition-colors hover:bg-[#1a1a1d]">
-      <div>
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-white/5 bg-neutral-900/40 backdrop-blur-xl p-6 text-pretty shadow-lg transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] hover:-translate-y-1 overflow-hidden">
+      <div className="absolute inset-0 bg-linear-to-br from-white/5 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="relative z-10">
         <div className="flex items-start justify-between">
           <h2 className="flex-1 pr-4 text-xl font-bold tracking-tight text-white">
             {experience.company.split(",")[0]}
@@ -36,7 +37,7 @@ export default function Card({ experience, compact }: Props) {
         <div className="mt-3 border-b border-red-600/70"></div>
       </div>
 
-      <div className="mt-5 flex flex-col gap-y-8">
+      <div className="relative z-10 mt-5 flex flex-col gap-y-8">
         {experience.positions.map((position, idx) => (
           <div key={idx} className="relative">
             <div className="flex items-start justify-between">
@@ -72,7 +73,7 @@ export default function Card({ experience, compact }: Props) {
                       <Link
                         href={href!}
                         target="_blank"
-                        className="font-bold underline decoration-emerald-500 underline-offset-2 hover:text-emerald-500 hover:no-underline hover:decoration-white"
+                        className="font-semibold text-emerald-400 underline decoration-transparent hover:decoration-emerald-400 hover:text-emerald-300 transition-all duration-300"
                       >
                         {children}
                       </Link>
@@ -97,7 +98,7 @@ export default function Card({ experience, compact }: Props) {
                     <li key={project._id}>
                       <Link
                         href={`/projects/#${project._id}`}
-                        className="inline-flex items-center rounded bg-white/5 px-2.5 py-1 text-xs font-medium whitespace-nowrap text-white/80 ring-1 ring-white/10 transition-colors duration-200 hover:bg-blue-500/10 hover:text-blue-400 hover:ring-blue-500/50"
+                        className="inline-flex items-center rounded-md bg-white/5 px-2.5 py-1 text-xs font-medium whitespace-nowrap text-white/80 border border-white/10 transition-colors duration-200 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/50"
                       >
                         {project.name}
                       </Link>
@@ -114,7 +115,7 @@ export default function Card({ experience, compact }: Props) {
         ))}
       </div>
 
-      <div className="mt-6 border-t border-white/10 pt-4">
+      <div className="relative z-10 mt-6 border-t border-white/10 pt-4">
         <span className="text-sm font-medium text-emerald-400">
           Technologies:
         </span>
@@ -128,12 +129,12 @@ export default function Card({ experience, compact }: Props) {
                 key={technology._id}
                 className="relative h-8 w-8 transition-transform duration-200 hover:scale-110"
               >
-                <div className="group inline-block h-full w-full" tabIndex={0}>
+                <div className="group/tech inline-block h-full w-full rounded-md bg-white/5 p-1 border border-white/5 hover:border-emerald-500/50 transition-colors duration-300 cursor-pointer" tabIndex={0}>
                   <TechnologyIcon
                     technology={technology}
                     className="h-full w-full object-contain"
                   />
-                  <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md bg-transparent p-1 text-left text-sm wrap-break-word whitespace-pre-line text-white opacity-100 shadow-lg ring-2 ring-sky-500 backdrop-blur-md group-hover:inline-block group-focus:inline-block sm:text-center md:w-max">
+                  <span className="pointer-events-none absolute -top-10 left-1/2 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border border-white/10 bg-neutral-800/90 backdrop-blur-md px-2 py-1 text-center text-xs font-semibold text-emerald-300 opacity-0 transition-opacity duration-300 group-hover/tech:inline-block group-focus/tech:inline-block group-hover/tech:opacity-100 group-focus/tech:opacity-100 shadow-xl z-20">
                     {technology.name}
                   </span>
                 </div>

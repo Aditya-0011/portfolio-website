@@ -44,14 +44,14 @@ const navigation = [
 
 export default function Footer() {
   return (
-    <footer className="border-t-2 border-red-600 bg-neutral-950">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex justify-center space-x-6 md:order-3">
+    <footer className="relative border-t border-red-500/30 bg-neutral-950/70 backdrop-blur-xl overflow-hidden z-20">
+      <div className="mx-auto max-w-7xl px-6 py-12 flex flex-col md:flex-row md:items-center md:justify-between lg:px-8">
+        <div className="flex justify-center gap-6 md:order-3">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-white hover:-translate-y-1"
+              className="text-white/60 transition-all duration-300 hover:text-emerald-400 hover:-translate-y-1 hover:scale-110"
               target="_blank"
             >
               <span className="sr-only">{item.name}</span>
@@ -60,8 +60,8 @@ export default function Footer() {
           ))}
         </div>
         <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-center text-base leading-5 text-white">
-            &copy; Aditya Punmiya
+          <p className="text-center text-base leading-5 text-white/50">
+            &copy; {new Date().getFullYear()} <span className="text-white/80 font-medium">Aditya Punmiya</span>
           </p>
         </div>
       </div>

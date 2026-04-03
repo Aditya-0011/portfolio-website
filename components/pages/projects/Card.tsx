@@ -16,43 +16,60 @@ export default function Card({ project }: Props) {
   return (
     <li
       id={project._id}
-      className="mb-6 break-inside-avoid rounded-lg bg-neutral-800/50 p-5 hover:bg-neutral-800/75"
+      className="group relative mb-6 break-inside-avoid overflow-hidden rounded-2xl border border-white/5 bg-neutral-900/40 p-5 shadow-lg backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]"
     >
-      <Image
-        alt={project.name}
-        src={project.imageUrl}
-        width={600}
-        height={400}
-        className="aspect-3/2 rounded-lg object-contain"
-        priority
-        unoptimized={project.imageUrl.endsWith(".gif")}
-      />
-      <div className="mt-6 flex max-w-7xl items-center justify-between border-b-2 border-red-500">
-        <div className="text-lg leading-8 font-semibold tracking-tight text-white">
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+      <div className="relative aspect-3/2 overflow-hidden rounded-xl border border-white/5 bg-neutral-950/50 transition-colors duration-500 group-hover:border-emerald-500/20">
+        <Image
+          alt={project.name}
+          src={project.imageUrl}
+          width={600}
+          height={400}
+          className="h-full w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+          priority
+          unoptimized={project.imageUrl.endsWith(".gif")}
+        />
+      </div>
+
+      <div className="relative z-10 mt-6 flex max-w-7xl items-center justify-between border-b border-red-500/30 pb-3">
+        <div className="text-xl leading-8 font-bold tracking-tight text-white/90 transition-colors duration-300 group-hover:text-emerald-400">
           {project.name}
         </div>
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between gap-3">
           <Link
             target="_blank"
             href={project?.projectUrl ?? ""}
-            className={project.projectUrl ? "text-white" : "hidden"}
+            className={
+              project.projectUrl
+                ? "text-white/70 transition-transform duration-300 hover:scale-110 hover:text-white"
+                : "hidden"
+            }
           >
-            <Globe className="-mt-0.5 h-6 w-6" />
+            <Globe className="h-6 w-6" />
           </Link>
           <Link
             target="_blank"
             href={project?.githubUrl ?? ""}
-            className={project.githubUrl ? "ml-1 text-white" : "hidden"}
+            className={
+              project.githubUrl
+                ? "ml-1 text-white/70 transition-transform duration-300 hover:scale-110 hover:text-white"
+                : "hidden"
+            }
           >
-            <Github className="-mt-0.5 h-6 w-6" />
+            <Github className="h-6 w-6" />
           </Link>
         </div>
       </div>
-      <div className="prose prose-invert prose-emerald mt-2 max-w-none text-base leading-7 text-emerald-300">
+
+      <div className="prose prose-invert prose-emerald relative z-10 mt-4 max-w-none text-base leading-relaxed text-white/70 transition-colors duration-300 group-hover:text-white/80">
         <ReactMarkdown
           components={{
             ul: ({ className, ...props }) => (
-              <ul className={`list-disc pl-4 ${className ?? ""}`} {...props} />
+              <ul
+                className={`list-disc pl-4 marker:text-emerald-500 ${className ?? ""}`}
+                {...props}
+              />
             ),
             ol: ({ className, ...props }) => (
               <ol
@@ -64,7 +81,7 @@ export default function Card({ project }: Props) {
               <Link
                 href={href!}
                 target="_blank"
-                className="font-bold text-white underline decoration-white underline-offset-2 hover:decoration-emerald-500"
+                className="font-semibold text-emerald-400 underline decoration-transparent transition-all duration-300 hover:text-emerald-300 hover:decoration-emerald-400"
               >
                 {children}
               </Link>
@@ -74,21 +91,25 @@ export default function Card({ project }: Props) {
           {project.description}
         </ReactMarkdown>
       </div>
+
       <ul
         role="list"
-        className="mt-4 flex flex-wrap items-center justify-evenly gap-4"
+        className="relative z-10 mt-6 flex flex-wrap items-center gap-3"
       >
         {project.technologies?.map((technology) => (
           <li
             key={technology._id}
-            className="relative h-8 w-8 transition-transform duration-200 hover:scale-110"
+            className="group/tech relative h-10 w-10 cursor-pointer transition-transform duration-300 hover:scale-110"
           >
-            <div className="group inline-block h-full w-full" tabIndex={0}>
+            <div
+              className="h-full w-full rounded-md border border-white/5 bg-white/5 p-1.5 transition-colors duration-300 group-hover/tech:border-emerald-500/50"
+              tabIndex={0}
+            >
               <TechnologyIcon
                 technology={technology}
                 className="h-full w-full object-contain"
               />
-              <span className="absolute bottom-full left-1/2 mb-1 hidden w-fit -translate-x-1/2 transform rounded-md border-2 border-sky-500 bg-transparent p-1 text-left text-sm wrap-break-word whitespace-pre-line text-white opacity-100 shadow-lg backdrop-blur-md group-hover:inline-block group-focus:inline-block sm:text-center md:w-max">
+              <span className="pointer-events-none absolute -top-10 left-1/2 z-20 mb-1 w-max -translate-x-1/2 transform rounded-md bg-neutral-800/90 px-2 py-1 text-xs font-semibold text-emerald-300 opacity-0 shadow-xl ring ring-emerald-400/50 backdrop-blur-md transition-opacity duration-300 group-hover/tech:opacity-100">
                 {technology.name}
               </span>
             </div>

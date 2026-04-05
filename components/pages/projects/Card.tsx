@@ -109,7 +109,7 @@ export default function Card({ project }: Props) {
                 technology={technology}
                 className="h-full w-full object-contain"
               />
-              <span className="pointer-events-none absolute -top-10 left-1/2 z-20 mb-1 w-max -translate-x-1/2 transform rounded-md bg-neutral-800/90 px-2 py-1 text-xs font-semibold text-emerald-300 opacity-0 shadow-xl ring ring-emerald-400/50 backdrop-blur-md transition-opacity duration-300 group-hover/tech:opacity-100">
+              <span className="pointer-events-none absolute -top-10 left-1/2 z-20 mb-1 w-max -translate-x-1/2 transform rounded-md bg-neutral-800/90 px-2 py-1 text-xs font-semibold text-emerald-300 opacity-0 shadow-xl ring ring-emerald-400/50 backdrop-blur-md transition-opacity duration-300 group-hover/tech:opacity-100 group-focus-within/tech:opacity-100 group-active/tech:opacity-100">
                 {technology.name}
               </span>
             </div>

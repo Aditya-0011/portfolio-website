@@ -31,9 +31,25 @@ export const metadata: Metadata = {
 
 export default async function Resume() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center bg-neutral-950 px-4">
-      <div className="mx-auto max-w-2xl rounded-lg p-8 text-center">
-        <span className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden pt-24 pb-12">
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-150 w-full max-w-200 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />
+
+      <div className="relative z-10 w-full max-w-md px-4 text-center">
+        <div className="flex flex-col items-center justify-center gap-8 rounded-2xl border border-white/5 bg-neutral-900/40 p-10 shadow-2xl backdrop-blur-xl">
+          <div className="relative flex h-16 w-16 items-center justify-center">
+            <span className="absolute inset-0 block h-full w-full animate-spin rounded-full border-[3px] border-emerald-500/20 border-t-emerald-500" />
+            <span className="absolute inset-0 block h-full w-full animate-[ping_2.5s_ease-in-out_infinite] rounded-full border border-emerald-400 opacity-20" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-xl font-bold tracking-tight text-white">
+              Opening Resume
+            </h1>
+            <p className="animate-pulse text-sm font-medium text-white/50">
+              Redirecting you to the PDF document...
+            </p>
+          </div>
+        </div>
+
         <Script id="resume-redirect" strategy="beforeInteractive">
           {`
           if (window.clarity) {

@@ -11,11 +11,12 @@ import {
   useStore,
 } from "@tanstack/react-form-nextjs";
 import { toast } from "sonner";
-import { Mail, Github, Linkedin, Loader2, Send } from "lucide-react";
+import { Mail, Loader2, Send } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 
 import { messageFormOptions, MessageSchema } from "@/lib/objects";
 import { AddMessage } from "@/actions/message";
+import { Github, Linkedin } from "@/lib/brand-icons";
 
 export default function Form() {
   const [state, action, isPending] = useActionState(
@@ -68,8 +69,8 @@ export default function Form() {
   }, [state, formErrors, reset]);
 
   return (
-    <div className="mx-auto grid w-full grid-cols-1 gap-4 sm:gap-8 rounded-2xl bg-neutral-900/40 p-2 sm:p-4 lg:grid-cols-2 backdrop-blur-xl border border-white/5 shadow-2xl">
-      <div className="relative rounded-2xl bg-neutral-950/40 p-5 sm:p-12 border border-white/5 flex flex-col justify-center">
+    <div className="mx-auto grid w-full grid-cols-1 gap-4 rounded-2xl border border-white/5 bg-neutral-900/40 p-2 shadow-2xl backdrop-blur-xl sm:gap-8 sm:p-4 lg:grid-cols-2">
+      <div className="relative flex flex-col justify-center rounded-2xl border border-white/5 bg-neutral-950/40 p-5 sm:p-12">
         <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
           <h1 className="text-3xl font-bold tracking-tight text-white">
             Get in touch
@@ -81,40 +82,58 @@ export default function Form() {
             message directly.
           </p>
           <dl className="mt-10 space-y-4 text-base leading-7 text-gray-600">
-            <div className="group/link relative flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-emerald-500/30 transition-all duration-300 hover:scale-[1.02]">
-              <Link href="mailto:adityapunmiya@gmail.com" target="_blank" className="absolute inset-0 z-10"><span className="sr-only">Email adityapunmiya@gmail.com</span></Link>
-              <dt className="flex-none flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-neutral-900 border border-white/5 group-hover/link:border-emerald-500/50 transition-colors duration-300">
+            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500/30">
+              <Link
+                href="mailto:adityapunmiya@gmail.com"
+                target="_blank"
+                className="absolute inset-0 z-10"
+              >
+                <span className="sr-only">Email adityapunmiya@gmail.com</span>
+              </Link>
+              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-300 group-hover/link:border-emerald-500/50 sm:h-12 sm:w-12">
                 <span className="sr-only">Email</span>
-                <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400" />
+                <Mail className="h-5 w-5 text-emerald-400 sm:h-6 sm:w-6" />
               </dt>
               <dd className="ml-4 min-w-0">
-                <div className="text-white font-medium text-sm sm:text-base truncate group-hover/link:text-emerald-300 transition-colors">
+                <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-emerald-300 sm:text-base">
                   adityapunmiya@gmail.com
                 </div>
               </dd>
             </div>
-            
-            <div className="group/link relative flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-blue-500/30 transition-all duration-300 hover:scale-[1.02]">
-              <Link href="https://github.com/Aditya-0011" target="_blank" className="absolute inset-0 z-10"><span className="sr-only">Visit Github profile</span></Link>
-              <dt className="flex-none flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-neutral-900 border border-white/5 group-hover/link:border-blue-500/50 transition-colors duration-300">
+
+            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-all duration-300 hover:scale-[1.02] hover:border-blue-500/30">
+              <Link
+                href="https://github.com/Aditya-0011"
+                target="_blank"
+                className="absolute inset-0 z-10"
+              >
+                <span className="sr-only">Visit Github profile</span>
+              </Link>
+              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-300 group-hover/link:border-blue-500/50 sm:h-12 sm:w-12">
                 <span className="sr-only">Github</span>
-                <Github className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
+                <Github className="h-5 w-5 text-blue-400 sm:h-6 sm:w-6" />
               </dt>
               <dd className="ml-4 min-w-0">
-                <div className="text-white font-medium text-sm sm:text-base truncate group-hover/link:text-blue-300 transition-colors">
+                <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-blue-300 sm:text-base">
                   Aditya-0011
                 </div>
               </dd>
             </div>
-            
-            <div className="group/link relative flex items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-sky-500/30 transition-all duration-300 hover:scale-[1.02]">
-              <Link href="https://www.linkedin.com/in/aditya-punmiya/" target="_blank" className="absolute inset-0 z-10"><span className="sr-only">Visit Linkedin profile</span></Link>
-              <dt className="flex-none flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-neutral-900 border border-white/5 group-hover/link:border-sky-500/50 transition-colors duration-300">
+
+            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30">
+              <Link
+                href="https://www.linkedin.com/in/aditya-punmiya/"
+                target="_blank"
+                className="absolute inset-0 z-10"
+              >
+                <span className="sr-only">Visit Linkedin profile</span>
+              </Link>
+              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-300 group-hover/link:border-sky-500/50 sm:h-12 sm:w-12">
                 <span className="sr-only">Linkedin</span>
-                <Linkedin className="h-5 w-5 sm:h-6 sm:w-6 text-sky-400" />
+                <Linkedin className="h-5 w-5 text-sky-400 sm:h-6 sm:w-6" />
               </dt>
               <dd className="ml-4 min-w-0">
-                <div className="text-white font-medium text-sm sm:text-base truncate group-hover/link:text-sky-300 transition-colors">
+                <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-sky-300 sm:text-base">
                   aditya-punmiya
                 </div>
               </dd>
@@ -129,7 +148,7 @@ export default function Form() {
         className="flex flex-col justify-center p-5 sm:p-10 lg:p-12"
       >
         <div className="mx-auto w-full max-w-xl lg:max-w-none">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:gap-y-6 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 sm:gap-y-6">
             <Field
               name="name"
               validators={{
@@ -158,10 +177,10 @@ export default function Form() {
                         onChange={(e) => field.handleChange(e.target.value)}
                         type="text"
                         autoComplete="name"
-                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 transition-all duration-300 ${
+                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-all duration-300 sm:text-sm sm:leading-6 ${
                           hasError
-                            ? "ring-2 ring-red-500 focus:ring-red-500 bg-red-950/20"
-                            : "ring-1 ring-white/10 ring-inset focus:ring-2 focus:ring-emerald-500/50 focus:bg-white/5"
+                            ? "bg-red-950/20 ring-2 ring-red-500 focus:ring-red-500"
+                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus:ring-2 focus:ring-emerald-500/50"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -206,10 +225,10 @@ export default function Form() {
                         onChange={(e) => field.handleChange(e.target.value)}
                         type="email"
                         autoComplete="email"
-                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 transition-all duration-300 ${
+                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-all duration-300 sm:text-sm sm:leading-6 ${
                           hasError
-                            ? "ring-2 ring-red-500 focus:ring-red-500 bg-red-950/20"
-                            : "ring-1 ring-white/10 ring-inset focus:ring-2 focus:ring-emerald-500/50 focus:bg-white/5"
+                            ? "bg-red-950/20 ring-2 ring-red-500 focus:ring-red-500"
+                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus:ring-2 focus:ring-emerald-500/50"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -253,10 +272,10 @@ export default function Form() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         rows={4}
-                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden sm:text-sm sm:leading-6 transition-all duration-300 resize-none ${
+                        className={`block w-full resize-none rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-all duration-300 sm:text-sm sm:leading-6 ${
                           hasError
-                            ? "ring-2 ring-red-500 focus:ring-red-500 bg-red-950/20"
-                            : "ring-1 ring-white/10 ring-inset focus:ring-2 focus:ring-emerald-500/50 focus:bg-white/5"
+                            ? "bg-red-950/20 ring-2 ring-red-500 focus:ring-red-500"
+                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus:ring-2 focus:ring-emerald-500/50"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -294,10 +313,10 @@ export default function Form() {
                       <button
                         type="submit"
                         disabled={!canSubmit || loading}
-                        className={`relative w-full sm:w-auto overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-all duration-300 ${
+                        className={`relative w-full overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-all duration-300 sm:w-auto ${
                           loading || !canSubmit
-                            ? "bg-neutral-900 text-white/40 cursor-not-allowed border border-white/5"
-                            : "bg-neutral-900 text-white border border-white/10 hover:border-emerald-500/50 hover:bg-white/5 shadow-lg hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:-translate-y-0.5"
+                            ? "cursor-not-allowed border border-white/5 bg-neutral-900 text-white/40"
+                            : "border border-white/10 bg-neutral-900 text-white shadow-lg hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]"
                         }`}
                       >
                         {loading ? (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { type TechnologySummary } from "@/lib/objects";
@@ -19,6 +19,17 @@ export default function TechnologyIcon({
   width,
 }: Props) {
   const [imgError, setImgError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (loaded || imgError) return;
+
+    const timer = setTimeout(() => {
+      setImgError(true);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, [loaded, imgError]);
 
   const currentSrc = imgError
     ? technology.fallbackImageUrl
@@ -32,6 +43,7 @@ export default function TechnologyIcon({
       className={className}
       alt={technology.name}
       onError={() => setImgError(true)}
+      onLoad={() => setLoaded(true)}
       priority
     />
   );

@@ -20,7 +20,7 @@ export default function Navbar() {
               <span>{name}</span>
             </div>
           </div>
-          <div className="flex flex-1 items-center justify-center gap-3 sm:gap-8 px-2.5 sm:justify-end">
+          <div className="flex flex-1 items-center justify-center gap-3 px-2.5 sm:justify-end sm:gap-8">
             <div
               className={`group relative ${pathname === "/" && "sm:hidden"}`}
             >

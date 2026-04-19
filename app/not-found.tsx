@@ -21,7 +21,7 @@ export default async function NotFound() {
     isError = true;
   }
 
-  if (!isError || !data) {
+  if (isError || !data) {
     return (
       <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12">
         <div className="pointer-events-none absolute top-1/2 left-1/2 h-150 w-full max-w-200 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/10 blur-[120px]" />

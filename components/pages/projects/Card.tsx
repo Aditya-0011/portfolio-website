@@ -19,7 +19,7 @@ export default function Card({ project }: Props) {
       id={project._id}
       className="group relative mb-6 break-inside-avoid overflow-hidden rounded-2xl border border-white/5 bg-neutral-900/40 p-5 shadow-lg backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]"
     >
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
       <div className="relative aspect-3/2 overflow-hidden rounded-xl border border-white/5 bg-neutral-950/50 transition-colors duration-500 group-hover:border-emerald-500/20">
         <Image

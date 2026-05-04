@@ -82,7 +82,7 @@ export default function Card({ project }: Props) {
               <Link
                 href={href!}
                 target="_blank"
-                className="font-semibold text-emerald-400 underline decoration-transparent transition-all duration-300 hover:text-emerald-300 hover:decoration-emerald-400"
+                className="relative font-semibold text-white no-underline transition-colors duration-300 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-0 before:bg-emerald-400 before:transition-all before:duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-emerald-400 hover:before:w-full"
               >
                 {children}
               </Link>

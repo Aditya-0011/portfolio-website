@@ -10,6 +10,7 @@ export async function GetTechnologies(): Promise<Technology[]> {
       { category: { $ne: TechnologyCategory.None } },
       { projection: { updatedAt: 0 } },
     )
+    .collation({ locale: "en", strength: 2 })
     .sort({ name: 1 })
     .toArray();
   return data.map((technology) => ({

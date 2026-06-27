@@ -5,10 +5,15 @@ import {
   createServerValidate,
 } from "@tanstack/react-form-nextjs";
 
-import { mongo } from "@/lib/mongo";
+import { env } from "@/lib/env";
+
 import { mail } from "@/lib/mail";
 
-import { MessageSchema, messageFormOptions } from "@/lib/objects";
+import {
+  MessageSchema,
+  messageFormOptions,
+  type SimpleResponse,
+} from "@/lib/objects";
 
 const validate = createServerValidate({
   ...messageFormOptions,
@@ -39,7 +44,7 @@ export async function AddMessage(prev: unknown, formData: FormData) {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `secret=${process.env.TURNSTILE_SECRET_KEY}&response=${turnstileResponse}`,
+        body: `secret=${env.TURNSTILE_SECRET_KEY}&response=${turnstileResponse}`,
       },
     );
 
@@ -51,45 +56,24 @@ export async function AddMessage(prev: unknown, formData: FormData) {
 
     const data = await validate(formData);
 
-    const collection = mongo.message();
-    const messages = await collection.findOne(
-      {
-        email: data.email,
+    const response = await fetch(`${env.MANAGER_BACKEND_URL}/message/add`, {
+      method: "POST",
+      headers: {
+        "X-API-KEY": env.API_KEY,
       },
-      { projection: { count: 1, message: 1 } },
-    );
+      body: JSON.stringify(data),
+    });
 
-    if (messages) {
-      if (messages.count && messages.count >= 3) {
-        return {
-          status: 400,
-          message: ["You have reached the limit of messages"],
-        };
-      } else {
-        await collection.updateOne(
-          { email: data.email },
-          {
-            $inc: { count: 1 },
-            $push: { messages: data.message },
-          },
-        );
-
-        await mail.send(data);
-
-        return { status: 200, message: ["Message added successfully"] };
-      }
-    } else {
-      await collection.insertOne({
-        name: data.name,
-        email: data.email,
-        messages: [data.message],
-        count: 1,
-      });
-
-      await mail.send(data);
-
-      return { status: 200, message: ["Message sent successfully"] };
+    if (!response.ok) {
+      const error = await response.text();
+      return { status: response.status, message: [error] };
     }
+
+    await mail.send(data);
+
+    const { message }: SimpleResponse = await response.json();
+
+    return { status: 200, message: [message] };
   } catch (e) {
     if (e instanceof ServerValidateError) {
       return e.formState;

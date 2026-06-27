@@ -1,9 +1,10 @@
 import { GetExperiences } from "@/data/experiences";
 
 import Timeline from "@/components/pages/home/experience/Timeline";
+import { Suspense } from "react";
 
 export default async function Grid() {
-  const experiences = await GetExperiences();
+  const { experiences } = await GetExperiences();
 
   return (
     <div className="py-8 sm:py-16" id="experience">
@@ -16,7 +17,9 @@ export default async function Grid() {
             Here&apos;s my professional journey so far.
           </p>
         </div>
-        <Timeline experiences={experiences} />
+        <Suspense>
+          <Timeline experiences={experiences} />
+        </Suspense>
       </div>
     </div>
   );

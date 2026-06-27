@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 import {
@@ -8,7 +8,6 @@ import {
   mergeForm,
   useForm,
   useTransform,
-  useStore,
 } from "@tanstack/react-form-nextjs";
 import { toast } from "sonner";
 import { Mail, Loader2, Send } from "lucide-react";
@@ -19,29 +18,30 @@ import { AddMessage } from "@/actions/message";
 import { Github, Linkedin } from "@/lib/brand-icons";
 
 export default function Form() {
+  const resetRef = useRef<() => void>(null);
+
   const [state, action, isPending] = useActionState(
-    AddMessage,
+    async (prevState: unknown, formData: FormData) => {
+      const res = await AddMessage(prevState, formData);
+      if (res && typeof res === "object" && "status" in res) {
+        if (res.status !== 200) {
+          res.message.forEach((msg: string) =>
+            toast.error(msg, { duration: 3000 }),
+          );
+        } else {
+          toast.success(res.message[0], { duration: 3000 });
+          resetRef.current?.();
+        }
+      }
+      return res;
+    },
     initialFormState,
   );
 
-  const { Field, Subscribe, handleSubmit, reset, store } = useForm({
+  const { Field, Subscribe, handleSubmit, reset } = useForm({
     ...messageFormOptions,
-    transform: useTransform(
-      (baseForm) => {
-        if (state && typeof state === "object" && !("status" in state)) {
-          return mergeForm(baseForm, state as Parameters<typeof mergeForm>[1]);
-        }
-        return baseForm;
-      },
-      [state],
-    ),
-  });
-
-  const formErrors = useStore(store, (formState) => formState.errors);
-
-  useEffect(() => {
-    if (formErrors.length > 0) {
-      formErrors.forEach((error) => {
+    onSubmitInvalid: ({ formApi }) => {
+      formApi.state.errors.forEach((error) => {
         let msg: unknown;
         if (typeof error === "string") {
           msg = error;
@@ -54,19 +54,22 @@ export default function Form() {
         }
         if (typeof msg === "string") toast.error(msg, { duration: 3000 });
       });
-    }
+    },
+    transform: useTransform(
+      (baseForm) => {
+        if (state && typeof state === "object" && !("status" in state)) {
+          return mergeForm(baseForm, state as Parameters<typeof mergeForm>[1]);
+        }
+        return baseForm;
+      },
+      [state],
+    ),
+  });
 
-    if (state && typeof state === "object" && "status" in state) {
-      if (state.status === 400) {
-        state.message.forEach((msg: string) =>
-          toast.error(msg, { duration: 3000 }),
-        );
-      } else if (state.status === 200) {
-        toast.success(state.message[0], { duration: 3000 });
-        reset();
-      }
-    }
-  }, [state, formErrors, reset]);
+  // Keep a fresh reference to reset
+  useEffect(() => {
+    resetRef.current = reset;
+  }, [reset]);
 
   return (
     <div className="mx-auto grid w-full grid-cols-1 gap-4 rounded-2xl border border-white/5 bg-neutral-900/40 p-2 shadow-2xl backdrop-blur-xl sm:gap-8 sm:p-4 lg:grid-cols-2">
@@ -82,7 +85,7 @@ export default function Form() {
             message directly.
           </p>
           <dl className="mt-10 space-y-4 text-base leading-7 text-gray-600">
-            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-all duration-300 hover:scale-[1.02] hover:border-emerald-500/30">
+            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-emerald-500/30">
               <Link
                 href="mailto:adityapunmiya@gmail.com"
                 target="_blank"
@@ -90,7 +93,7 @@ export default function Form() {
               >
                 <span className="sr-only">Email adityapunmiya@gmail.com</span>
               </Link>
-              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-300 group-hover/link:border-emerald-500/50 sm:h-12 sm:w-12">
+              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-emerald-500/50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:h-12 sm:w-12">
                 <span className="sr-only">Email</span>
                 <Mail className="h-5 w-5 text-emerald-400 sm:h-6 sm:w-6" />
               </dt>
@@ -101,7 +104,7 @@ export default function Form() {
               </dd>
             </div>
 
-            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-all duration-300 hover:scale-[1.02] hover:border-blue-500/30">
+            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-blue-500/30">
               <Link
                 href="https://github.com/Aditya-0011"
                 target="_blank"
@@ -109,7 +112,7 @@ export default function Form() {
               >
                 <span className="sr-only">Visit Github profile</span>
               </Link>
-              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-300 group-hover/link:border-blue-500/50 sm:h-12 sm:w-12">
+              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-blue-500/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none sm:h-12 sm:w-12">
                 <span className="sr-only">Github</span>
                 <Github className="h-5 w-5 text-blue-400 sm:h-6 sm:w-6" />
               </dt>
@@ -120,7 +123,7 @@ export default function Form() {
               </dd>
             </div>
 
-            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-all duration-300 hover:scale-[1.02] hover:border-sky-500/30">
+            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-sky-500/30">
               <Link
                 href="https://www.linkedin.com/in/aditya-punmiya/"
                 target="_blank"
@@ -128,7 +131,7 @@ export default function Form() {
               >
                 <span className="sr-only">Visit Linkedin profile</span>
               </Link>
-              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-300 group-hover/link:border-sky-500/50 sm:h-12 sm:w-12">
+              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-sky-500/50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none sm:h-12 sm:w-12">
                 <span className="sr-only">Linkedin</span>
                 <Linkedin className="h-5 w-5 text-sky-400 sm:h-6 sm:w-6" />
               </dt>
@@ -177,10 +180,11 @@ export default function Form() {
                         onChange={(e) => field.handleChange(e.target.value)}
                         type="text"
                         autoComplete="name"
-                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-all duration-300 sm:text-sm sm:leading-6 ${
+                        placeholder="Your name…"
+                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-[background-color,border-color,box-shadow] duration-200 focus-visible:outline-none sm:text-sm sm:leading-6 ${
                           hasError
-                            ? "bg-red-950/20 ring-2 ring-red-500 focus:ring-red-500"
-                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus:ring-2 focus:ring-emerald-500/50"
+                            ? "bg-red-950/20 ring-2 ring-red-500 focus-visible:ring-2 focus-visible:ring-red-500"
+                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus-visible:ring-2 focus-visible:ring-emerald-500/50"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -225,10 +229,12 @@ export default function Form() {
                         onChange={(e) => field.handleChange(e.target.value)}
                         type="email"
                         autoComplete="email"
-                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-all duration-300 sm:text-sm sm:leading-6 ${
+                        spellCheck={false}
+                        placeholder="you@example.com…"
+                        className={`block w-full rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-[background-color,border-color,box-shadow] duration-200 focus-visible:outline-none sm:text-sm sm:leading-6 ${
                           hasError
-                            ? "bg-red-950/20 ring-2 ring-red-500 focus:ring-red-500"
-                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus:ring-2 focus:ring-emerald-500/50"
+                            ? "bg-red-950/20 ring-2 ring-red-500 focus-visible:ring-2 focus-visible:ring-red-500"
+                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus-visible:ring-2 focus-visible:ring-emerald-500/50"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -272,10 +278,11 @@ export default function Form() {
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
                         rows={4}
-                        className={`block w-full resize-none rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-all duration-300 sm:text-sm sm:leading-6 ${
+                        placeholder="Write your message…"
+                        className={`block w-full resize-none rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-[background-color,border-color,box-shadow] duration-200 focus-visible:outline-none sm:text-sm sm:leading-6 ${
                           hasError
-                            ? "bg-red-950/20 ring-2 ring-red-500 focus:ring-red-500"
-                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus:ring-2 focus:ring-emerald-500/50"
+                            ? "bg-red-950/20 ring-2 ring-red-500 focus-visible:ring-2 focus-visible:ring-red-500"
+                            : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus-visible:ring-2 focus-visible:ring-emerald-500/50"
                         }`}
                       />
                       {field.state.meta.errors.map((error) => (
@@ -313,16 +320,16 @@ export default function Form() {
                       <button
                         type="submit"
                         disabled={!canSubmit || loading}
-                        className={`relative w-full overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-all duration-300 sm:w-auto ${
+                        className={`relative w-full overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-[transform,box-shadow,border-color,background-color] duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:w-auto ${
                           loading || !canSubmit
                             ? "cursor-not-allowed border border-white/5 bg-neutral-900 text-white/40"
-                            : "border border-white/10 bg-neutral-900 text-white shadow-lg hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]"
+                            : "border border-white/10 bg-neutral-900 text-white shadow-lg hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] active:scale-[0.97]"
                         }`}
                       >
                         {loading ? (
                           <div className="flex items-center justify-center gap-x-2">
                             <Loader2 className="size-5 animate-spin" />
-                            Sending...
+                            Sending…
                           </div>
                         ) : (
                           <div className="flex items-center justify-center gap-x-2">

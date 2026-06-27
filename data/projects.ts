@@ -1,7 +1,11 @@
 import "server-only";
 
-import { mongo } from "@/lib/mongo";
-import { type Project } from "@/lib/objects";
+import { cacheLife } from "next/cache";
+
+import { env } from "@/lib/env";
+import { collator } from "@/lib/utils";
+
+import { type ProjectsResponse } from "@/lib/objects";
 
 type Props = {
   Featured?: boolean;
@@ -9,23 +13,49 @@ type Props = {
 
 export async function GetProjects({
   Featured = false,
-}: Props): Promise<Project[]> {
-  const collection = mongo.project();
+}: Props): Promise<ProjectsResponse> {
+  "use cache";
+  cacheLife("default");
+  const response = await fetch(`${env.MANAGER_BACKEND_URL}/project/list`, {
+    method: "GET",
+    headers: {
+      "X-API-KEY": env.API_KEY,
+    },
+  });
 
-  const query = Featured ? { featured: true } : {};
+  if (response.status === 429) {
+    throw new Error("Rate limit reached. Retaining stale cache for projects.");
+  }
 
-  const data = await collection
-    .find(query, { projection: { updatedAt: 0 } })
-    .toArray();
+  if (!response.ok) {
+    const errText = await response.text();
+    // eslint-disable-next-line no-console
+    console.error(
+      "Fetch failed:",
+      response.status,
+      errText,
+      "URL:",
+      `${env.MANAGER_BACKEND_URL}/project/list`,
+      "API_KEY starts with:",
+      env.API_KEY.substring(0, 5),
+    );
+    throw new Error(`Failed to fetch projects: ${response.status} ${errText}`);
+  }
 
-  const projects = data.map((project) => ({
-    ...project,
-    _id: project._id.toString(),
-    technologies: project.technologies?.map((technology) => ({
-      ...technology,
-      _id: technology._id.toString(),
-    })),
-  }));
+  const { projects }: ProjectsResponse = await response.json();
+
+  if (Featured) {
+    return {
+      projects: projects
+        .filter((p) => p.featured)
+        .map((project) => ({
+          ...project,
+          technologies: project.technologies?.sort((a, b) =>
+            collator.compare(a.name, b.name),
+          ),
+        })),
+    };
+  }
 
   const githubIndex = projects.findIndex((p) => p.name === "My GitHub");
 
@@ -34,5 +64,12 @@ export async function GetProjects({
     projects.push(githubProject);
   }
 
-  return projects;
+  return {
+    projects: projects.map((project) => ({
+      ...project,
+      technologies: project.technologies?.sort((a, b) =>
+        collator.compare(a.name, b.name),
+      ),
+    })),
+  };
 }

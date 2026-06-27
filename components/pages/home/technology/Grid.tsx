@@ -4,7 +4,7 @@ import { TechnologyCategory } from "@/lib/objects";
 import Card from "@/components/pages/home/technology/Card";
 
 export default async function Grid() {
-  const technologies = await GetTechnologies();
+  const { technologies } = await GetTechnologies();
 
   const categories = Object.values(TechnologyCategory)
     .filter(

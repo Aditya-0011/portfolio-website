@@ -18,8 +18,8 @@ export default function Timeline({ experiences }: Props) {
     <>
       <div className="relative mt-8 border-l-2 border-blue-500/30 md:hidden">
         {experiences.map((experience) => (
-          <div key={experience._id} className="group mb-10 ml-6">
-            <div className="absolute -left-2.5 h-5 w-5 rounded-full border-4 border-neutral-950 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-all duration-500 group-hover:bg-emerald-500 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.8)]"></div>
+          <div key={experience.id} className="group mb-10 ml-6">
+            <div className="absolute -left-2.5 h-5 w-5 rounded-full border-4 border-neutral-950 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-[background-color,box-shadow] duration-200 ease-out group-hover:bg-emerald-500 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.8)]"></div>
             <div className="mb-2 ml-1 text-sm leading-none font-normal text-blue-300/80">
               {formatMonthYear(experience.start)}&nbsp;-&nbsp;
               {experience.end ? formatMonthYear(experience.end) : "Present"}
@@ -32,11 +32,11 @@ export default function Timeline({ experiences }: Props) {
         <div className="col-span-4 space-y-2">
           {experiences.map((experience, i) => (
             <button
-              key={experience._id}
-              className={`relative w-full overflow-hidden rounded-xl border p-4 text-left transition-all duration-300 ${
+              key={experience.id}
+              className={`relative w-full overflow-hidden rounded-xl border p-4 text-left transition-[border-color,background-color,transform] duration-300 ${
                 active === i
                   ? "scale-[1.02] border-emerald-500/50 bg-emerald-500/10 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
-                  : "border-white/5 bg-neutral-900/40 backdrop-blur-xl hover:border-emerald-500/30 hover:bg-white/5"
+                  : "border-white/5 bg-neutral-900/40 backdrop-blur-xl hover:border-emerald-500/30 hover:bg-white/5 active:scale-[0.97]"
               }`}
               onClick={() => setActive(i)}
               type="button"

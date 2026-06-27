@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  serverExternalPackages: ["mongodb"],
+  cacheComponents: true,
+  experimental: {
+    viewTransition: true,
+  },
   images: { remotePatterns: [{ hostname: "**" }], minimumCacheTTL: 2678400 },
   async headers() {
     return [

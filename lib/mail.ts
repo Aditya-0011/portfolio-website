@@ -32,6 +32,6 @@ class Mail {
 const globalForMail = globalThis as unknown as { mail: Mail | undefined };
 export const mail = globalForMail.mail ?? new Mail();
 
-if (process.env.ENV && process.env.ENV === "development") {
+if (env.ENV === "development") {
   globalForMail.mail = mail;
 }

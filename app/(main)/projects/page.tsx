@@ -2,8 +2,6 @@ import { Metadata } from "next";
 
 import Grid from "@/components/pages/projects/Grid";
 
-export const revalidate = 600;
-
 export const metadata: Metadata = {
   title: "Projects | Aditya Punmiya",
   description: "Projects by Aditya Punmiya",
@@ -32,14 +30,21 @@ export const metadata: Metadata = {
   },
 };
 
+import { GetProjects } from "@/data/projects";
+import { ViewTransition } from "react";
+
 export default async function Projects() {
+  const { projects } = await GetProjects({ Featured: false });
+
   return (
     <div className="relative min-h-screen bg-neutral-950">
-      <Grid
-        Heading={"Projects"}
-        Description={"Here's a list of projects I have worked/working on."}
-        Featured={false}
-      />
+      <ViewTransition name="project-grid" default="none" share="auto">
+        <Grid
+          Heading="Projects"
+          Description="Here's a list of projects I have worked/working on."
+          projects={projects}
+        />
+      </ViewTransition>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { JSX, SVGProps } from "react";
+import { cacheLife } from "next/cache";
 
 import Link from "next/link";
 
@@ -44,7 +45,9 @@ const navigation = [
   },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  "use cache";
+  cacheLife("max");
   return (
     <footer className="relative z-20 overflow-hidden border-t border-red-500/30 bg-neutral-950/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl flex-col px-6 py-12 md:flex-row md:items-center md:justify-between lg:px-8">
@@ -53,7 +56,7 @@ export default function Footer() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-white/60 transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:text-emerald-400"
+              className="text-white/60 transition-[transform,color] duration-300 hover:-translate-y-1 hover:scale-110 hover:text-emerald-400 active:scale-[0.97]"
               target="_blank"
             >
               <span className="sr-only">{item.name}</span>

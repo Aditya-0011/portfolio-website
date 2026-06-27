@@ -1,42 +1,48 @@
-# Aditya Punmiya's Portfolio
+# Portfolio website
 
-This is the source code for [adityapunmiya.com](https://adityapunmiya.com), a personal portfolio website built with Next.js, TypeScript, and Bun.
+The public portfolio frontend for the platform.
+
+## Overview
+
+This repository holds the source code for the public-facing personal portfolio website. It acts as the presentation layer, connecting to the platform's backend infrastructure to fetch profiles, experiences, projects, and technologies, while providing a responsive design.
 
 ## Features
 
-- Modern, responsive design
-- PWA support (installable on desktop and mobile)
-- Featured experience, projects and technology stack
-- SEO and social sharing optimized
+This section outlines the capabilities of the portfolio website.
 
-## Getting Started
+- **Responsive design**: Works on desktop and mobile devices.
+- **Installable app**: Supports Progressive Web App (PWA) standards for installation.
+- **Dynamic content**: Fetches and renders the featured experience, projects, and technology stack. It uses secure server-to-server API keys to communicate with the platform backend.
+- **Search Engine Optimization (SEO)**: Optimized for search engines and social sharing.
 
-1. **Install dependencies:**
-   ```sh
-   bun install
-   ```
-2. **Run the development server:**
-   ```sh
-   bun dev
-   ```
-3. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
+## Getting started
 
-## Build for Production
+This section explains how to run the portfolio website locally.
 
-```sh
+### Prerequisites
+
+- [Bun](https://bun.sh/) to manage dependencies and run scripts
+
+### Running locally
+
+Install dependencies and start the development server:
+
+```bash
+bun install
+bun run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build for production
+
+Compile the application into static assets for deployment:
+
+```bash
 bun run build
 bun start
 ```
 
-## Get the PMS
+## Management backend
 
-Interested in the [PMS](https://manager.adityapunmiya.com/) used to manage this portfolio? **[Contact me](mailto:adityapunmiya+crm@gmail.com)** for source code and deployment details.
-
-## Credits
-
-- Built by [Aditya Punmiya](https://adityapunmiya.com)
-- Use with credit. 😄
-
----
-
-Feel free to fork or contribute!
+The manager service manages the content displayed on this portfolio. Contact the author for source code and deployment details of the backend infrastructure.

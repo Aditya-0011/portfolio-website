@@ -14,19 +14,19 @@ interface Props {
 
 export default function Card({ experience, compact }: Props) {
   return (
-    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-neutral-900/40 p-6 text-pretty shadow-lg backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]">
-      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-white/5 bg-neutral-900/40 p-6 text-pretty shadow-lg backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
       <div className="relative z-10">
         <div className="flex items-start justify-between">
           <h2 className="flex-1 pr-4 text-xl font-bold tracking-tight text-white">
             {experience.company.split(",")[0]}
           </h2>
-          {!compact && (
+          {!compact ? (
             <div className="shrink-0 text-right text-sm font-medium text-white/60">
               {formatMonthYear(experience.start)}&nbsp;-&nbsp;
               {experience.end ? formatMonthYear(experience.end) : "Present"}
             </div>
-          )}
+          ) : null}
         </div>
         <div className="mt-1 flex flex-col justify-center text-sm text-white/60">
           <span>{experience.company.split(",")[1]?.trim()}</span>
@@ -73,14 +73,14 @@ export default function Card({ experience, compact }: Props) {
                       <Link
                         href={href!}
                         target="_blank"
-                        className="font-semibold text-emerald-400 underline decoration-transparent transition-all duration-300 hover:text-emerald-300 hover:decoration-emerald-400"
+                        className="font-semibold text-emerald-400 underline decoration-transparent transition-[color,text-decoration-color] duration-300 hover:text-emerald-300 hover:decoration-emerald-400"
                       >
                         {children}
                       </Link>
                     ),
                   }}
                 >
-                  {position.workDone}
+                  {position.work_done}
                 </ReactMarkdown>
               </div>
             </div>
@@ -95,9 +95,9 @@ export default function Card({ experience, compact }: Props) {
               >
                 {position.projects && position.projects.length > 0 ? (
                   position.projects.map((project) => (
-                    <li key={project._id}>
+                    <li key={project.id}>
                       <Link
-                        href={`/projects/#${project._id}`}
+                        href={`/projects/#${project.id}`}
                         className="inline-flex items-center rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium whitespace-nowrap text-white/80 transition-colors duration-200 hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400"
                       >
                         {project.name}
@@ -126,7 +126,7 @@ export default function Card({ experience, compact }: Props) {
           {experience.technologies && experience.technologies.length > 0 ? (
             experience.technologies.map((technology) => (
               <li
-                key={technology._id}
+                key={technology.id}
                 className="relative h-8 w-8 transition-transform duration-200 hover:scale-110"
               >
                 <div
@@ -137,7 +137,7 @@ export default function Card({ experience, compact }: Props) {
                     technology={technology}
                     className="h-full w-full object-contain"
                   />
-                  <span className="pointer-events-none absolute -top-10 left-1/2 z-20 mb-1 hidden w-max -translate-x-1/2 transform rounded-md border border-white/10 bg-neutral-800/90 px-2 py-1 text-center text-xs font-semibold text-emerald-300 opacity-0 shadow-xl backdrop-blur-md transition-opacity duration-300 group-hover/tech:inline-block group-hover/tech:opacity-100 group-focus/tech:inline-block group-focus/tech:opacity-100">
+                  <span className="pointer-events-none absolute -top-8 left-1/2 z-20 mb-1 w-max -translate-x-1/2 transform rounded-md bg-neutral-800/90 px-2 py-1 text-xs font-semibold text-emerald-300 opacity-0 shadow-xl ring ring-emerald-400/50 backdrop-blur-md transition-opacity duration-200 group-focus-within/tech:opacity-100 group-hover/tech:opacity-100 group-active/tech:opacity-100">
                     {technology.name}
                   </span>
                 </div>

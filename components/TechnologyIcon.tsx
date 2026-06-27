@@ -32,8 +32,8 @@ export default function TechnologyIcon({
   }, [loaded, imgError]);
 
   const currentSrc = imgError
-    ? technology.fallbackImageUrl
-    : technology.imageUrl;
+    ? technology.fallback_image_url
+    : technology.image_url;
 
   return (
     <Image
@@ -44,7 +44,6 @@ export default function TechnologyIcon({
       alt={technology.name}
       onError={() => setImgError(true)}
       onLoad={() => setLoaded(true)}
-      priority
     />
   );
 }

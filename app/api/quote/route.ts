@@ -7,10 +7,10 @@ const FALLBACK_QUOTE = [
 ];
 
 export async function GET(request: NextRequest) {
-  try {
-    const forwardedFor = request.headers.get("x-forwarded-for");
-    const ip = forwardedFor ? forwardedFor.split(",")[0] : "127.0.0.1";
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const ip = forwardedFor ? forwardedFor.split(",")[0] : "127.0.0.1";
 
+  try {
     const res = await fetch(`${env.MANAGER_BACKEND_URL}/random`, {
       cache: "no-store",
       headers: {

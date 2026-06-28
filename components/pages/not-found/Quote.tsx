@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-import { getQuote } from "@/actions/quote";
 import { Error as ErrorComponent } from "@/components/Error";
 
 export default function Quote() {
@@ -12,8 +11,15 @@ export default function Quote() {
   useEffect(() => {
     const fetchQuote = async () => {
       try {
-        const res = await getQuote();
-        setQuote(res);
+        const res = await fetch("/api/quote");
+        if (!res.ok) {
+          setLoading(false);
+          return;
+        }
+        const data = await res.json();
+        if (data.quote) {
+          setQuote(data.quote);
+        }
         setLoading(false);
       } catch {
         setLoading(false);

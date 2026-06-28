@@ -61,7 +61,7 @@ export default function Card({ project }: Props) {
         </div>
       </div>
 
-      <div className="prose prose-invert prose-emerald relative z-10 mt-4 max-w-none text-base leading-relaxed text-white/70 transition-colors duration-300 group-hover:text-white/80">
+      <div className="prose prose-invert prose-emerald prose-code:before:content-none prose-code:after:content-none prose-blockquote:font-normal prose-blockquote:not-italic relative z-10 mt-4 max-w-none text-base leading-relaxed text-white/70 transition-colors duration-300 group-hover:text-white/80 [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none">
         <ReactMarkdown
           components={{
             ul: ({ className, ...props }) => (
@@ -80,11 +80,26 @@ export default function Card({ project }: Props) {
               <Link
                 href={href!}
                 target="_blank"
-                className="relative rounded-sm font-semibold text-white no-underline transition-colors duration-200 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-0 before:bg-emerald-400 before:transition-[width] before:duration-200 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-emerald-400 hover:before:w-full focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
+                className="relative rounded-sm font-semibold text-white no-underline transition-colors duration-300 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-emerald-400 before:transition-transform before:duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-emerald-400 hover:before:scale-x-100 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none has-[code]:before:hidden has-[code]:after:hidden"
               >
                 {children}
               </Link>
             ),
+            code: ({ className, children, node, ...props }) => {
+              const isInline = !className?.includes("language-");
+              return isInline ? (
+                <code
+                  className="relative rounded-md bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] font-medium"
+                  {...props}
+                >
+                  {children}
+                </code>
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
           }}
         >
           {project.description}

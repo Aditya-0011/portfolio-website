@@ -55,7 +55,7 @@ export default async function Architecture() {
   return (
     <div className="relative overflow-hidden py-8 sm:py-16">
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <article className="prose prose-invert prose-rose prose-img:rounded-xl prose-img:shadow-2xl max-w-none text-base leading-relaxed text-pretty text-white/70">
+        <article className="prose prose-invert prose-rose prose-code:before:content-none prose-code:after:content-none prose-blockquote:font-normal prose-blockquote:not-italic prose-img:rounded-xl prose-img:shadow-2xl max-w-none text-base leading-relaxed text-pretty text-white/70 [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none">
           <ReactMarkdown
             components={{
               ul: ({ className, ...props }) => (
@@ -74,11 +74,26 @@ export default async function Architecture() {
                 <Link
                   href={href!}
                   target="_blank"
-                  className="relative rounded-sm font-semibold text-white no-underline transition-colors duration-200 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-0 before:bg-rose-400 before:transition-[width] before:duration-200 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-rose-400 hover:before:w-full focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none"
+                  className="relative rounded-sm font-semibold text-white no-underline transition-colors duration-300 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-full before:scale-x-0 before:origin-left before:bg-rose-400 before:transition-transform before:duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-rose-400 hover:before:scale-x-100 focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none has-[code]:before:hidden has-[code]:after:hidden"
                 >
                   {children}
                 </Link>
               ),
+              code: ({ className, children, node, ...props }) => {
+                const isInline = !className?.includes("language-");
+                return isInline ? (
+                  <code
+                    className="relative rounded-md bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] font-medium"
+                    {...props}
+                  >
+                    {children}
+                  </code>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
               img: ({ className, alt, src }) => (
                 <Image
                   alt={alt ?? "Architecture Diagram"}

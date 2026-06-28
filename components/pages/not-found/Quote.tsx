@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { getQuote } from "@/actions/quote";
 import { Error as ErrorComponent } from "@/components/Error";
 
-export function Quote() {
+export default function Quote() {
   const [quote, setQuote] = useState<string[] | null>(null);
   const [loading, setLoading] = useState(true);
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Home } from "lucide-react";
-import { Quote } from "@/components/pages/not-found/Quote";
+import Quote from "@/components/pages/not-found/Quote";
 import { BackButton } from "@/components/BackButton";
 
 export default function NotFound() {

@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
-import { ViewTransition } from "react";
+import { Suspense, ViewTransition } from "react";
 import Link from "next/link";
 
 import AboutMe from "@/components/pages/home/AboutMe";

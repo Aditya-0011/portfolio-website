@@ -58,21 +58,21 @@ This section explains how to run the portfolio website locally.
 
 Export these variables directly in your `.env` file:
 
-| Variable | Description | Required |
-| :--- | :--- | :---: |
-| `MANAGER_BACKEND_URL` | Base URL of the API Gateway / manager service | **Yes** |
-| `API_KEY` | Long-lived API key to authenticate with the API Gateway | **Yes** |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile public key | **Yes** |
-| `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret key | **Yes** |
-| `MAIL_HOST` | SMTP server host | **Yes** |
-| `MAIL_USER` | SMTP server user | **Yes** |
-| `MAIL_PASS` | SMTP server password | **Yes** |
-| `MAIL_FROM` | Email address to send contact form submissions from | **Yes** |
-| `MAIL_TO` | Email address to receive contact form submissions | **Yes** |
-| `ARCHITECTURE_URL` | URL to fetch the dynamic architecture README | No |
-| `CLARITY_KEY` | Microsoft Clarity analytics ID | **Yes** |
-| `G_TAG` | Google Analytics tag ID | **Yes** |
-| `ENV` | Specifies the current environment mode | No |
+| Variable                         | Description                                             | Required |
+| :------------------------------- | :------------------------------------------------------ | :------: |
+| `MANAGER_BACKEND_URL`            | Base URL of the API Gateway / manager service           | **Yes**  |
+| `API_KEY`                        | Long-lived API key to authenticate with the API Gateway | **Yes**  |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile public key                         | **Yes**  |
+| `TURNSTILE_SECRET_KEY`           | Cloudflare Turnstile secret key                         | **Yes**  |
+| `MAIL_HOST`                      | SMTP server host                                        | **Yes**  |
+| `MAIL_USER`                      | SMTP server user                                        | **Yes**  |
+| `MAIL_PASS`                      | SMTP server password                                    | **Yes**  |
+| `MAIL_FROM`                      | Email address to send contact form submissions from     | **Yes**  |
+| `MAIL_TO`                        | Email address to receive contact form submissions       | **Yes**  |
+| `ARCHITECTURE_URL`               | URL to fetch the dynamic architecture README            |    No    |
+| `CLARITY_KEY`                    | Microsoft Clarity analytics ID                          | **Yes**  |
+| `G_TAG`                          | Google Analytics tag ID                                 | **Yes**  |
+| `ENV`                            | Specifies the current environment mode                  |    No    |
 
 ### Running locally
 

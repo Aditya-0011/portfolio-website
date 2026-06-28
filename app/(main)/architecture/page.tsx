@@ -74,12 +74,12 @@ export default async function Architecture() {
                 <Link
                   href={href!}
                   target="_blank"
-                  className="relative rounded-sm font-semibold text-white no-underline transition-colors duration-300 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-full before:scale-x-0 before:origin-left before:bg-rose-400 before:transition-transform before:duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-rose-400 hover:before:scale-x-100 focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none has-[code]:before:hidden has-[code]:after:hidden"
+                  className="relative rounded-sm font-semibold text-white no-underline transition-colors duration-300 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-full before:origin-left before:scale-x-0 before:bg-rose-400 before:transition-transform before:duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-rose-400 hover:before:scale-x-100 focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:outline-none has-[code]:before:hidden has-[code]:after:hidden"
                 >
                   {children}
                 </Link>
               ),
-              code: ({ className, children, node, ...props }) => {
+              code: ({ className, children, ...props }) => {
                 const isInline = !className?.includes("language-");
                 return isInline ? (
                   <code

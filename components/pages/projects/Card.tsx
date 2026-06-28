@@ -85,7 +85,7 @@ export default function Card({ project }: Props) {
                 {children}
               </Link>
             ),
-            code: ({ className, children, node, ...props }) => {
+            code: ({ className, children, ...props }) => {
               const isInline = !className?.includes("language-");
               return isInline ? (
                 <code

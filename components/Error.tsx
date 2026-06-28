@@ -2,8 +2,6 @@
 
 import { AlertTriangle } from "lucide-react";
 
-import { BackButton } from "@/components/BackButton";
-
 type ErrorProps = {
   content: string;
 };
@@ -24,21 +22,6 @@ export function Error({ content }: ErrorProps) {
           <span className="text-neutral-300">console logs</span> for details or
           verify the system status.
         </p>
-      </div>
-
-      <div className="mt-2 flex w-full flex-row items-center justify-center gap-4">
-        <button
-          onClick={() => {
-            window.location.reload();
-          }}
-          className="inline-flex w-auto items-center justify-center gap-2 rounded-xl border border-white/10 bg-neutral-900 px-6 py-3 text-sm font-bold text-white shadow-lg transition-[transform,border-color,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/5 active:scale-[0.97]"
-        >
-          Refresh
-        </button>
-
-        <div className="w-auto">
-          <BackButton />
-        </div>
       </div>
     </div>
   );

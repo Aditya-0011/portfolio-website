@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (!res.ok && res.status !== 404) {
+      // eslint-disable-next-line no-console
       console.error(
         `[API Route] Fetch failed with status ${res.status} ${res.statusText}`,
       );
@@ -33,6 +34,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ quote: text.split(":") });
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("[API Route] Fetch threw a network error:", error);
     return NextResponse.json({ quote: FALLBACK_QUOTE });
   }

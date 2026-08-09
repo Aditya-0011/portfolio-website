@@ -36,9 +36,32 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
+async function FeaturedProjects() {
   const { projects } = await GetProjects({ Featured: true });
 
+  return (
+    <ViewTransition name="project-grid" default="none" share="auto">
+      <ProjectGrid Heading="Featured Projects" projects={projects}>
+        {projects.length > 0 ? (
+          <div className="flex items-center justify-center p-10">
+            <div className="group relative">
+              <div className="absolute -inset-1 rounded-lg bg-blue-500 py-2 opacity-45 blur-md group-hover:bg-green-500 group-hover:blur-lg" />
+              <Link
+                href="/projects"
+                transitionTypes={["nav-forward"]}
+                className="relative rounded-lg border-2 border-blue-500 bg-neutral-950 px-3 py-2 text-xl font-bold text-blue-100 group-hover:border-green-500 group-hover:text-green-100 active:scale-[0.97]"
+              >
+                View all projects
+              </Link>
+            </div>
+          </div>
+        ) : null}
+      </ProjectGrid>
+    </ViewTransition>
+  );
+}
+
+export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950">
       <Suspense>
@@ -50,24 +73,9 @@ export default async function Home() {
       <Suspense>
         <ExperienceGrid />
       </Suspense>
-      <ViewTransition name="project-grid" default="none" share="auto">
-        <ProjectGrid Heading="Featured Projects" projects={projects}>
-          {projects.length > 0 ? (
-            <div className="flex items-center justify-center p-10">
-              <div className="group relative">
-                <div className="absolute -inset-1 rounded-lg bg-blue-500 py-2 opacity-45 blur-md group-hover:bg-green-500 group-hover:blur-lg" />
-                <Link
-                  href="/projects"
-                  transitionTypes={["nav-forward"]}
-                  className="relative rounded-lg border-2 border-blue-500 bg-neutral-950 px-3 py-2 text-xl font-bold text-blue-100 group-hover:border-green-500 group-hover:text-green-100 active:scale-[0.97]"
-                >
-                  View all projects
-                </Link>
-              </div>
-            </div>
-          ) : null}
-        </ProjectGrid>
-      </ViewTransition>
+      <Suspense>
+        <FeaturedProjects />
+      </Suspense>
     </div>
   );
 }

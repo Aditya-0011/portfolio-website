@@ -1,5 +1,7 @@
 "use server";
 
+import { after } from "next/server";
+
 import {
   ServerValidateError,
   createServerValidate,
@@ -69,7 +71,7 @@ export async function AddMessage(prev: unknown, formData: FormData) {
       return { status: response.status, message: [error] };
     }
 
-    await mail.send(data);
+    after(() => mail.send(data));
 
     const { message }: SimpleResponse = await response.json();
 

@@ -62,7 +62,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    className={`relative flex items-center justify-center rounded-lg px-2 py-1.5 text-sm font-medium transition-[color,background-color,transform] duration-300 sm:px-4 sm:py-2 sm:text-lg ${
+                    className={`relative flex items-center justify-center rounded-lg px-2 py-1.5 text-sm font-medium transition-[color,background-color,transform] duration-200 sm:px-4 sm:py-2 sm:text-lg ${
                       isActive
                         ? colors.active
                         : "text-white/70 hover:bg-neutral-800/50 hover:text-white"

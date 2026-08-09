@@ -12,7 +12,7 @@ export default function NotFound() {
             <h1 className="bg-linear-to-r from-blue-500 to-sky-400 bg-clip-text text-7xl font-extrabold tracking-tighter text-transparent drop-shadow-sm sm:text-9xl">
               404
             </h1>
-            <div className="absolute -inset-4 animate-[pulse_4s_ease-in-out_infinite] rounded-full border border-blue-500/20 opacity-50 blur-md" />
+            <div className="absolute -inset-4 animate-[pulse_3s_ease-in-out_infinite] rounded-full border border-blue-500/20 opacity-50 blur-md" />
           </div>
 
           <Quote />

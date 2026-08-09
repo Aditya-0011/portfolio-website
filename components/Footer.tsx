@@ -56,7 +56,7 @@ export default async function Footer() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-white/60 transition-[transform,color] duration-300 hover:-translate-y-1 hover:scale-110 hover:text-emerald-400 active:scale-[0.97]"
+              className="text-white/60 transition-[transform,color] duration-200 hover:-translate-y-1 hover:scale-110 hover:text-emerald-400 active:scale-[0.97]"
               target="_blank"
             >
               <span className="sr-only">{item.name}</span>

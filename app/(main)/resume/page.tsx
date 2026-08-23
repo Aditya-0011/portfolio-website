@@ -4,7 +4,7 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "Resume | Aditya Punmiya",
   description: "Aditya's resume",
-  metadataBase: new URL("https://adityapunmiya.com/resume"),
+  metadataBase: new URL("https://adityapunmiya.com"),
   alternates: {
     canonical: "/resume",
   },

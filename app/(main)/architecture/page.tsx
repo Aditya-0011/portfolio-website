@@ -9,7 +9,7 @@ import { env } from "@/lib/env";
 export const metadata: Metadata = {
   title: "Architecture | Aditya Punmiya",
   description: "Platform Architecture & Engineering",
-  metadataBase: new URL("https://adityapunmiya.com/architecture"),
+  metadataBase: new URL("https://adityapunmiya.com"),
   alternates: {
     canonical: "/architecture",
   },

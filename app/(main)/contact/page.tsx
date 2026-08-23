@@ -7,7 +7,7 @@ const Form = dynamic(() => import("@/components/pages/contact/Form"));
 export const metadata: Metadata = {
   title: "Contact | Aditya Punmiya",
   description: "Contact me",
-  metadataBase: new URL("https://adityapunmiya.com/contact"),
+  metadataBase: new URL("https://adityapunmiya.com"),
   alternates: {
     canonical: "/contact",
   },

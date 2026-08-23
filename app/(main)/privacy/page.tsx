@@ -4,7 +4,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy | Aditya Punmiya",
   description: "Privacy policy for Aditya Punmiya's portfolio.",
-  metadataBase: new URL("https://adityapunmiya.com/privacy"),
+  metadataBase: new URL("https://adityapunmiya.com"),
   alternates: {
     canonical: "/privacy",
   },

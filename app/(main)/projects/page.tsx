@@ -5,7 +5,7 @@ import Grid from "@/components/pages/projects/Grid";
 export const metadata: Metadata = {
   title: "Projects | Aditya Punmiya",
   description: "Projects by Aditya Punmiya",
-  metadataBase: new URL("https://adityapunmiya.com/projects"),
+  metadataBase: new URL("https://adityapunmiya.com"),
   alternates: {
     canonical: "/projects",
   },

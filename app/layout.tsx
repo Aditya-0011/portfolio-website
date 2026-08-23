@@ -81,6 +81,46 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "${env.CLARITY_KEY}");
           `}
         </Script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Person",
+                  "@id": "https://adityapunmiya.com/#person",
+                  name: "Aditya Punmiya",
+                  url: "https://adityapunmiya.com/",
+                  image:
+                    "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
+                  sameAs: [
+                    "https://www.linkedin.com/in/aditya-punmiya/",
+                    "https://github.com/Aditya-0011",
+                    "https://www.instagram.com/aditya_punmiya/",
+                  ],
+                  jobTitle: "Software Engineer",
+                  worksFor: {
+                    "@type": "Organization",
+                    name: "NAV India",
+                  },
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://adityapunmiya.com/#website",
+                  url: "https://adityapunmiya.com/",
+                  name: "Aditya Punmiya's Portfolio",
+                  description:
+                    "View my bio, work experience, projects and technologies.",
+                  publisher: {
+                    "@id": "https://adityapunmiya.com/#person",
+                  },
+                  inLanguage: "en",
+                },
+              ],
+            }),
+          }}
+        />
       </head>
       <body className="overflow-x-hidden">
         <a

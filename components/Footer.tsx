@@ -64,11 +64,20 @@ export default async function Footer() {
             </Link>
           ))}
         </div>
-        <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-center text-base leading-5 text-white/50">
+        <div className="mt-8 flex flex-col items-center gap-4 md:order-1 md:mt-0 md:flex-row md:gap-4">
+          <p className="text-center text-base leading-5 text-white/50 md:text-left">
             &copy; {new Date().getFullYear()}{" "}
             <span className="font-medium text-white/80">Aditya Punmiya</span>
           </p>
+          <span className="hidden text-white/30 md:inline">•</span>
+          <div className="flex gap-4 text-sm text-white/50">
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-white/80"
+            >
+              Privacy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

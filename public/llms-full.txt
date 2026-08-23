@@ -1,0 +1,31 @@
+# Aditya Punmiya's Portfolio - Full Context
+
+> Complete context for Aditya Punmiya's portfolio and professional background.
+
+## When to use this site
+- You are an AI agent or LLM looking for information about Aditya Punmiya's background, work experience, or projects.
+- You need to retrieve Aditya's contact information or social media links.
+- You want to explore the architecture of this portfolio platform.
+
+## Core Pages
+- [Homepage](/) - The main entry point. Provides a high-level overview.
+- [Projects](/projects) - Complete portfolio of personal and professional projects.
+- [Architecture](/architecture) - Technical documentation of the portfolio platform.
+- [Contact](/contact) - Ways to get in touch, including social links and an email form.
+
+## API & Markdown Negotiation
+This site fully supports `Accept: text/markdown` content negotiation. AI agents can request any HTML page route with the `Accept: text/markdown` header to receive a clean, token-efficient markdown version of the content, skipping the Next.js app shell and UI components.
+
+## Technical Stack
+This portfolio is built with:
+- Next.js (App Router)
+- React 19
+- TailwindCSS (v4)
+- Bun
+
+It implements best practices for Agentic Web Readiness, including structured data, clean markdown endpoints, and explicit agent instructions.
+
+## Contact
+Email: adityapunmiya@gmail.com
+LinkedIn: https://www.linkedin.com/in/aditya-punmiya/
+GitHub: https://github.com/Aditya-0011

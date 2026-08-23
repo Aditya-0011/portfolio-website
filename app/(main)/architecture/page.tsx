@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Architecture | Aditya Punmiya",
   description: "Platform Architecture & Engineering",
   metadataBase: new URL("https://adityapunmiya.com/architecture"),
+  alternates: {
+    canonical: "/architecture",
+  },
   openGraph: {
     title: "Architecture | Aditya Punmiya",
     description: "Platform Architecture & Engineering",

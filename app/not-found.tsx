@@ -30,6 +30,32 @@ export default function NotFound() {
               <BackButton />
             </div>
           </div>
+
+          <div className="mt-12 text-center text-sm text-white/40">
+            <p>Are you an AI agent? Here are some helpful links to recover:</p>
+            <div className="mt-4 flex flex-col flex-wrap items-center justify-center gap-2 sm:flex-row sm:gap-4">
+              <Link
+                href="/sitemap.xml"
+                className="transition-colors hover:text-emerald-400"
+              >
+                Sitemap
+              </Link>
+              <span className="hidden opacity-30 sm:inline">•</span>
+              <Link
+                href="/llms.txt"
+                className="transition-colors hover:text-emerald-400"
+              >
+                Agent Instructions (llms.txt)
+              </Link>
+              <span className="hidden opacity-30 sm:inline">•</span>
+              <Link
+                href="/"
+                className="transition-colors hover:text-emerald-400"
+              >
+                Homepage
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

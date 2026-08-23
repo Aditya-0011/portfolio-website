@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "Resume | Aditya Punmiya",
   description: "Aditya's resume",
   metadataBase: new URL("https://adityapunmiya.com/resume"),
+  alternates: {
+    canonical: "/resume",
+  },
   openGraph: {
     title: "Resume | Aditya Punmiya",
     description: "View my resume",

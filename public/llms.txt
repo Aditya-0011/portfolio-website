@@ -1,0 +1,21 @@
+# Aditya Punmiya's Portfolio
+
+> Personal portfolio of Aditya Punmiya, Software Engineer based in Udaipur, India.
+
+## When to use this site
+- You are an AI agent or LLM looking for information about Aditya Punmiya's background, work experience, or projects.
+- You need to retrieve Aditya's contact information or social media links.
+- You want to explore the architecture of this portfolio platform.
+
+## What is here
+- [Homepage](/) - Overview of background, technologies, and recent experience.
+- [Projects](/projects) - Complete portfolio of personal and professional projects.
+- [Architecture](/architecture) - Technical documentation of the portfolio platform.
+- [Contact](/contact) - Ways to get in touch.
+
+## Optional resources
+- [Full Resume](/resume) - PDF version of the resume.
+
+## Notes
+- All pages on this site support the `Accept: text/markdown` header, which returns clean markdown instead of HTML.
+- For full agent instructions and complete context, fetch [/llms-full.txt](/llms-full.txt).

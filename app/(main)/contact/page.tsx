@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Contact | Aditya Punmiya",
   description: "Contact me",
   metadataBase: new URL("https://adityapunmiya.com/contact"),
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
     title: "Contact | Aditya Punmiya",
     description: "Contact me",

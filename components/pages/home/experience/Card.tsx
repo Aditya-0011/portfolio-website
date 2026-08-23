@@ -18,9 +18,9 @@ export default function Card({ experience, compact }: Props) {
       <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
       <div className="relative z-10">
         <div className="flex items-start justify-between">
-          <h2 className="flex-1 pr-4 text-xl font-bold tracking-tight text-white">
+          <h3 className="flex-1 pr-4 text-xl font-bold tracking-tight text-white">
             {experience.company.split(",")[0]}
-          </h2>
+          </h3>
           {!compact ? (
             <div className="shrink-0 text-right text-sm font-medium text-white/60">
               {formatMonthYear(experience.start)}&nbsp;-&nbsp;
@@ -41,9 +41,9 @@ export default function Card({ experience, compact }: Props) {
         {experience.positions.map((position, idx) => (
           <div key={idx} className="relative">
             <div className="flex items-start justify-between">
-              <h3 className="text-base font-semibold text-blue-400">
+              <h4 className="text-base font-semibold text-blue-400">
                 {position.role}
-              </h3>
+              </h4>
               <div className="shrink-0 text-right text-sm font-medium text-white/50">
                 {formatMonthYear(position.start)}&nbsp;-&nbsp;
                 {position.end ? formatMonthYear(position.end) : "Present"}

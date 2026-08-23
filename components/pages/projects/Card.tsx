@@ -34,9 +34,9 @@ export default function Card({ project }: Props) {
       </div>
 
       <div className="relative z-10 mt-6 flex max-w-7xl items-center justify-between border-b border-red-500/30 pb-3">
-        <div className="text-xl leading-8 font-bold tracking-tight text-white/90 transition-colors duration-300 group-hover:text-emerald-400">
+        <h3 className="text-xl leading-8 font-bold tracking-tight text-white/90 transition-colors duration-300 group-hover:text-emerald-400">
           {project.name}
-        </div>
+        </h3>
         <div className="flex items-center justify-between gap-3">
           {project.project_url ? (
             <Link

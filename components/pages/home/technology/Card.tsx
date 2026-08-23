@@ -17,9 +17,9 @@ export default function Card({ Category, Technologies }: Props) {
       <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
       <div className="relative z-10 flex max-w-7xl items-center justify-between border-b border-red-500/30 pb-3">
-        <div className="text-xl font-bold tracking-tight text-white/80 transition-colors duration-300 group-hover:text-white">
+        <h3 className="text-xl font-bold tracking-tight text-white/80 transition-colors duration-300 group-hover:text-white">
           {getTechnologyCategoryLabel(Category)}
-        </div>
+        </h3>
       </div>
 
       <ul

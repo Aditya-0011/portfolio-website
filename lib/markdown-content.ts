@@ -47,9 +47,9 @@ async function generateHomeMarkdown() {
     md += `### ${exp.company}\n`;
     md += `**Tenure:** ${exp.tenure} (${exp.start} - ${exp.end || "Present"})\n\n`;
     exp.positions.forEach((pos) => {
-      md += `- **${pos.role}**: ${pos.work_done}\n`;
+      md += `#### ${pos.role}\n`;
+      md += `${pos.work_done}\n\n`;
     });
-    md += `\n`;
   });
 
   if (projects.length > 0) {

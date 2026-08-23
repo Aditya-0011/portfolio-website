@@ -1,6 +1,9 @@
 import { GetUserDetails } from "@/data/user-details";
 import { GetProjects } from "@/data/projects";
 import { GetExperiences } from "@/data/experiences";
+import { GetTechnologies } from "@/data/technologies";
+import { TechnologyCategory } from "@/lib/objects";
+import { getTechnologyCategoryLabel } from "@/lib/utils";
 
 export async function getMarkdownForPath(
   path: string,
@@ -38,9 +41,31 @@ async function generateHomeMarkdown() {
   const details = await GetUserDetails();
   const { projects } = await GetProjects({ Featured: true });
   const { experiences } = await GetExperiences();
+  const { technologies } = await GetTechnologies();
 
   let md = `# Aditya Punmiya\n\n`;
   md += `${details.about}\n\n`;
+
+  md += `## Technologies\n\n`;
+  const categories = Object.values(TechnologyCategory)
+    .filter(
+      (category) =>
+        category !== TechnologyCategory.Invalid &&
+        category !== TechnologyCategory.None,
+    )
+    .sort((left, right) => {
+      const leftOrder = left === TechnologyCategory.Language ? 0 : (left as number);
+      const rightOrder = right === TechnologyCategory.Language ? 0 : (right as number);
+      return leftOrder - rightOrder;
+    });
+
+  categories.forEach((category) => {
+    const catTechs = technologies.filter((t) => t.category === category);
+    if (catTechs.length > 0) {
+      md += `### ${getTechnologyCategoryLabel(category)}\n`;
+      md += `${catTechs.map((t) => t.name).join(", ")}\n\n`;
+    }
+  });
 
   md += `## Experience\n\n`;
   experiences.slice(0, 3).forEach((exp) => {
@@ -50,13 +75,19 @@ async function generateHomeMarkdown() {
       md += `#### ${pos.role}\n`;
       md += `${pos.work_done}\n\n`;
     });
+    if (exp.technologies && exp.technologies.length > 0) {
+      md += `**Technologies:** ${exp.technologies.map((t) => t.name).join(", ")}\n\n`;
+    }
   });
 
   if (projects.length > 0) {
     md += `## Featured Projects\n\n`;
     projects.forEach((p) => {
       md += `### ${p.name}\n`;
-      md += `${p.description}\n`;
+      md += `${p.description}\n\n`;
+      if (p.technologies && p.technologies.length > 0) {
+        md += `**Technologies:** ${p.technologies.map((t) => t.name).join(", ")}\n\n`;
+      }
       if (p.project_url) md += `[View Project](${p.project_url}) | `;
       if (p.github_url) md += `[GitHub](${p.github_url})`;
       md += `\n\n`;

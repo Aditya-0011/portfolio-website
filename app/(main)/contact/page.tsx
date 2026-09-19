@@ -4,6 +4,8 @@ import { Toaster } from "sonner";
 
 const Form = dynamic(() => import("@/components/pages/contact/Form"));
 
+export const instant = false;
+
 export const metadata: Metadata = {
   title: "Contact | Aditya Punmiya",
   description: "Contact me",

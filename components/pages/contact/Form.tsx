@@ -54,6 +54,10 @@ export default function Form() {
         }
         if (typeof msg === "string") toast.error(msg, { duration: 3000 });
       });
+      const firstInvalidField = document.querySelector<HTMLElement>(
+        '[aria-invalid="true"], :invalid',
+      );
+      firstInvalidField?.focus();
     },
     transform: useTransform(
       (baseForm) => {
@@ -279,6 +283,7 @@ export default function Form() {
                         onChange={(e) => field.handleChange(e.target.value)}
                         rows={4}
                         placeholder="Write your message…"
+                        autoComplete="off"
                         className={`block w-full resize-none rounded-xl border-0 bg-neutral-950/50 px-4 py-3 text-white shadow-xs outline-hidden transition-[background-color,border-color,box-shadow] duration-200 focus-visible:outline-none sm:text-sm sm:leading-6 ${
                           hasError
                             ? "bg-red-950/20 ring-2 ring-red-500 focus-visible:ring-2 focus-visible:ring-red-500"

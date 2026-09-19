@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 import { formatMonthYear } from "@/lib/utils";
 import { type Experience } from "@/lib/objects";
+import { experienceMarkdownComponents } from "@/lib/markdown-components";
 
 import TechnologyIcon from "@/components/TechnologyIcon";
 
@@ -55,31 +56,7 @@ export default function Card({ experience, compact }: Props) {
                 Details:
               </span>
               <div className="prose prose-invert prose-emerald prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 mt-1 ml-1 max-w-none text-sm text-white/75 marker:text-white/40">
-                <ReactMarkdown
-                  components={{
-                    ul: ({ className, ...props }) => (
-                      <ul
-                        className={`list-disc pl-4 ${className ?? ""}`}
-                        {...props}
-                      />
-                    ),
-                    ol: ({ className, ...props }) => (
-                      <ol
-                        className={`list-decimal pl-4 ${className ?? ""}`}
-                        {...props}
-                      />
-                    ),
-                    a: ({ href, children }) => (
-                      <Link
-                        href={href!}
-                        target="_blank"
-                        className="font-semibold text-emerald-400 underline decoration-transparent transition-[color,text-decoration-color] duration-300 hover:text-emerald-300 hover:decoration-emerald-400"
-                      >
-                        {children}
-                      </Link>
-                    ),
-                  }}
-                >
+                <ReactMarkdown components={experienceMarkdownComponents}>
                   {position.work_done}
                 </ReactMarkdown>
               </div>

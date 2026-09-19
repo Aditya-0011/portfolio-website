@@ -89,6 +89,21 @@ function appendVaryAccept(headers: Headers): void {
 export function proxy(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
+  // Bypass proxy for Server Actions, non-GET/HEAD methods, and Next.js internal requests
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    return NextResponse.next();
+  }
+
+  if (
+    req.headers.has("next-action") ||
+    req.headers.has("rsc") ||
+    req.headers.has("next-router-state-tree") ||
+    req.headers.has("next-router-prefetch") ||
+    req.headers.get("accept")?.includes("text/x-component")
+  ) {
+    return NextResponse.next();
+  }
+
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
@@ -102,15 +117,19 @@ export function proxy(req: NextRequest) {
     const url = req.nextUrl.clone();
     url.pathname = "/api/markdown";
     url.searchParams.set("path", pathname);
-    return NextResponse.rewrite(url);
+
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-markdown-path", pathname);
+
+    return NextResponse.rewrite(url, {
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
   const accept = req.headers.get("Accept");
   const type = preferredType(accept);
-
-  if (type === null) {
-    return new NextResponse("Not Acceptable", { status: 406 });
-  }
 
   if (type === "text/markdown") {
     const url = req.nextUrl.clone();

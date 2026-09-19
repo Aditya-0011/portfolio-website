@@ -3,8 +3,12 @@ import { getMarkdownForPath } from "@/lib/markdown-content";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
+  const rawUrl = new URL(req.url);
   let path =
-    req.headers.get("x-markdown-path") || searchParams.get("path") || "/";
+    req.headers.get("x-markdown-path") ||
+    searchParams.get("path") ||
+    rawUrl.searchParams.get("path") ||
+    "/";
 
   if (path.endsWith(".md")) {
     path = path.slice(0, -3);

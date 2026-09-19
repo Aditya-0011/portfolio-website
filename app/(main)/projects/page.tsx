@@ -44,7 +44,7 @@ export default async function Projects() {
       <ViewTransition name="project-grid" default="none" share="auto">
         <Grid
           Heading="Projects"
-          Description="Here's a list of projects I have worked/working on."
+          Description="Projects I've built and contributed to."
           projects={projects}
         />
       </ViewTransition>

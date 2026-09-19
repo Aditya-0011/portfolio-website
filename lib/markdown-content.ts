@@ -54,8 +54,10 @@ async function generateHomeMarkdown() {
         category !== TechnologyCategory.None,
     )
     .sort((left, right) => {
-      const leftOrder = left === TechnologyCategory.Language ? 0 : (left as number);
-      const rightOrder = right === TechnologyCategory.Language ? 0 : (right as number);
+      const leftOrder =
+        left === TechnologyCategory.Language ? 0 : (left as number);
+      const rightOrder =
+        right === TechnologyCategory.Language ? 0 : (right as number);
       return leftOrder - rightOrder;
     });
 

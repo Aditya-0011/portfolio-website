@@ -57,7 +57,10 @@ export default async function Footer() {
               key={item.name}
               href={item.href}
               className="text-white/60 transition-[transform,color] duration-200 hover:-translate-y-1 hover:scale-110 hover:text-emerald-400 active:scale-[0.97]"
-              target="_blank"
+              target={item.href.startsWith("/") ? undefined : "_blank"}
+              rel={
+                item.href.startsWith("/") ? undefined : "noopener noreferrer"
+              }
             >
               <span className="sr-only">{item.name}</span>
               <item.icon aria-hidden="true" className="h-6 w-6" />

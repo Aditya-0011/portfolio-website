@@ -6,6 +6,12 @@ import AboutMe from "@/components/pages/home/AboutMe";
 import TechnologyGrid from "@/components/pages/home/technology/Grid";
 import ExperienceGrid from "@/components/pages/home/experience/Grid";
 import ProjectGrid from "@/components/pages/projects/Grid";
+import {
+  AboutMeSkeleton,
+  TechnologyGridSkeleton,
+  ExperienceGridSkeleton,
+  FeaturedProjectsSkeleton,
+} from "@/components/Skeletons";
 import { GetProjects } from "@/data/projects";
 
 export const metadata: Metadata = {
@@ -67,16 +73,16 @@ async function FeaturedProjects() {
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950">
-      <Suspense>
+      <Suspense fallback={<AboutMeSkeleton />}>
         <AboutMe />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<TechnologyGridSkeleton />}>
         <TechnologyGrid />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<ExperienceGridSkeleton />}>
         <ExperienceGrid />
       </Suspense>
-      <Suspense>
+      <Suspense fallback={<FeaturedProjectsSkeleton />}>
         <FeaturedProjects />
       </Suspense>
     </div>

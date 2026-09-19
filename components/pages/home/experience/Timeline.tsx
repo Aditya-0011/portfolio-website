@@ -33,10 +33,10 @@ export default function Timeline({ experiences }: Props) {
           {experiences.map((experience, i) => (
             <button
               key={experience.id}
-              className={`relative w-full overflow-hidden rounded-xl border p-4 text-left transition-[border-color,background-color,transform] duration-300 ${
+              className={`relative w-full overflow-hidden rounded-xl border p-4 text-left transition-[border-color,background-color,transform] duration-150 ease-out active:scale-[0.97] ${
                 active === i
-                  ? "scale-[1.02] border-emerald-500/50 bg-emerald-500/10 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
-                  : "border-white/5 bg-neutral-900/40 backdrop-blur-xl hover:border-emerald-500/30 hover:bg-white/5 active:scale-[0.97]"
+                  ? "scale-[1.01] border-emerald-500/50 bg-emerald-500/10 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
+                  : "border-white/5 bg-neutral-900/40 backdrop-blur-xl hover:border-emerald-500/30 hover:bg-white/5"
               }`}
               onClick={() => setActive(i)}
               type="button"
@@ -44,7 +44,7 @@ export default function Timeline({ experiences }: Props) {
               <div className="flex items-center space-x-3">
                 <div>
                   <h3
-                    className={`text-lg font-semibold transition-colors duration-300 ${
+                    className={`text-lg font-semibold transition-colors duration-150 ${
                       active === i ? "text-emerald-400" : "text-white/90"
                     }`}
                   >
@@ -63,7 +63,14 @@ export default function Timeline({ experiences }: Props) {
           ))}
         </div>
         <div className="col-span-8">
-          <Card experience={experiences[active]} />
+          {experiences[active] ? (
+            <div
+              key={experiences[active].id}
+              className="tab-content-enter"
+            >
+              <Card experience={experiences[active]} />
+            </div>
+          ) : null}
         </div>
       </div>
     </>

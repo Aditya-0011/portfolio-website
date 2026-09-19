@@ -14,7 +14,7 @@ export default async function Grid() {
             Work Experience
           </h2>
           <p className="mt-2 text-lg leading-8 text-white">
-            Here&apos;s my professional journey so far.
+            Here’s my professional journey so far.
           </p>
         </div>
         <Suspense>

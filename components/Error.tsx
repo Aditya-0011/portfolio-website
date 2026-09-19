@@ -18,9 +18,8 @@ export function Error({ content }: ErrorProps) {
           Unable to load {content}
         </h3>
         <p className="mx-auto max-w-sm text-sm leading-relaxed font-medium text-white/50 sm:text-base">
-          An error occurred while fetching the data. Please check the{" "}
-          <span className="text-neutral-300">console logs</span> for details or
-          verify the system status.
+          An error occurred while fetching the data. Please try again later or
+          contact me if the issue persists.
         </p>
       </div>
     </div>

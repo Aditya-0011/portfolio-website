@@ -32,7 +32,16 @@ export async function GET(request: NextRequest) {
 
     const text = await res.text();
 
-    return NextResponse.json({ quote: text.split(":") });
+    const separatorIndex = text.indexOf(":");
+    const quote =
+      separatorIndex !== -1
+        ? [
+            text.slice(0, separatorIndex).trim(),
+            text.slice(separatorIndex + 1).trim(),
+          ]
+        : [text.trim()];
+
+    return NextResponse.json({ quote });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("[API Route] Fetch threw a network error:", error);

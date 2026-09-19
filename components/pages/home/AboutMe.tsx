@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import ReactMarkdown from "react-markdown";
 
 import { GetUserDetails } from "@/data/user-details";
+import { aboutMeMarkdownComponents } from "@/lib/markdown-components";
 
 export default async function AboutMe() {
   const details = await GetUserDetails();
@@ -23,18 +23,7 @@ export default async function AboutMe() {
             </span>
           </h1>
           <div className="prose prose-invert max-w-none space-y-4 text-lg leading-relaxed text-white/70 sm:text-xl">
-            <ReactMarkdown
-              components={{
-                a: ({ href, children }) => (
-                  <Link
-                    href={href!}
-                    className="relative font-semibold text-white no-underline transition-colors duration-300 before:absolute before:-bottom-0.5 before:left-0 before:z-10 before:h-0.5 before:w-0 before:bg-emerald-400 before:transition-[width] before:duration-300 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:bg-white/30 hover:text-emerald-400 hover:before:w-full"
-                  >
-                    {children}
-                  </Link>
-                ),
-              }}
-            >
+            <ReactMarkdown components={aboutMeMarkdownComponents}>
               {details.about}
             </ReactMarkdown>
           </div>
@@ -42,7 +31,7 @@ export default async function AboutMe() {
 
         <div className="relative z-10 hidden h-96 w-[40%] items-center justify-center md:flex lg:h-full">
           <div className="group perspective-1000 relative h-64 w-64 md:h-80 md:w-80 lg:h-80 lg:w-80 xl:h-96 xl:w-96">
-            <div className="absolute -inset-4 animate-[spin_10s_linear_infinite] rounded-full bg-linear-to-br from-blue-500/20 via-transparent to-emerald-500/20 opacity-70 blur-xl transition duration-300 ease-out group-hover:opacity-100" />
+            <div className="absolute -inset-4 animate-[spin_10s_linear_infinite] rounded-full bg-linear-to-br from-blue-500/20 via-transparent to-emerald-500/20 opacity-70 blur-xl transition-opacity duration-300 ease-out group-hover:opacity-100" />
             <div className="absolute -inset-1 animate-[pulse_3s_ease-in-out_infinite] rounded-full bg-blue-500/50 blur-lg transition duration-200 ease-out group-hover:bg-emerald-500/50 group-hover:blur-xl" />
 
             <div className="relative h-full w-full rounded-full bg-linear-to-br from-neutral-800 to-neutral-900 p-1 shadow-2xl transition-transform duration-200 ease-out group-hover:scale-[1.02]">
@@ -51,7 +40,7 @@ export default async function AboutMe() {
                 src={details.cover_image}
                 height={400}
                 width={400}
-                alt="Aditya's private photo"
+                alt="Portrait of Aditya Punmiya"
                 priority
               />
             </div>

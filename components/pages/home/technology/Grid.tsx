@@ -27,7 +27,7 @@ export default async function Grid() {
             Technology
           </h2>
           <p className="mt-2 text-lg leading-8 text-white">
-            Here&apos;s what I typically work with.
+            Here’s what I typically work with.
           </p>
         </div>
         <ul

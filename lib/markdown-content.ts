@@ -29,6 +29,7 @@ export async function getMarkdownForPath(
         return { content: generateNotFoundMarkdown(path), status: 404 };
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("Error generating markdown for path:", path, error);
     return {
       content: `# Error\n\nThere was an error generating the content for ${path}. Please try again later.`,
@@ -145,7 +146,7 @@ async function generateArchitectureMarkdown() {
       return await res.text();
     }
     return `# Platform Architecture\n\nUnable to load the full architecture document at this time. Please visit [the web version](/architecture).`;
-  } catch (e) {
+  } catch {
     return `# Platform Architecture\n\nDocument currently unavailable.`;
   }
 }

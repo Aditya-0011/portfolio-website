@@ -1,6 +1,12 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import {
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import Link from "next/link";
 
 import {
@@ -74,6 +80,34 @@ export default function Form() {
   useEffect(() => {
     resetRef.current = reset;
   }, [reset]);
+
+  const emptySubscribe = () => () => {};
+  const isIframe = useSyncExternalStore(
+    emptySubscribe,
+    () => window.self !== window.top,
+    () => false,
+  );
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+
+  const [userInteracted, setUserInteracted] = useState(false);
+
+  useEffect(() => {
+    if (!isMounted || userInteracted || isIframe) return;
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(
+        () => setUserInteracted(true),
+        { timeout: 3000 },
+      );
+      return () => window.cancelIdleCallback(idleId);
+    } else {
+      const timer = setTimeout(() => setUserInteracted(true), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [isMounted, userInteracted, isIframe]);
 
   return (
     <div className="mx-auto grid w-full grid-cols-1 gap-4 rounded-2xl border border-white/5 bg-neutral-900/40 p-2 shadow-2xl backdrop-blur-xl sm:gap-8 sm:p-4 lg:grid-cols-2">
@@ -152,6 +186,8 @@ export default function Form() {
       <form
         action={action as never}
         onSubmit={() => handleSubmit()}
+        onFocusCapture={() => setUserInteracted(true)}
+        onPointerEnter={() => setUserInteracted(true)}
         className="flex flex-col justify-center p-5 sm:p-10 lg:p-12"
       >
         <div className="mx-auto w-full max-w-xl lg:max-w-none">
@@ -305,12 +341,51 @@ export default function Form() {
             </Field>
           </div>
           <div className="mt-8 flex flex-col items-end gap-6">
-            <div className="w-full max-w-full overflow-x-auto overflow-y-hidden sm:overflow-hidden">
-              <Turnstile
-                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                options={{ size: "flexible", theme: "dark" }}
-              />
-            </div>
+            {isIframe ? (
+              <div className="w-full rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-sm text-amber-200 backdrop-blur-sm">
+                <p className="font-semibold text-amber-300">
+                  Embedded Preview Mode
+                </p>
+                <p className="mt-1 text-xs text-amber-200/80">
+                  Interactive spam verification is disabled inside iframe
+                  previews. Please{" "}
+                  <a
+                    href="https://adityapunmiya.com/contact"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium underline hover:text-white"
+                  >
+                    open in a new tab ↗
+                  </a>{" "}
+                  to send a message, or reach out directly at{" "}
+                  <a
+                    href="mailto:adityapunmiya@gmail.com"
+                    className="font-medium underline hover:text-white"
+                  >
+                    adityapunmiya@gmail.com
+                  </a>
+                  .
+                </p>
+              </div>
+            ) : (
+              <div
+                suppressHydrationWarning
+                className="w-full max-w-full overflow-x-auto overflow-y-hidden sm:overflow-hidden"
+              >
+                {isMounted && userInteracted ? (
+                  <Turnstile
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    options={{ size: "flexible", theme: "dark" }}
+                  />
+                ) : (
+                  <div className="flex h-16.25 w-full items-center justify-center gap-2 rounded-xl border border-white/5 bg-neutral-900/30 px-4 text-xs text-white/40">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500/50 animate-pulse" />
+                    Spam protection will initialize when you interact with the
+                    form
+                  </div>
+                )}
+              </div>
+            )}
             <div className="group relative">
               <Subscribe
                 selector={(formState) => [
@@ -324,9 +399,9 @@ export default function Form() {
                     <>
                       <button
                         type="submit"
-                        disabled={!canSubmit || loading}
+                        disabled={!canSubmit || loading || isIframe}
                         className={`relative w-full overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-[transform,box-shadow,border-color,background-color] duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:w-auto ${
-                          loading || !canSubmit
+                          loading || !canSubmit || isIframe
                             ? "cursor-not-allowed border border-white/5 bg-neutral-900 text-white/40"
                             : "border border-white/10 bg-neutral-900 text-white shadow-lg hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] active:scale-[0.97]"
                         }`}
@@ -335,6 +410,10 @@ export default function Form() {
                           <div className="flex items-center justify-center gap-x-2">
                             <Loader2 className="size-5 animate-spin" />
                             Sending…
+                          </div>
+                        ) : isIframe ? (
+                          <div className="flex items-center justify-center gap-x-2">
+                            Disabled in Preview
                           </div>
                         ) : (
                           <div className="flex items-center justify-center gap-x-2">

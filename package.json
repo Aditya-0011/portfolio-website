@@ -6,11 +6,12 @@
     "dev": "bun --bun next dev",
     "build": "next build",
     "start": "next start",
+    "start:dev": "bun --bun next start",
     "lint": "eslint",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@marsidev/react-turnstile": "^1.6.0",
+    "@marsidev/react-turnstile": "^1.6.1",
     "@next/third-parties": "^16.3.5",
     "@tanstack/react-form-nextjs": "^1.33.5",
     "@vercel/analytics": "^2.0.1",

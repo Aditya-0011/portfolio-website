@@ -9,6 +9,15 @@ export function BackButton() {
   const router = useRouter();
 
   const handleBack = () => {
+    if (
+      typeof document !== "undefined" &&
+      (document.hidden ||
+        (typeof window !== "undefined" && window.self !== window.top))
+    ) {
+      router.push("/");
+      return;
+    }
+
     startTransition(() => {
       addTransitionType("nav-back");
       router.push("/");

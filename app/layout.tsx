@@ -69,18 +69,9 @@ export default function RootLayout({
       lang="en"
       className={`scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-neutral-950 overflow-y-scroll ${font.className}`}
     >
-      <head>
-        <GoogleTagManager gtmId={env.G_TAG} />
-        <GoogleAnalytics gaId={env.G_TAG} />
-        <Script id="clarity-script" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "${env.CLARITY_KEY}");
-          `}
-        </Script>
+      <GoogleTagManager gtmId={env.G_TAG} />
+      <GoogleAnalytics gaId={env.G_TAG} />
+      <body className="overflow-x-hidden">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -118,11 +109,9 @@ export default function RootLayout({
                   inLanguage: "en",
                 },
               ],
-            }),
+            }).replace(/</g, "\\u003c"),
           }}
         />
-      </head>
-      <body className="overflow-x-hidden">
         <a
           href="#main-content"
           className="fixed top-0 left-0 z-100 -translate-y-full rounded-br-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-neutral-950 transition-transform duration-200 focus:translate-y-0"
@@ -130,6 +119,15 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <Script id="clarity-script" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "${env.CLARITY_KEY}");
+          `}
+        </Script>
         <Suspense>
           <SpeedInsights />
         </Suspense>

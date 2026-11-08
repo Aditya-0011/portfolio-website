@@ -34,7 +34,7 @@ const contentSecurityPolicy = [
     isDev ? "ws: wss:" : "",
     "https://challenges.cloudflare.com",
     "https://*.clarity.ms https://c.bing.com",
-    "https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com",
+    "https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://stats.g.doubleclick.net",
     "https://vitals.vercel-insights.com https://va.vercel-scripts.com",
   ]
     .filter(Boolean)

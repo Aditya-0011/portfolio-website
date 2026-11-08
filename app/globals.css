@@ -6,8 +6,8 @@
 @theme {
   --font-sans:
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
-    system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    var(--font-inter), system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
   --background-image-gradient-conic: conic-gradient(
     from 180deg at 50% 50%,

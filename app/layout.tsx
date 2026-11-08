@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import Script from "next/script";
+import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
@@ -9,6 +10,13 @@ import { env } from "@/lib/env";
 import { SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -68,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-neutral-950 overflow-y-scroll font-sans"
+      className={`scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-neutral-950 overflow-y-scroll font-sans ${inter.variable}`}
     >
       {env.G_TAG ? <GoogleAnalytics gaId={env.G_TAG} /> : null}
       <body className="overflow-x-hidden">

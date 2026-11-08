@@ -30,7 +30,8 @@ const colorMap = {
 } as const;
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const currentPath = usePathname();
+  const pathname = currentPath === "/index" ? "/" : currentPath;
   const page = pathname.slice(1);
   const name =
     page === "" ? "Home" : page.charAt(0).toUpperCase() + page.slice(1);

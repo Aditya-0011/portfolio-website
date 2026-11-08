@@ -74,7 +74,7 @@ export default function Card({ experience, compact }: Props) {
                   position.projects.map((project) => (
                     <li key={project.id}>
                       <Link
-                        href={`/projects/#${project.id}`}
+                        href={`/projects#${project.id}`}
                         className="inline-flex items-center rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium whitespace-nowrap text-white/80 transition-colors duration-200 hover:border-emerald-500/50 hover:bg-emerald-500/10 hover:text-emerald-400"
                       >
                         {project.name}
@@ -82,7 +82,7 @@ export default function Card({ experience, compact }: Props) {
                     </li>
                   ))
                 ) : (
-                  <li className="ml-1 text-sm text-white/40">
+                  <li className="ml-1 text-sm text-white/55">
                     No projects listed
                   </li>
                 )}
@@ -121,7 +121,7 @@ export default function Card({ experience, compact }: Props) {
               </li>
             ))
           ) : (
-            <li className="col-span-full ml-1 w-full text-left text-sm text-white/40">
+            <li className="col-span-full ml-1 w-full text-left text-sm text-white/55">
               No technology listed
             </li>
           )}

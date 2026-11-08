@@ -1,8 +1,11 @@
 import { z } from "zod";
-import { formOptions } from "@tanstack/react-form-nextjs";
+
+import { MESSAGE_LIMITS } from "@/lib/message";
+
+export { MESSAGE_LIMITS, messageFormOptions } from "@/lib/message";
 
 export const SimpleResponseSchema = z.object({
-  message: z.string().trim(),
+  message: z.string().trim().default(""),
 });
 export type SimpleResponse = z.infer<typeof SimpleResponseSchema>;
 
@@ -10,26 +13,31 @@ export const MessageSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(3, { error: "Name must be at least 3 characters." }),
-  email: z.email({ error: "Invalid email address" }),
+    .min(3, { error: "Name must be at least 3 characters." })
+    .max(MESSAGE_LIMITS.name, {
+      error: `Name must be at most ${MESSAGE_LIMITS.name} characters.`,
+    }),
+  email: z.email({ error: "Invalid email address" }).max(MESSAGE_LIMITS.email, {
+    error: `Email must be at most ${MESSAGE_LIMITS.email} characters.`,
+  }),
   message: z
     .string()
     .trim()
-    .min(3, { error: "Message must be at least 3 characters." }),
+    .min(3, { error: "Message must be at least 3 characters." })
+    .max(MESSAGE_LIMITS.message, {
+      error: `Message must be at most ${MESSAGE_LIMITS.message} characters.`,
+    }),
 });
 export type Message = z.infer<typeof MessageSchema>;
 
-export const messageFormOptions = formOptions({
-  defaultValues: {
-    name: "",
-    email: "",
-    message: "",
-  },
-});
+export type ActionResult = { status: number; message: string[] };
+
+const httpUrl = z.url({ protocol: /^https?$/ });
+const optionalLink = httpUrl.optional().catch(undefined);
 
 export const UserDetailsResponseSchema = z.object({
-  about: z.string().trim(),
-  cover_image: z.url(),
+  about: z.string().trim().default(""),
+  cover_image: httpUrl,
 });
 export type UserDetailsResponse = z.infer<typeof UserDetailsResponseSchema>;
 
@@ -47,92 +55,91 @@ export const TechnologyCategory = {
 export type TechnologyCategory =
   (typeof TechnologyCategory)[keyof typeof TechnologyCategory];
 
-export const TechnologyCategorySchema = z.union(
-  [
-    z.literal(TechnologyCategory.Invalid),
-    z.literal(TechnologyCategory.Frontend),
-    z.literal(TechnologyCategory.Backend),
-    z.literal(TechnologyCategory.Db),
-    z.literal(TechnologyCategory.Language),
-    z.literal(TechnologyCategory.Tool),
-    z.literal(TechnologyCategory.Academics),
-    z.literal(TechnologyCategory.None),
-  ],
-  { error: "Invalid technology category" },
-);
+export const TechnologyCategorySchema = z
+  .union(
+    [
+      z.literal(TechnologyCategory.Invalid),
+      z.literal(TechnologyCategory.Frontend),
+      z.literal(TechnologyCategory.Backend),
+      z.literal(TechnologyCategory.Db),
+      z.literal(TechnologyCategory.Language),
+      z.literal(TechnologyCategory.Tool),
+      z.literal(TechnologyCategory.Academics),
+      z.literal(TechnologyCategory.None),
+    ],
+    { error: "Invalid technology category" },
+  )
+  .default(TechnologyCategory.Invalid);
 
-export const TechnologySchema = z.object({
+const TechnologySummarySchema = z.object({
   id: z.number(),
-  name: z.string(),
-  image_url: z.url(),
-  fallback_image_url: z.url(),
+  name: z.string().default(""),
+  image_url: httpUrl,
+  fallback_image_url: httpUrl,
+});
+export type TechnologySummary = z.infer<typeof TechnologySummarySchema>;
+
+export const TechnologySchema = TechnologySummarySchema.extend({
   category: TechnologyCategorySchema,
 });
 export type Technology = z.infer<typeof TechnologySchema>;
 
-const TechnologySummarySchema = z.object({
-  id: z.number(),
-  name: z.string(),
-  image_url: z.url(),
-  fallback_image_url: z.url(),
-});
-export type TechnologySummary = z.infer<typeof TechnologySummarySchema>;
-
 export const TechnologiesResponseSchema = z.object({
-  technologies: z.array(TechnologySchema),
+  technologies: z.array(TechnologySchema).default([]),
 });
 export type TechnologiesResponse = z.infer<typeof TechnologiesResponseSchema>;
 
 export const ProjectSchema = z.object({
   id: z.number(),
-  name: z.string(),
-  description: z.string(),
-  image_url: z.url(),
-  project_url: z.url().optional(),
-  github_url: z.url().optional(),
-  technologies: z.array(TechnologySummarySchema).optional(),
-  featured: z.boolean(),
+  name: z.string().default(""),
+  description: z.string().default(""),
+  image_url: httpUrl,
+  project_url: optionalLink,
+  github_url: optionalLink,
+  technologies: z.array(TechnologySummarySchema).default([]),
+  featured: z.boolean().default(false),
 });
 export type Project = z.infer<typeof ProjectSchema>;
 
 const ProjectSummarySchema = z.object({
   id: z.number(),
-  name: z.string(),
+  name: z.string().default(""),
 });
 
 export const ProjectsResponseSchema = z.object({
-  projects: z.array(ProjectSchema),
+  projects: z.array(ProjectSchema).default([]),
 });
 export type ProjectsResponse = z.infer<typeof ProjectsResponseSchema>;
 
 const PositionSchema = z.object({
-  role: z.string(),
-  start: z.string(),
+  role: z.string().default(""),
+  start: z.string().default(""),
   end: z.string().optional(),
-  work_done: z.string(),
-  projects: z.array(ProjectSummarySchema).optional(),
+  work_done: z.string().default(""),
+  projects: z.array(ProjectSummarySchema).default([]),
 });
 
 export const ExperienceSchema = z.object({
   id: z.number(),
-  company: z.string(),
-  start: z.string(),
+  company: z.string().default(""),
+  start: z.string().default(""),
   end: z.string().optional(),
-  tenure: z.string(),
-  positions: z.array(PositionSchema),
-  technologies: z.array(TechnologySummarySchema),
+  tenure: z.string().default(""),
+  positions: z.array(PositionSchema).default([]),
+  technologies: z.array(TechnologySummarySchema).default([]),
 });
 export type Experience = z.infer<typeof ExperienceSchema>;
 
 export const ExperiencesResponseSchema = z.object({
-  experiences: z.array(ExperienceSchema),
+  experiences: z.array(ExperienceSchema).default([]),
 });
 export type ExperiencesResponse = z.infer<typeof ExperiencesResponseSchema>;
 
-export class FetchError extends Error {
-  status: number;
+export class GatewayError extends Error {
+  readonly status: number;
   constructor(message: string, status: number) {
     super(message);
+    this.name = "GatewayError";
     this.status = status;
   }
 }

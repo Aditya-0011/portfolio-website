@@ -1,12 +1,30 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
+import { preload } from "react-dom";
 
 import ReactMarkdown from "react-markdown";
 
 import { GetUserDetails } from "@/data/user-details";
 import { aboutMeMarkdownComponents } from "@/lib/markdown-components";
 
+const PORTRAIT_VISIBLE_FROM = "(min-width: 48rem)";
+
 export default async function AboutMe() {
   const details = await GetUserDetails();
+
+  const portrait = {
+    src: details.cover_image,
+    width: 400,
+    height: 400,
+    alt: "Portrait of Aditya Punmiya",
+  };
+  const { props: optimized } = getImageProps(portrait);
+  preload(optimized.src, {
+    as: "image",
+    fetchPriority: "high",
+    media: PORTRAIT_VISIBLE_FROM,
+    imageSrcSet: optimized.srcSet,
+    imageSizes: optimized.sizes,
+  });
 
   return (
     <div className="relative overflow-hidden py-8 sm:py-16">
@@ -37,11 +55,9 @@ export default async function AboutMe() {
             <div className="relative h-full w-full rounded-full bg-linear-to-br from-neutral-800 to-neutral-900 p-1 shadow-2xl transition-transform duration-200 ease-out group-hover:scale-[1.02]">
               <Image
                 className="h-full w-full rounded-full border border-white/10 object-cover ring-4 ring-neutral-900 transition-colors duration-200 ease-out group-hover:border-emerald-500/50"
-                src={details.cover_image}
-                height={400}
-                width={400}
-                alt="Portrait of Aditya Punmiya"
-                priority
+                {...portrait}
+                alt={portrait.alt}
+                fetchPriority="high"
               />
             </div>
           </div>

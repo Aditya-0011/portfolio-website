@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Portfolio website of Aditya Punmiya",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#000000",
+    background_color: "#0a0a0a",
+    theme_color: "#0a0a0a",
     screenshots: [
       {
         src: "https://res.cloudinary.com/dijxynt89/image/upload/w_1280,h_800,c_fill,g_auto,q_auto,f_png/v1746507598/7302b64d-67dc-4f9e-a2c6-170075d2845c.png",

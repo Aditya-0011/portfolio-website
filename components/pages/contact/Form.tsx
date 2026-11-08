@@ -17,18 +17,28 @@ import {
 } from "@tanstack/react-form-nextjs";
 import { toast } from "sonner";
 import { Mail, Loader2, Send } from "lucide-react";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 
-import { messageFormOptions, MessageSchema } from "@/lib/objects";
+import {
+  MESSAGE_LIMITS,
+  messageFormOptions,
+  validateEmail,
+  validateMessage,
+  validateName,
+} from "@/lib/message";
 import { AddMessage } from "@/actions/message";
 import { Github, Linkedin } from "@/lib/brand-icons";
 
 export default function Form() {
   const resetRef = useRef<() => void>(null);
+  const turnstileRef = useRef<TurnstileInstance | undefined>(undefined);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const [state, action, isPending] = useActionState(
     async (prevState: unknown, formData: FormData) => {
       const res = await AddMessage(prevState, formData);
+      setTurnstileToken(null);
+      turnstileRef.current?.reset();
       if (res && typeof res === "object" && "status" in res) {
         if (res.status !== 200) {
           res.message.forEach((msg: string) =>
@@ -98,10 +108,9 @@ export default function Form() {
   useEffect(() => {
     if (!isMounted || userInteracted || isIframe) return;
     if ("requestIdleCallback" in window) {
-      const idleId = window.requestIdleCallback(
-        () => setUserInteracted(true),
-        { timeout: 3000 },
-      );
+      const idleId = window.requestIdleCallback(() => setUserInteracted(true), {
+        timeout: 3000,
+      });
       return () => window.cancelIdleCallback(idleId);
     } else {
       const timer = setTimeout(() => setUserInteracted(true), 2500);
@@ -122,64 +131,68 @@ export default function Form() {
             contact me through the options below or fill out the form to send a
             message directly.
           </p>
-          <dl className="mt-10 space-y-4 text-base leading-7 text-gray-600">
-            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-emerald-500/30">
+          <ul
+            role="list"
+            className="mt-10 space-y-4 text-base leading-7 text-gray-600"
+          >
+            <li className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-emerald-500/30">
               <Link
                 href="mailto:adityapunmiya@gmail.com"
-                target="_blank"
                 className="absolute inset-0 z-10"
               >
                 <span className="sr-only">Email adityapunmiya@gmail.com</span>
               </Link>
-              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-emerald-500/50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:h-12 sm:w-12">
+              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-emerald-500/50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:h-12 sm:w-12">
                 <span className="sr-only">Email</span>
                 <Mail className="h-5 w-5 text-emerald-400 sm:h-6 sm:w-6" />
-              </dt>
-              <dd className="ml-4 min-w-0">
+              </div>
+              <div className="ml-4 min-w-0">
                 <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-emerald-300 sm:text-base">
                   adityapunmiya@gmail.com
                 </div>
-              </dd>
-            </div>
+              </div>
+            </li>
 
-            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-blue-500/30">
+            <li className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-blue-500/30">
               <Link
                 href="https://github.com/Aditya-0011"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="absolute inset-0 z-10"
               >
                 <span className="sr-only">Visit Github profile</span>
               </Link>
-              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-blue-500/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none sm:h-12 sm:w-12">
+              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-blue-500/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none sm:h-12 sm:w-12">
                 <span className="sr-only">Github</span>
                 <Github className="h-5 w-5 text-blue-400 sm:h-6 sm:w-6" />
-              </dt>
-              <dd className="ml-4 min-w-0">
+              </div>
+              <div className="ml-4 min-w-0">
                 <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-blue-300 sm:text-base">
                   Aditya-0011
                 </div>
-              </dd>
-            </div>
+              </div>
+            </li>
 
-            <div className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-sky-500/30">
+            <li className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-sky-500/30">
               <Link
                 href="https://www.linkedin.com/in/aditya-punmiya/"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="absolute inset-0 z-10"
               >
                 <span className="sr-only">Visit Linkedin profile</span>
               </Link>
-              <dt className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-sky-500/50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none sm:h-12 sm:w-12">
+              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-sky-500/50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none sm:h-12 sm:w-12">
                 <span className="sr-only">Linkedin</span>
                 <Linkedin className="h-5 w-5 text-sky-400 sm:h-6 sm:w-6" />
-              </dt>
-              <dd className="ml-4 min-w-0">
+              </div>
+              <div className="ml-4 min-w-0">
                 <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-sky-300 sm:text-base">
                   aditya-punmiya
                 </div>
-              </dd>
-            </div>
-          </dl>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -195,10 +208,7 @@ export default function Form() {
             <Field
               name="name"
               validators={{
-                onChange: ({ value }) => {
-                  const res = MessageSchema.shape.name.safeParse(value);
-                  return !res.success ? res.error.issues[0].message : undefined;
-                },
+                onChange: ({ value }) => validateName(value),
               }}
             >
               {(field) => {
@@ -218,6 +228,12 @@ export default function Form() {
                         value={field.state.value ?? ""}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
+                        maxLength={MESSAGE_LIMITS.name}
+                        required
+                        aria-invalid={hasError}
+                        aria-describedby={
+                          hasError ? `${field.name}-error` : undefined
+                        }
                         type="text"
                         autoComplete="name"
                         placeholder="Your name…"
@@ -227,14 +243,14 @@ export default function Form() {
                             : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus-visible:ring-2 focus-visible:ring-emerald-500/50"
                         }`}
                       />
-                      {field.state.meta.errors.map((error) => (
+                      {hasError ? (
                         <p
-                          key={error as string}
+                          id={`${field.name}-error`}
                           className="mt-2 text-sm text-red-400"
                         >
-                          {error as string}
+                          {field.state.meta.errors.map(String).join(" ")}
                         </p>
-                      ))}
+                      ) : null}
                     </div>
                   </div>
                 );
@@ -244,10 +260,7 @@ export default function Form() {
             <Field
               name="email"
               validators={{
-                onChange: ({ value }) => {
-                  const res = MessageSchema.shape.email.safeParse(value);
-                  return !res.success ? res.error.issues[0].message : undefined;
-                },
+                onChange: ({ value }) => validateEmail(value),
               }}
             >
               {(field) => {
@@ -267,6 +280,12 @@ export default function Form() {
                         value={field.state.value ?? ""}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
+                        maxLength={MESSAGE_LIMITS.email}
+                        required
+                        aria-invalid={hasError}
+                        aria-describedby={
+                          hasError ? `${field.name}-error` : undefined
+                        }
                         type="email"
                         autoComplete="email"
                         spellCheck={false}
@@ -277,14 +296,14 @@ export default function Form() {
                             : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus-visible:ring-2 focus-visible:ring-emerald-500/50"
                         }`}
                       />
-                      {field.state.meta.errors.map((error) => (
+                      {hasError ? (
                         <p
-                          key={error as string}
+                          id={`${field.name}-error`}
                           className="mt-2 text-sm text-red-400"
                         >
-                          {error as string}
+                          {field.state.meta.errors.map(String).join(" ")}
                         </p>
-                      ))}
+                      ) : null}
                     </div>
                   </div>
                 );
@@ -294,10 +313,7 @@ export default function Form() {
             <Field
               name="message"
               validators={{
-                onChange: ({ value }) => {
-                  const res = MessageSchema.shape.message.safeParse(value);
-                  return !res.success ? res.error.issues[0].message : undefined;
-                },
+                onChange: ({ value }) => validateMessage(value),
               }}
             >
               {(field) => {
@@ -317,6 +333,12 @@ export default function Form() {
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
+                        maxLength={MESSAGE_LIMITS.message}
+                        required
+                        aria-invalid={hasError}
+                        aria-describedby={
+                          hasError ? `${field.name}-error` : undefined
+                        }
                         rows={4}
                         placeholder="Write your message…"
                         autoComplete="off"
@@ -326,14 +348,14 @@ export default function Form() {
                             : "ring-1 ring-white/10 ring-inset focus:bg-white/5 focus-visible:ring-2 focus-visible:ring-emerald-500/50"
                         }`}
                       />
-                      {field.state.meta.errors.map((error) => (
+                      {hasError ? (
                         <p
-                          key={error as string}
+                          id={`${field.name}-error`}
                           className="mt-2 text-sm text-red-400"
                         >
-                          {error as string}
+                          {field.state.meta.errors.map(String).join(" ")}
                         </p>
-                      ))}
+                      ) : null}
                     </div>
                   </div>
                 );
@@ -374,12 +396,16 @@ export default function Form() {
               >
                 {isMounted && userInteracted ? (
                   <Turnstile
+                    ref={turnstileRef}
                     siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
                     options={{ size: "flexible", theme: "dark" }}
+                    onSuccess={setTurnstileToken}
+                    onExpire={() => setTurnstileToken(null)}
+                    onError={() => setTurnstileToken(null)}
                   />
                 ) : (
-                  <div className="flex h-16.25 w-full items-center justify-center gap-2 rounded-xl border border-white/5 bg-neutral-900/30 px-4 text-xs text-white/40">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500/50 animate-pulse" />
+                  <div className="flex h-16.25 w-full items-center justify-center gap-2 rounded-xl border border-white/5 bg-neutral-900/30 px-4 text-xs text-white/55">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500/50" />
                     Spam protection will initialize when you interact with the
                     form
                   </div>
@@ -399,16 +425,21 @@ export default function Form() {
                     <>
                       <button
                         type="submit"
-                        disabled={!canSubmit || loading || isIframe}
+                        disabled={
+                          !canSubmit || loading || isIframe || !turnstileToken
+                        }
                         className={`relative w-full overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-[transform,box-shadow,border-color,background-color] duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:w-auto ${
-                          loading || !canSubmit || isIframe
+                          loading || !canSubmit || isIframe || !turnstileToken
                             ? "cursor-not-allowed border border-white/5 bg-neutral-900 text-white/40"
                             : "border border-white/10 bg-neutral-900 text-white shadow-lg hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] active:scale-[0.97]"
                         }`}
                       >
                         {loading ? (
                           <div className="flex items-center justify-center gap-x-2">
-                            <Loader2 className="size-5 animate-spin" />
+                            <Loader2
+                              className="size-5 animate-spin"
+                              aria-hidden="true"
+                            />
                             Sending…
                           </div>
                         ) : isIframe ? (
@@ -417,7 +448,7 @@ export default function Form() {
                           </div>
                         ) : (
                           <div className="flex items-center justify-center gap-x-2">
-                            <Send className="size-5" />
+                            <Send className="size-5" aria-hidden="true" />
                             Send Message
                           </div>
                         )}

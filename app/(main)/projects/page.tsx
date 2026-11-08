@@ -1,40 +1,14 @@
-import { Metadata } from "next";
-
-import Grid from "@/components/pages/projects/Grid";
-
-export const metadata: Metadata = {
-  title: "Projects | Aditya Punmiya",
-  description: "Projects by Aditya Punmiya",
-  metadataBase: new URL("https://adityapunmiya.com"),
-  alternates: {
-    canonical: "/projects",
-  },
-  openGraph: {
-    title: "Projects | Aditya Punmiya",
-    description: "View my projects.",
-    siteName: "Aditya Punmiya",
-    type: "website",
-    url: "https://adityapunmiya.com/projects",
-    images: [
-      {
-        url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Projects | Aditya Punmiya",
-    description: "View my projects.",
-    images: [
-      {
-        url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
-      },
-    ],
-  },
-};
+import { ViewTransition } from "react";
 
 import { GetProjects } from "@/data/projects";
-import { ViewTransition } from "react";
+import { pageMetadata } from "@/lib/metadata";
+import Grid from "@/components/pages/projects/Grid";
+
+export const metadata = pageMetadata({
+  title: "Projects",
+  description: "Projects I've built and contributed to.",
+  path: "/projects",
+});
 
 export default async function Projects() {
   const { projects } = await GetProjects({ Featured: false });
@@ -44,6 +18,8 @@ export default async function Projects() {
       <ViewTransition name="project-grid" default="none" share="auto">
         <Grid
           Heading="Projects"
+          headingLevel="h1"
+          aboveTheFold
           Description="Projects I've built and contributed to."
           projects={projects}
         />

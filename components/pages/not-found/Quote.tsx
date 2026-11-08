@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-import { Error as ErrorComponent } from "@/components/Error";
+import { ErrorState } from "@/components/Error";
 
 export default function Quote() {
   const [quote, setQuote] = useState<string[] | null>(null);
@@ -43,7 +43,7 @@ export default function Quote() {
       <>
         <div className="pointer-events-none absolute top-1/2 left-1/2 h-150 w-full max-w-200 -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-500/10 blur-[120px]" />
         <div className="relative z-10 w-full">
-          <ErrorComponent content="custom slur" />
+          <ErrorState content="custom slur" />
         </div>
       </>
     );

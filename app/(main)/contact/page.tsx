@@ -1,41 +1,12 @@
-import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Toaster } from "sonner";
+import Form from "@/components/pages/contact/Form";
+import { pageMetadata } from "@/lib/metadata";
 
-const Form = dynamic(() => import("@/components/pages/contact/Form"));
-
-export const instant = false;
-
-export const metadata: Metadata = {
-  title: "Contact | Aditya Punmiya",
-  description: "Contact me",
-  metadataBase: new URL("https://adityapunmiya.com"),
-  alternates: {
-    canonical: "/contact",
-  },
-  openGraph: {
-    title: "Contact | Aditya Punmiya",
-    description: "Contact me",
-    siteName: "Aditya Punmiya",
-    type: "website",
-    url: "https://adityapunmiya.com/contact",
-    images: [
-      {
-        url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact | Aditya Punmiya",
-    description: "Contact me",
-    images: [
-      {
-        url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
-      },
-    ],
-  },
-};
+export const metadata = pageMetadata({
+  title: "Contact",
+  description: "Get in touch with Aditya Punmiya.",
+  path: "/contact",
+});
 
 export default function Contact() {
   return (

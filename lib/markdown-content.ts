@@ -2,14 +2,35 @@ import { GetUserDetails } from "@/data/user-details";
 import { GetProjects } from "@/data/projects";
 import { GetExperiences } from "@/data/experiences";
 import { GetTechnologies } from "@/data/technologies";
+import { GetArchitectureDoc } from "@/data/architecture";
 import { TechnologyCategory } from "@/lib/objects";
 import { getTechnologyCategoryLabel } from "@/lib/utils";
+
+const KNOWN_PATHS = new Set([
+  "/",
+  "/projects",
+  "/contact",
+  "/architecture",
+  "/resume",
+  "/privacy",
+]);
+
+export function normalizeMarkdownPath(raw: string | null): string {
+  let path = (raw ?? "/").split(/[?#]/)[0] ?? "/";
+  path = path.replace(/[^\w\-./~%]/g, "").slice(0, 200);
+  if (!path.startsWith("/")) path = `/${path}`;
+  if (path.endsWith(".md")) path = path.slice(0, -3);
+  if (path === "/index" || path === "") path = "/";
+  if (path.length > 1) path = path.replace(/\/+$/, "") || "/";
+  return path;
+}
 
 export async function getMarkdownForPath(
   path: string,
 ): Promise<{ content: string; status: number }> {
-  if (path === "") path = "/";
-  if (!path.startsWith("/")) path = `/${path}`;
+  if (!KNOWN_PATHS.has(path)) {
+    return { content: generateNotFoundMarkdown(path), status: 404 };
+  }
 
   try {
     switch (path) {
@@ -20,29 +41,30 @@ export async function getMarkdownForPath(
       case "/contact":
         return { content: generateContactMarkdown(), status: 200 };
       case "/architecture":
-        return { content: await generateArchitectureMarkdown(), status: 200 };
+        return { content: await GetArchitectureDoc(), status: 200 };
       case "/resume":
         return { content: generateResumeMarkdown(), status: 200 };
-      case "/privacy":
-        return { content: generatePrivacyMarkdown(), status: 200 };
       default:
-        return { content: generateNotFoundMarkdown(path), status: 404 };
+        return { content: generatePrivacyMarkdown(), status: 200 };
     }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("Error generating markdown for path:", path, error);
     return {
-      content: `# Error\n\nThere was an error generating the content for ${path}. Please try again later.`,
-      status: 500,
+      content: `# Temporarily unavailable\n\nThe content for ${path} could not be loaded right now. Please try again later or visit [the web version](${path}).`,
+      status: 503,
     };
   }
 }
 
 async function generateHomeMarkdown() {
-  const details = await GetUserDetails();
-  const { projects } = await GetProjects({ Featured: true });
-  const { experiences } = await GetExperiences();
-  const { technologies } = await GetTechnologies();
+  const [details, { projects }, { experiences }, { technologies }] =
+    await Promise.all([
+      GetUserDetails(),
+      GetProjects({ Featured: true }),
+      GetExperiences(),
+      GetTechnologies(),
+    ]);
 
   let md = `# Aditya Punmiya\n\n`;
   md += `${details.about}\n\n`;
@@ -78,7 +100,7 @@ async function generateHomeMarkdown() {
       md += `#### ${pos.role}\n`;
       md += `${pos.work_done}\n\n`;
     });
-    if (exp.technologies && exp.technologies.length > 0) {
+    if (exp.technologies.length > 0) {
       md += `**Technologies:** ${exp.technologies.map((t) => t.name).join(", ")}\n\n`;
     }
   });
@@ -88,7 +110,7 @@ async function generateHomeMarkdown() {
     projects.forEach((p) => {
       md += `### ${p.name}\n`;
       md += `${p.description}\n\n`;
-      if (p.technologies && p.technologies.length > 0) {
+      if (p.technologies.length > 0) {
         md += `**Technologies:** ${p.technologies.map((t) => t.name).join(", ")}\n\n`;
       }
       if (p.project_url) md += `[View Project](${p.project_url}) | `;
@@ -112,7 +134,7 @@ async function generateProjectsMarkdown() {
     if (p.featured) md += `*(Featured)*\n\n`;
     md += `${p.description}\n\n`;
 
-    if (p.technologies && p.technologies.length > 0) {
+    if (p.technologies.length > 0) {
       md += `**Technologies:** ${p.technologies.map((t) => t.name).join(", ")}\n\n`;
     }
 
@@ -136,19 +158,6 @@ Get in touch with me through any of the following platforms:
 
 You can also use the contact form on my website at [https://adityapunmiya.com/contact](https://adityapunmiya.com/contact).
 `;
-}
-
-async function generateArchitectureMarkdown() {
-  try {
-    const { env } = await import("@/lib/env");
-    const res = await fetch(env.ARCHITECTURE_URL);
-    if (res.ok) {
-      return await res.text();
-    }
-    return `# Platform Architecture\n\nUnable to load the full architecture document at this time. Please visit [the web version](/architecture).`;
-  } catch {
-    return `# Platform Architecture\n\nDocument currently unavailable.`;
-  }
 }
 
 function generateResumeMarkdown() {

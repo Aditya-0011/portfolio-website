@@ -62,6 +62,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
+                    aria-current={isActive ? "page" : undefined}
                     className={`relative flex items-center justify-center rounded-lg px-2 py-1.5 text-sm font-medium transition-[color,background-color,transform] duration-200 active:scale-[0.97] sm:px-4 sm:py-2 sm:text-lg ${
                       isActive
                         ? colors.active

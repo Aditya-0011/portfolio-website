@@ -1,4 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { isIP } from "node:net";
+
 import { env } from "@/lib/env";
 
 const FALLBACK_QUOTE = [
@@ -6,32 +8,40 @@ const FALLBACK_QUOTE = [
   "Screaming into the abyss won't make this page appear.",
 ];
 
+const NO_STORE = { "Cache-Control": "no-store" };
+
+const QUOTE_PATH = "/random";
+
+function clientIp(request: NextRequest): string | null {
+  const candidate =
+    request.headers.get("x-real-ip") ??
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return candidate && isIP(candidate) ? candidate : null;
+}
+
+function fallback() {
+  return NextResponse.json({ quote: FALLBACK_QUOTE }, { headers: NO_STORE });
+}
+
 export async function GET(request: NextRequest) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  const ip = forwardedFor ? forwardedFor.split(",")[0] : "127.0.0.1";
+  const ip = clientIp(request);
 
   try {
-    const res = await fetch(`${env.MANAGER_BACKEND_URL}/random`, {
+    const res = await fetch(`${env.MANAGER_BACKEND_URL}${QUOTE_PATH}`, {
       cache: "no-store",
-      headers: {
-        "X-Forwarded-For": ip,
-      },
+      headers: ip ? { "X-Forwarded-For": ip } : {},
+      signal: AbortSignal.timeout(5_000),
     });
 
-    if (res.status === 429) {
-      return NextResponse.json({ quote: FALLBACK_QUOTE });
-    }
-
     if (!res.ok && res.status !== 404) {
-      // eslint-disable-next-line no-console
-      console.error(
-        `[API Route] Fetch failed with status ${res.status} ${res.statusText}`,
-      );
-      return NextResponse.json({ quote: FALLBACK_QUOTE });
+      if (res.status !== 429) {
+        // eslint-disable-next-line no-console
+        console.error(`[api/quote] unexpected gateway status ${res.status}`);
+      }
+      return fallback();
     }
 
-    const text = await res.text();
-
+    const text = (await res.text()).slice(0, 500);
     const separatorIndex = text.indexOf(":");
     const quote =
       separatorIndex !== -1
@@ -41,10 +51,10 @@ export async function GET(request: NextRequest) {
           ]
         : [text.trim()];
 
-    return NextResponse.json({ quote });
+    return NextResponse.json({ quote }, { headers: NO_STORE });
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error("[API Route] Fetch threw a network error:", error);
-    return NextResponse.json({ quote: FALLBACK_QUOTE });
+    console.error("[api/quote] gateway request failed:", error);
+    return fallback();
   }
 }

@@ -2,15 +2,19 @@
 
 import { AlertTriangle } from "lucide-react";
 
-type ErrorProps = {
+type ErrorStateProps = {
   content: string;
+  children?: React.ReactNode;
 };
 
-export function Error({ content }: ErrorProps) {
+export function ErrorState({ content, children }: ErrorStateProps) {
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col items-center justify-center gap-8 rounded-2xl border border-white/5 bg-neutral-900/40 p-8 shadow-2xl backdrop-blur-xl sm:p-12">
+    <div
+      role="alert"
+      className="mx-auto flex w-full max-w-lg flex-col items-center justify-center gap-8 rounded-2xl border border-white/5 bg-neutral-900/40 p-8 shadow-2xl backdrop-blur-xl sm:p-12"
+    >
       <div className="flex h-20 w-20 items-center justify-center rounded-full bg-red-500/10 shadow-[0_0_30px_-10px_rgba(239,68,68,0.3)] ring-1 ring-red-500/20">
-        <AlertTriangle className="h-10 w-10 text-red-500" />
+        <AlertTriangle className="h-10 w-10 text-red-500" aria-hidden="true" />
       </div>
 
       <div className="space-y-3 text-center">
@@ -22,6 +26,7 @@ export function Error({ content }: ErrorProps) {
           contact me if the issue persists.
         </p>
       </div>
+      {children}
     </div>
   );
 }

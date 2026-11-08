@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import ReactMarkdown from "react-markdown";
 import { Globe } from "lucide-react";
@@ -12,12 +11,19 @@ import { Github } from "@/lib/brand-icons";
 
 type Props = {
   project: Project;
+  headingLevel: "h2" | "h3";
+  eager: boolean;
+  highPriority: boolean;
 };
 
-export default function Card({ project }: Props) {
+export default function Card({
+  project,
+  headingLevel: HeadingTag,
+  eager,
+  highPriority,
+}: Props) {
   return (
     <li
-      key={project.id}
       id={project.id.toString()}
       className="group relative mb-6 break-inside-avoid rounded-2xl border border-white/5 bg-neutral-900/40 p-5 shadow-lg backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]"
     >
@@ -31,33 +37,37 @@ export default function Card({ project }: Props) {
           height={400}
           className="h-full w-full object-contain transition-transform duration-200 ease-out group-hover:scale-105"
           unoptimized={project.image_url.endsWith(".gif")}
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority={highPriority ? "high" : "auto"}
         />
       </div>
 
       <div className="relative z-10 mt-6 flex max-w-7xl items-center justify-between border-b border-red-500/30 pb-3">
-        <h3 className="text-xl leading-8 font-bold tracking-tight text-white/90 transition-colors duration-300 group-hover:text-emerald-400">
+        <HeadingTag className="text-xl leading-8 font-bold tracking-tight text-white/90 transition-colors duration-300 group-hover:text-emerald-400">
           {project.name}
-        </h3>
+        </HeadingTag>
         <div className="flex items-center justify-between gap-3">
           {project.project_url ? (
-            <Link
+            <a
               target="_blank"
+              rel="noopener noreferrer"
               href={project.project_url}
               aria-label={`Visit ${project.name} website`}
               className="rounded-sm text-white/70 transition-transform duration-200 hover:scale-110 hover:text-white focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
             >
-              <Globe className="h-6 w-6" />
-            </Link>
+              <Globe className="h-6 w-6" aria-hidden="true" />
+            </a>
           ) : null}
           {project.github_url ? (
-            <Link
+            <a
               target="_blank"
+              rel="noopener noreferrer"
               href={project.github_url}
               aria-label={`View ${project.name} source on GitHub`}
               className="ml-1 rounded-sm text-white/70 transition-transform duration-200 hover:scale-110 hover:text-white focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
             >
-              <Github className="h-6 w-6" />
-            </Link>
+              <Github className="h-6 w-6" aria-hidden="true" />
+            </a>
           ) : null}
         </div>
       </div>

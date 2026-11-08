@@ -1,20 +1,21 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import Script from "next/script";
-import localFont from "next/font/local";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
 import { env } from "@/lib/env";
+import { SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 import "./globals.css";
 
-const font = localFont({
-  src: "../public/fonts/SF-Pro.ttf",
-});
-
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
   keywords: [
     "Portfolio",
     "Home",
@@ -67,10 +68,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-neutral-950 overflow-y-scroll ${font.className}`}
+      className="scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-neutral-950 overflow-y-scroll font-sans"
     >
-      <GoogleTagManager gtmId={env.G_TAG} />
-      <GoogleAnalytics gaId={env.G_TAG} />
+      {env.G_TAG ? <GoogleAnalytics gaId={env.G_TAG} /> : null}
       <body className="overflow-x-hidden">
         <script
           type="application/ld+json"

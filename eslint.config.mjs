@@ -1,7 +1,23 @@
+import { registerHooks } from "node:module";
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
-import prettier from "eslint-config-prettier/flat";
+
+registerHooks({
+  resolve(specifier, context, nextResolve) {
+    if (specifier === "typescript" || specifier.startsWith("typescript/")) {
+      return nextResolve(
+        specifier.replace(/^typescript/, "@typescript/typescript6"),
+        context,
+      );
+    }
+    return nextResolve(specifier, context);
+  },
+});
+
+const { default: nextVitals } =
+  await import("eslint-config-next/core-web-vitals");
+const { default: nextTs } = await import("eslint-config-next/typescript");
+
+const { default: prettier } = await import("eslint-config-prettier/flat");
 
 const eslintConfig = defineConfig([
   ...nextVitals,

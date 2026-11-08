@@ -1,26 +1,11 @@
 import Link from "next/link";
-import { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | Aditya Punmiya",
+export const metadata = pageMetadata({
+  title: "Privacy Policy",
   description: "Privacy policy for Aditya Punmiya's portfolio.",
-  metadataBase: new URL("https://adityapunmiya.com"),
-  alternates: {
-    canonical: "/privacy",
-  },
-  openGraph: {
-    title: "Privacy Policy | Aditya Punmiya",
-    description: "Privacy policy for Aditya Punmiya's portfolio.",
-    siteName: "Aditya Punmiya",
-    type: "website",
-    url: "https://adityapunmiya.com/privacy",
-    images: [
-      {
-        url: "https://res.cloudinary.com/dijxynt89/image/upload/v1725052376/Aditya_os4fzb.jpg",
-      },
-    ],
-  },
-};
+  path: "/privacy",
+});
 
 export default function Privacy() {
   return (

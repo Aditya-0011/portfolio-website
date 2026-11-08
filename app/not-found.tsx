@@ -31,7 +31,7 @@ export default function NotFound() {
             </div>
           </div>
 
-          <div className="mt-12 text-center text-sm text-white/40">
+          <div className="mt-12 text-center text-sm text-white/55">
             <p>Are you an AI agent? Here are some helpful links to recover:</p>
             <div className="mt-4 flex flex-col flex-wrap items-center justify-center gap-2 sm:flex-row sm:gap-4">
               <Link

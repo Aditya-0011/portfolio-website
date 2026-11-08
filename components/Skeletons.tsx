@@ -1,27 +1,3 @@
-export function AboutMeSkeleton() {
-  return (
-    <div className="relative overflow-hidden py-8 sm:py-16">
-      <div className="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-6 sm:px-8 md:flex-row lg:gap-16">
-        <div className="z-10 flex w-full animate-pulse flex-col gap-8 md:w-[60%]">
-          <div className="space-y-3">
-            <div className="h-12 w-3/4 rounded-xl bg-white/5 sm:h-16" />
-            <div className="h-10 w-1/2 rounded-xl bg-white/5 sm:h-12" />
-          </div>
-          <div className="space-y-3 pt-2">
-            <div className="h-5 w-full rounded-lg bg-white/5" />
-            <div className="h-5 w-11/12 rounded-lg bg-white/5" />
-            <div className="h-5 w-4/5 rounded-lg bg-white/5" />
-          </div>
-        </div>
-
-        <div className="relative z-10 hidden h-96 w-[40%] items-center justify-center md:flex lg:h-full">
-          <div className="h-64 w-64 animate-pulse rounded-full border border-white/5 bg-white/5 p-1 md:h-80 md:w-80" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function TechnologyGridSkeleton() {
   return (
     <div className="py-8 sm:py-16">

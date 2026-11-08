@@ -86,6 +86,13 @@ function appendVaryAccept(headers: Headers): void {
   }
 }
 
+function rewriteToMarkdown(req: NextRequest, pathname: string) {
+  const url = req.nextUrl.clone();
+  url.pathname = `/api/markdown${pathname === "/" ? "" : pathname}`;
+  url.search = "";
+  return NextResponse.rewrite(url);
+}
+
 export function proxy(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
 
@@ -114,35 +121,13 @@ export function proxy(req: NextRequest) {
   }
 
   if (pathname.endsWith(".md")) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/api/markdown";
-    url.searchParams.set("path", pathname);
-
-    const requestHeaders = new Headers(req.headers);
-    requestHeaders.set("x-markdown-path", pathname);
-
-    return NextResponse.rewrite(url, {
-      request: {
-        headers: requestHeaders,
-      },
-    });
+    return rewriteToMarkdown(req, pathname);
   }
 
-  const accept = req.headers.get("Accept");
-  const type = preferredType(accept);
-
-  if (type === "text/markdown") {
-    const url = req.nextUrl.clone();
-    url.pathname = "/api/markdown";
-
-    const requestHeaders = new Headers(req.headers);
-    requestHeaders.set("x-markdown-path", pathname);
-
-    return NextResponse.rewrite(url, {
-      request: {
-        headers: requestHeaders,
-      },
-    });
+  if (preferredType(req.headers.get("Accept")) === "text/markdown") {
+    const response = rewriteToMarkdown(req, pathname);
+    appendVaryAccept(response.headers);
+    return response;
   }
 
   const response = NextResponse.next();

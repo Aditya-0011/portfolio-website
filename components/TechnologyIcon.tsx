@@ -41,7 +41,8 @@ export default function TechnologyIcon({
       height={height ?? 32}
       width={width ?? 32}
       className={className}
-      alt={technology.name}
+      alt=""
+      unoptimized
       onError={() => setImgError(true)}
       onLoad={() => setLoaded(true)}
     />

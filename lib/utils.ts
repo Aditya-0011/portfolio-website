@@ -1,5 +1,3 @@
-import { DateTime } from "luxon";
-
 import {
   TechnologyCategory as Category,
   type TechnologyCategory,
@@ -28,19 +26,29 @@ export const getTechnologyCategoryLabel = (
   }
 };
 
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+
 export const formatMonthYear = (value: string): string => {
   const trimmed = value.trim();
-  if (!trimmed) {
+  const match = /^(\d{4})-(\d{2})$/.exec(trimmed);
+  if (!match) {
     return trimmed;
   }
-  const parsed = DateTime.fromFormat(trimmed, "yyyy-MM", {
-    zone: "utc",
-    locale: "en-US",
-  });
-  if (!parsed.isValid) {
-    return trimmed;
-  }
-  return parsed.toFormat("LLL''yy", { locale: "en-US" });
+  const month = MONTHS[Number(match[2]) - 1];
+  return month ? `${month}'${match[1].slice(2)}` : trimmed;
 };
 
 export const collator = new Intl.Collator("en", { sensitivity: "accent" });

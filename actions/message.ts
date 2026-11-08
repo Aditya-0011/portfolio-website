@@ -3,17 +3,13 @@
 import { after } from "next/server";
 import { headers } from "next/headers";
 
-import {
-  ServerValidateError,
-  createServerValidate,
-} from "@tanstack/react-form-nextjs";
+import * as v from "valibot";
 
 import { env } from "@/lib/env";
 import { mail } from "@/lib/mail";
 import {
   MessageSchema,
   SimpleResponseSchema,
-  messageFormOptions,
   type ActionResult,
 } from "@/lib/objects";
 
@@ -24,21 +20,6 @@ const PRODUCTION_HOSTNAMES = new Set([
   "www.adityapunmiya.com",
 ]);
 const GENERIC_FAILURE = "Something went wrong. Please try again later.";
-
-const validate = createServerValidate({
-  ...messageFormOptions,
-  onServerValidate: ({ value }) => {
-    const result = MessageSchema.safeParse(value);
-    if (!result.success) {
-      const fieldErrors: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        const path = issue.path[0] as string;
-        fieldErrors[path] = issue.message;
-      });
-      return fieldErrors;
-    }
-  },
-});
 
 async function verifyTurnstile(token: string): Promise<boolean> {
   const requestHeaders = await headers();
@@ -68,9 +49,11 @@ async function verifyTurnstile(token: string): Promise<boolean> {
   return true;
 }
 
-export async function AddMessage(prev: unknown, formData: FormData) {
+export async function AddMessage(
+  input: unknown,
+  token: unknown,
+): Promise<ActionResult> {
   try {
-    const token = formData.get("cf-turnstile-response");
     if (
       typeof token !== "string" ||
       token.length === 0 ||
@@ -79,17 +62,25 @@ export async function AddMessage(prev: unknown, formData: FormData) {
       return {
         status: 400,
         message: ["Please complete the spam check and try again."],
-      } satisfies ActionResult;
+      };
     }
 
     if (!(await verifyTurnstile(token))) {
       return {
         status: 400,
         message: ["Spam check failed. Please try again."],
-      } satisfies ActionResult;
+      };
     }
 
-    const data = await validate(formData);
+    const parsed = v.safeParse(MessageSchema, input);
+    if (!parsed.success) {
+      return {
+        status: 400,
+        message: ["Please fix the highlighted fields."],
+        fieldErrors: v.flatten<typeof MessageSchema>(parsed.issues).nested,
+      };
+    }
+    const data = parsed.output;
 
     const response = await fetch(`${env.MANAGER_BACKEND_URL}/message/add`, {
       method: "POST",
@@ -115,26 +106,24 @@ export async function AddMessage(prev: unknown, formData: FormData) {
             ? "Too many messages right now. Please try again later."
             : GENERIC_FAILURE,
         ],
-      } satisfies ActionResult;
+      };
     }
 
     after(() => mail.send(data));
 
-    const parsed = SimpleResponseSchema.safeParse(
+    const reply = v.safeParse(
+      SimpleResponseSchema,
       await response.json().catch(() => ({})),
     );
     const message =
-      parsed.success && parsed.data.message
-        ? parsed.data.message
+      reply.success && reply.output.message
+        ? reply.output.message
         : "Message sent!";
 
-    return { status: 200, message: [message] } satisfies ActionResult;
+    return { status: 200, message: [message] };
   } catch (e) {
-    if (e instanceof ServerValidateError) {
-      return e.formState;
-    }
     // eslint-disable-next-line no-console
     console.error("[contact] failed to send message", e);
-    return { status: 500, message: [GENERIC_FAILURE] } satisfies ActionResult;
+    return { status: 500, message: [GENERIC_FAILURE] };
   }
 }

@@ -1,45 +1,33 @@
-import { z } from "zod";
+import * as v from "valibot";
 
-import { MESSAGE_LIMITS } from "@/lib/message";
+import { type Message } from "@/lib/message";
 
-export { MESSAGE_LIMITS, messageFormOptions } from "@/lib/message";
+export { MESSAGE_LIMITS, MessageSchema, type Message } from "@/lib/message";
 
-export const SimpleResponseSchema = z.object({
-  message: z.string().trim().default(""),
+const textOrEmpty = v.optional(v.string(), "");
+const trimmedTextOrEmpty = v.optional(v.pipe(v.string(), v.trim()), "");
+
+export const SimpleResponseSchema = v.object({
+  message: trimmedTextOrEmpty,
 });
-export type SimpleResponse = z.infer<typeof SimpleResponseSchema>;
+export type SimpleResponse = v.InferOutput<typeof SimpleResponseSchema>;
 
-export const MessageSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(3, { error: "Name must be at least 3 characters." })
-    .max(MESSAGE_LIMITS.name, {
-      error: `Name must be at most ${MESSAGE_LIMITS.name} characters.`,
-    }),
-  email: z.email({ error: "Invalid email address" }).max(MESSAGE_LIMITS.email, {
-    error: `Email must be at most ${MESSAGE_LIMITS.email} characters.`,
-  }),
-  message: z
-    .string()
-    .trim()
-    .min(3, { error: "Message must be at least 3 characters." })
-    .max(MESSAGE_LIMITS.message, {
-      error: `Message must be at most ${MESSAGE_LIMITS.message} characters.`,
-    }),
-});
-export type Message = z.infer<typeof MessageSchema>;
+export type ActionResult = {
+  status: number;
+  message: string[];
+  fieldErrors?: Partial<Record<keyof Message, [string, ...string[]]>>;
+};
 
-export type ActionResult = { status: number; message: string[] };
+const httpUrl = v.pipe(v.string(), v.url(), v.regex(/^https?:\/\//i));
+const optionalLink = v.fallback(v.optional(httpUrl), undefined);
 
-const httpUrl = z.url({ protocol: /^https?$/ });
-const optionalLink = httpUrl.optional().catch(undefined);
-
-export const UserDetailsResponseSchema = z.object({
-  about: z.string().trim().default(""),
+export const UserDetailsResponseSchema = v.object({
+  about: trimmedTextOrEmpty,
   cover_image: httpUrl,
 });
-export type UserDetailsResponse = z.infer<typeof UserDetailsResponseSchema>;
+export type UserDetailsResponse = v.InferOutput<
+  typeof UserDetailsResponseSchema
+>;
 
 export const TechnologyCategory = {
   Invalid: 0,
@@ -55,85 +43,93 @@ export const TechnologyCategory = {
 export type TechnologyCategory =
   (typeof TechnologyCategory)[keyof typeof TechnologyCategory];
 
-export const TechnologyCategorySchema = z
-  .union(
+export const TechnologyCategorySchema = v.optional(
+  v.picklist(
     [
-      z.literal(TechnologyCategory.Invalid),
-      z.literal(TechnologyCategory.Frontend),
-      z.literal(TechnologyCategory.Backend),
-      z.literal(TechnologyCategory.Db),
-      z.literal(TechnologyCategory.Language),
-      z.literal(TechnologyCategory.Tool),
-      z.literal(TechnologyCategory.Academics),
-      z.literal(TechnologyCategory.None),
+      TechnologyCategory.Invalid,
+      TechnologyCategory.Frontend,
+      TechnologyCategory.Backend,
+      TechnologyCategory.Db,
+      TechnologyCategory.Language,
+      TechnologyCategory.Tool,
+      TechnologyCategory.Academics,
+      TechnologyCategory.None,
     ],
-    { error: "Invalid technology category" },
-  )
-  .default(TechnologyCategory.Invalid);
+    "Invalid technology category",
+  ),
+  TechnologyCategory.Invalid,
+);
 
-const TechnologySummarySchema = z.object({
-  id: z.number(),
-  name: z.string().default(""),
+const TechnologySummarySchema = v.object({
+  id: v.number(),
+  name: textOrEmpty,
   image_url: httpUrl,
   fallback_image_url: httpUrl,
 });
-export type TechnologySummary = z.infer<typeof TechnologySummarySchema>;
+export type TechnologySummary = v.InferOutput<typeof TechnologySummarySchema>;
 
-export const TechnologySchema = TechnologySummarySchema.extend({
+export const TechnologySchema = v.object({
+  ...TechnologySummarySchema.entries,
   category: TechnologyCategorySchema,
 });
-export type Technology = z.infer<typeof TechnologySchema>;
+export type Technology = v.InferOutput<typeof TechnologySchema>;
 
-export const TechnologiesResponseSchema = z.object({
-  technologies: z.array(TechnologySchema).default([]),
+export const TechnologiesResponseSchema = v.object({
+  technologies: v.optional(v.array(TechnologySchema), []),
 });
-export type TechnologiesResponse = z.infer<typeof TechnologiesResponseSchema>;
+export type TechnologiesResponse = v.InferOutput<
+  typeof TechnologiesResponseSchema
+>;
 
-export const ProjectSchema = z.object({
-  id: z.number(),
-  name: z.string().default(""),
-  description: z.string().default(""),
+const technologySummaries = v.optional(v.array(TechnologySummarySchema), []);
+
+export const ProjectSchema = v.object({
+  id: v.number(),
+  name: textOrEmpty,
+  description: textOrEmpty,
   image_url: httpUrl,
   project_url: optionalLink,
   github_url: optionalLink,
-  technologies: z.array(TechnologySummarySchema).default([]),
-  featured: z.boolean().default(false),
+  technologies: technologySummaries,
+  featured: v.optional(v.boolean(), false),
 });
-export type Project = z.infer<typeof ProjectSchema>;
+export type Project = v.InferOutput<typeof ProjectSchema>;
 
-const ProjectSummarySchema = z.object({
-  id: z.number(),
-  name: z.string().default(""),
-});
-
-export const ProjectsResponseSchema = z.object({
-  projects: z.array(ProjectSchema).default([]),
-});
-export type ProjectsResponse = z.infer<typeof ProjectsResponseSchema>;
-
-const PositionSchema = z.object({
-  role: z.string().default(""),
-  start: z.string().default(""),
-  end: z.string().optional(),
-  work_done: z.string().default(""),
-  projects: z.array(ProjectSummarySchema).default([]),
+const ProjectSummarySchema = v.object({
+  id: v.number(),
+  name: textOrEmpty,
 });
 
-export const ExperienceSchema = z.object({
-  id: z.number(),
-  company: z.string().default(""),
-  start: z.string().default(""),
-  end: z.string().optional(),
-  tenure: z.string().default(""),
-  positions: z.array(PositionSchema).default([]),
-  technologies: z.array(TechnologySummarySchema).default([]),
+export const ProjectsResponseSchema = v.object({
+  projects: v.optional(v.array(ProjectSchema), []),
 });
-export type Experience = z.infer<typeof ExperienceSchema>;
+export type ProjectsResponse = v.InferOutput<typeof ProjectsResponseSchema>;
 
-export const ExperiencesResponseSchema = z.object({
-  experiences: z.array(ExperienceSchema).default([]),
+const PositionSchema = v.object({
+  role: textOrEmpty,
+  start: textOrEmpty,
+  end: v.optional(v.string()),
+  work_done: textOrEmpty,
+  projects: v.optional(v.array(ProjectSummarySchema), []),
 });
-export type ExperiencesResponse = z.infer<typeof ExperiencesResponseSchema>;
+
+export const ExperienceSchema = v.object({
+  id: v.number(),
+  company: textOrEmpty,
+  start: textOrEmpty,
+  end: v.optional(v.string()),
+  tenure: textOrEmpty,
+  positions: v.optional(v.array(PositionSchema), []),
+  technologies: technologySummaries,
+});
+export type Experience = v.InferOutput<typeof ExperienceSchema>;
+
+export const ExperiencesResponseSchema = v.object({
+  experiences: v.optional(v.array(ExperienceSchema), []),
+});
+export type ExperiencesResponse = v.InferOutput<
+  typeof ExperiencesResponseSchema
+>;
 
 export class GatewayError extends Error {
   readonly status: number;

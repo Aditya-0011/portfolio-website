@@ -1,95 +1,57 @@
 "use client";
 
-import {
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 import {
-  initialFormState,
-  mergeForm,
+  Field,
+  Form as FormischForm,
+  reset,
+  setErrors,
   useForm,
-  useTransform,
-} from "@tanstack/react-form-nextjs";
+  type SubmitHandler,
+} from "@formisch/react";
 import { toast } from "sonner";
 import { Mail, Loader2, Send } from "lucide-react";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 
-import {
-  MESSAGE_LIMITS,
-  messageFormOptions,
-  validateEmail,
-  validateMessage,
-  validateName,
-} from "@/lib/message";
+import { MESSAGE_LIMITS, MessageSchema } from "@/lib/message";
 import { AddMessage } from "@/actions/message";
 import { Github, Linkedin } from "@/lib/brand-icons";
 
+const FIELD_NAMES = ["name", "email", "message"] as const;
+
 export default function Form() {
-  const resetRef = useRef<() => void>(null);
   const turnstileRef = useRef<TurnstileInstance | undefined>(undefined);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-  const [state, action, isPending] = useActionState(
-    async (prevState: unknown, formData: FormData) => {
-      const res = await AddMessage(prevState, formData);
+  const messageForm = useForm({ schema: MessageSchema, validate: "input" });
+
+  const sendMessage: SubmitHandler<typeof MessageSchema> = async (output) => {
+    try {
+      const result = await AddMessage(output, turnstileToken);
+      const { fieldErrors } = result;
+
+      if (fieldErrors) {
+        for (const name of FIELD_NAMES) {
+          const errors = fieldErrors[name];
+          if (errors) setErrors(messageForm, { path: [name], errors });
+        }
+      } else if (result.status === 200) {
+        toast.success(result.message[0], { duration: 3000 });
+        reset(messageForm);
+      } else {
+        result.message.forEach((msg) => toast.error(msg, { duration: 3000 }));
+      }
+    } catch {
+      toast.error("Something went wrong. Please try again later.", {
+        duration: 3000,
+      });
+    } finally {
       setTurnstileToken(null);
       turnstileRef.current?.reset();
-      if (res && typeof res === "object" && "status" in res) {
-        if (res.status !== 200) {
-          res.message.forEach((msg: string) =>
-            toast.error(msg, { duration: 3000 }),
-          );
-        } else {
-          toast.success(res.message[0], { duration: 3000 });
-          resetRef.current?.();
-        }
-      }
-      return res;
-    },
-    initialFormState,
-  );
-
-  const { Field, Subscribe, handleSubmit, reset } = useForm({
-    ...messageFormOptions,
-    onSubmitInvalid: ({ formApi }) => {
-      formApi.state.errors.forEach((error) => {
-        let msg: unknown;
-        if (typeof error === "string") {
-          msg = error;
-        } else if (
-          typeof error === "object" &&
-          error !== null &&
-          "message" in error
-        ) {
-          msg = (error as Record<string, unknown>).message;
-        }
-        if (typeof msg === "string") toast.error(msg, { duration: 3000 });
-      });
-      const firstInvalidField = document.querySelector<HTMLElement>(
-        '[aria-invalid="true"], :invalid',
-      );
-      firstInvalidField?.focus();
-    },
-    transform: useTransform(
-      (baseForm) => {
-        if (state && typeof state === "object" && !("status" in state)) {
-          return mergeForm(baseForm, state as Parameters<typeof mergeForm>[1]);
-        }
-        return baseForm;
-      },
-      [state],
-    ),
-  });
-
-  // Keep a fresh reference to reset
-  useEffect(() => {
-    resetRef.current = reset;
-  }, [reset]);
+    }
+  };
 
   const emptySubscribe = () => () => {};
   const isIframe = useSyncExternalStore(
@@ -104,6 +66,8 @@ export default function Form() {
   );
 
   const [userInteracted, setUserInteracted] = useState(false);
+  const loading = messageForm.isSubmitting;
+  const canSubmit = messageForm.isValid;
 
   useEffect(() => {
     if (!isMounted || userInteracted || isIframe) return;
@@ -196,44 +160,35 @@ export default function Form() {
         </div>
       </div>
 
-      <form
-        action={action as never}
-        onSubmit={() => handleSubmit()}
+      <FormischForm
+        of={messageForm}
+        onSubmit={sendMessage}
         onFocusCapture={() => setUserInteracted(true)}
         onPointerEnter={() => setUserInteracted(true)}
         className="flex flex-col justify-center p-5 sm:p-10 lg:p-12"
       >
         <div className="mx-auto w-full max-w-xl lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 sm:gap-y-6">
-            <Field
-              name="name"
-              validators={{
-                onChange: ({ value }) => validateName(value),
-              }}
-            >
+            <Field of={messageForm} path={["name"]}>
               {(field) => {
-                const hasError = field.state.meta.errors.length > 0;
+                const hasError = Boolean(field.errors);
                 return (
                   <div className="sm:col-span-2">
                     <label
-                      htmlFor={field.name}
+                      htmlFor="name"
                       className="block text-sm leading-6 font-semibold text-white/75"
                     >
                       Name
                     </label>
                     <div className="mt-2.5">
                       <input
-                        id={field.name}
-                        name={field.name}
-                        value={field.state.value ?? ""}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
+                        id="name"
+                        {...field.props}
+                        value={field.input ?? ""}
                         maxLength={MESSAGE_LIMITS.name}
                         required
                         aria-invalid={hasError}
-                        aria-describedby={
-                          hasError ? `${field.name}-error` : undefined
-                        }
+                        aria-describedby={hasError ? "name-error" : undefined}
                         type="text"
                         autoComplete="name"
                         placeholder="Your name…"
@@ -245,10 +200,10 @@ export default function Form() {
                       />
                       {hasError ? (
                         <p
-                          id={`${field.name}-error`}
+                          id="name-error"
                           className="mt-2 text-sm text-red-400"
                         >
-                          {field.state.meta.errors.map(String).join(" ")}
+                          {field.errors?.join(" ")}
                         </p>
                       ) : null}
                     </div>
@@ -257,35 +212,26 @@ export default function Form() {
               }}
             </Field>
 
-            <Field
-              name="email"
-              validators={{
-                onChange: ({ value }) => validateEmail(value),
-              }}
-            >
+            <Field of={messageForm} path={["email"]}>
               {(field) => {
-                const hasError = field.state.meta.errors.length > 0;
+                const hasError = Boolean(field.errors);
                 return (
                   <div className="sm:col-span-2">
                     <label
-                      htmlFor={field.name}
+                      htmlFor="email"
                       className="block text-sm leading-6 font-semibold text-white/75"
                     >
                       Email
                     </label>
                     <div className="mt-2.5">
                       <input
-                        id={field.name}
-                        name={field.name}
-                        value={field.state.value ?? ""}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
+                        id="email"
+                        {...field.props}
+                        value={field.input ?? ""}
                         maxLength={MESSAGE_LIMITS.email}
                         required
                         aria-invalid={hasError}
-                        aria-describedby={
-                          hasError ? `${field.name}-error` : undefined
-                        }
+                        aria-describedby={hasError ? "email-error" : undefined}
                         type="email"
                         autoComplete="email"
                         spellCheck={false}
@@ -298,10 +244,10 @@ export default function Form() {
                       />
                       {hasError ? (
                         <p
-                          id={`${field.name}-error`}
+                          id="email-error"
                           className="mt-2 text-sm text-red-400"
                         >
-                          {field.state.meta.errors.map(String).join(" ")}
+                          {field.errors?.join(" ")}
                         </p>
                       ) : null}
                     </div>
@@ -310,34 +256,27 @@ export default function Form() {
               }}
             </Field>
 
-            <Field
-              name="message"
-              validators={{
-                onChange: ({ value }) => validateMessage(value),
-              }}
-            >
+            <Field of={messageForm} path={["message"]}>
               {(field) => {
-                const hasError = field.state.meta.errors.length > 0;
+                const hasError = Boolean(field.errors);
                 return (
                   <div className="sm:col-span-2">
                     <label
-                      htmlFor={field.name}
+                      htmlFor="message"
                       className="block text-sm leading-6 font-semibold text-white/75"
                     >
                       Message
                     </label>
                     <div className="mt-2.5">
                       <textarea
-                        id={field.name}
-                        name={field.name}
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
+                        id="message"
+                        {...field.props}
+                        value={field.input ?? ""}
                         maxLength={MESSAGE_LIMITS.message}
                         required
                         aria-invalid={hasError}
                         aria-describedby={
-                          hasError ? `${field.name}-error` : undefined
+                          hasError ? "message-error" : undefined
                         }
                         rows={4}
                         placeholder="Write your message…"
@@ -350,10 +289,10 @@ export default function Form() {
                       />
                       {hasError ? (
                         <p
-                          id={`${field.name}-error`}
+                          id="message-error"
                           className="mt-2 text-sm text-red-400"
                         >
-                          {field.state.meta.errors.map(String).join(" ")}
+                          {field.errors?.join(" ")}
                         </p>
                       ) : null}
                     </div>
@@ -413,54 +352,38 @@ export default function Form() {
               </div>
             )}
             <div className="group relative">
-              <Subscribe
-                selector={(formState) => [
-                  formState.canSubmit,
-                  formState.isSubmitting,
-                ]}
+              <button
+                type="submit"
+                disabled={!canSubmit || loading || isIframe || !turnstileToken}
+                className={`relative w-full overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-[transform,box-shadow,border-color,background-color] duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:w-auto ${
+                  loading || !canSubmit || isIframe || !turnstileToken
+                    ? "cursor-not-allowed border border-white/5 bg-neutral-900 text-white/40"
+                    : "border border-white/10 bg-neutral-900 text-white shadow-lg hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] active:scale-[0.97]"
+                }`}
               >
-                {([canSubmit, isSubmitting]) => {
-                  const loading = isSubmitting || isPending;
-                  return (
-                    <>
-                      <button
-                        type="submit"
-                        disabled={
-                          !canSubmit || loading || isIframe || !turnstileToken
-                        }
-                        className={`relative w-full overflow-hidden rounded-xl px-6 py-3 text-lg font-bold transition-[transform,box-shadow,border-color,background-color] duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:w-auto ${
-                          loading || !canSubmit || isIframe || !turnstileToken
-                            ? "cursor-not-allowed border border-white/5 bg-neutral-900 text-white/40"
-                            : "border border-white/10 bg-neutral-900 text-white shadow-lg hover:-translate-y-0.5 hover:border-emerald-500/50 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] active:scale-[0.97]"
-                        }`}
-                      >
-                        {loading ? (
-                          <div className="flex items-center justify-center gap-x-2">
-                            <Loader2
-                              className="size-5 animate-spin"
-                              aria-hidden="true"
-                            />
-                            Sending…
-                          </div>
-                        ) : isIframe ? (
-                          <div className="flex items-center justify-center gap-x-2">
-                            Disabled in Preview
-                          </div>
-                        ) : (
-                          <div className="flex items-center justify-center gap-x-2">
-                            <Send className="size-5" aria-hidden="true" />
-                            Send Message
-                          </div>
-                        )}
-                      </button>
-                    </>
-                  );
-                }}
-              </Subscribe>
+                {loading ? (
+                  <div className="flex items-center justify-center gap-x-2">
+                    <Loader2
+                      className="size-5 animate-spin"
+                      aria-hidden="true"
+                    />
+                    Sending…
+                  </div>
+                ) : isIframe ? (
+                  <div className="flex items-center justify-center gap-x-2">
+                    Disabled in Preview
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center gap-x-2">
+                    <Send className="size-5" aria-hidden="true" />
+                    Send Message
+                  </div>
+                )}
+              </button>
             </div>
           </div>
         </div>
-      </form>
+      </FormischForm>
     </div>
   );
 }

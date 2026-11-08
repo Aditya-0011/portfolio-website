@@ -13,7 +13,7 @@ import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   preload: false,
   variable: "--font-inter",
 });

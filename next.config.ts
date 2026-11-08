@@ -34,7 +34,7 @@ const contentSecurityPolicy = [
     isDev ? "ws: wss:" : "",
     "https://challenges.cloudflare.com",
     "https://*.clarity.ms https://c.bing.com",
-    "https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com",
+    "https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com",
     "https://vitals.vercel-insights.com https://va.vercel-scripts.com",
   ]
     .filter(Boolean)
@@ -57,7 +57,7 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+    value: "camera=(), microphone=(), geolocation=()",
   },
   {
     key: "Strict-Transport-Security",
@@ -86,6 +86,18 @@ const nextConfig: NextConfig = {
         hostname: "cdn.jsdelivr.net",
         pathname: "/gh/devicons/devicon@*/icons/**",
       },
+      { protocol: "https", hostname: "reactrouter.com" },
+      { protocol: "https", hostname: "tanstack.com" },
+      { protocol: "https", hostname: "zustand-demo.pmnd.rs" },
+      { protocol: "https", hostname: "expressjs.com" },
+      { protocol: "https", hostname: "docs.gofiber.io" },
+      { protocol: "https", hostname: "docs.oracle.com" },
+      { protocol: "https", hostname: "podman.io" },
+      { protocol: "https", hostname: "socket.io" },
+      { protocol: "https", hostname: "assets.vercel.com" },
+      { protocol: "https", hostname: "pytorch.org" },
+      { protocol: "https", hostname: "www.rabbitmq.com" },
+      { protocol: "https", hostname: "typeorm.io" },
     ],
     minimumCacheTTL: 2678400,
   },

@@ -31,7 +31,7 @@ async function getAllProjects(): Promise<Project[]> {
     "/project/list",
     ProjectsResponseSchema,
   );
-  return projects.map(withSortedTechnologies);
+  return projects.toSorted((a, b) => a.id - b.id).map(withSortedTechnologies);
 }
 
 export async function GetProjects({

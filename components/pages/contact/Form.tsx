@@ -337,7 +337,10 @@ export default function Form() {
                   <Turnstile
                     ref={turnstileRef}
                     siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                    options={{ size: "flexible", theme: "dark" }}
+                    options={{
+                      size: window.innerWidth < 400 ? "compact" : "flexible",
+                      theme: "dark",
+                    }}
                     onSuccess={setTurnstileToken}
                     onExpire={() => setTurnstileToken(null)}
                     onError={() => setTurnstileToken(null)}

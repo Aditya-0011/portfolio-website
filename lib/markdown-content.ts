@@ -93,7 +93,7 @@ async function generateHomeMarkdown() {
   });
 
   md += `## Experience\n\n`;
-  experiences.slice(0, 3).forEach((exp) => {
+  experiences.forEach((exp) => {
     md += `### ${exp.company}\n`;
     md += `**Tenure:** ${exp.tenure} (${exp.start} - ${exp.end || "Present"})\n\n`;
     exp.positions.forEach((pos) => {

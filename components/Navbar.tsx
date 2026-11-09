@@ -7,7 +7,7 @@ const navItems = [
   { href: "/", label: "Home", activeColor: "blue" },
   { href: "/architecture", label: "Architecture", activeColor: "rose" },
   { href: "/projects", label: "Projects", activeColor: "emerald" },
-  { href: "/chat", label: "Chat", activeColor: "violet" },
+  { href: "/chat", label: "Chat", activeColor: "amber" },
   { href: "/contact", label: "Contact", activeColor: "sky" },
 ] as const;
 
@@ -24,9 +24,9 @@ const colorMap = {
     active:
       "bg-sky-500/10 text-sky-400 sm:ring sm:ring-sky-500/50 inset-ring inset-ring-sky-500/50",
   },
-  violet: {
+  amber: {
     active:
-      "bg-violet-500/10 text-violet-400 sm:ring sm:ring-violet-500/50 inset-ring inset-ring-violet-500/50",
+      "bg-amber-500/10 text-amber-400 sm:ring sm:ring-amber-500/50 inset-ring inset-ring-amber-500/50",
   },
   rose: {
     active:

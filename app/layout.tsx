@@ -79,7 +79,7 @@ export default function RootLayout({
       className={`scrollbar-thin scrollbar-thumb-neutral-900 scrollbar-track-neutral-950 overflow-y-scroll font-sans ${inter.variable}`}
     >
       {env.G_TAG ? <GoogleAnalytics gaId={env.G_TAG} /> : null}
-      <body className="overflow-x-hidden">
+      <body className="overflow-x-clip">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

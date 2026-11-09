@@ -10,6 +10,7 @@ const KNOWN_PATHS = new Set([
   "/",
   "/projects",
   "/contact",
+  "/chat",
   "/architecture",
   "/resume",
   "/privacy",
@@ -40,6 +41,8 @@ export async function getMarkdownForPath(
         return { content: await generateProjectsMarkdown(), status: 200 };
       case "/contact":
         return { content: generateContactMarkdown(), status: 200 };
+      case "/chat":
+        return { content: generateChatMarkdown(), status: 200 };
       case "/architecture":
         return { content: await GetArchitectureDoc(), status: 200 };
       case "/resume":
@@ -160,6 +163,14 @@ You can also use the contact form on my website at [https://adityapunmiya.com/co
 `;
 }
 
+function generateChatMarkdown() {
+  return `# Chat\n
+An AI chatbot at [https://adityapunmiya.com/chat](https://adityapunmiya.com/chat) answers visitor questions about Aditya Punmiya. It needs a browser.
+
+The same information is available on the [home page](/), the [projects page](/projects), and the [architecture page](/architecture).
+`;
+}
+
 function generateResumeMarkdown() {
   return `# Resume: Aditya Punmiya\n
 My full resume is available as a PDF document.
@@ -177,6 +188,7 @@ At Aditya Punmiya's Portfolio (adityapunmiya.com), your privacy is important.
 ## Data Collection and Usage
 - **Analytics:** We use Vercel Analytics, Google Analytics, and Microsoft Clarity to understand how visitors interact with the website. These services may collect anonymous usage data, including pages visited, browser type, and rough geographic location.
 - **Contact Form:** If you use the contact form, the information you provide (name, email, message) is used solely to respond to your inquiry. We do not sell or share this information with third parties.
+- **Chat:** Questions you ask on the chat page are sent to third-party AI model providers to generate answers, and those providers may keep or use them to train their models. We do not save your conversations. Please don't share personal information in the chat.
 - **Cookies:** Our analytics providers and spam-protection services (like Cloudflare Turnstile) may use cookies or similar technologies to function properly.
 
 ## Third-Party Services
@@ -185,6 +197,7 @@ We rely on third-party services which have their own privacy policies:
 - Google Analytics
 - Microsoft Clarity
 - Cloudflare Turnstile (Bot protection)
+- Vercel AI Gateway and its AI model providers (Chat)
 
 ## Contact
 If you have any questions about this privacy policy, please contact me via the [Contact Page](/contact) or by email at adityapunmiya@gmail.com.

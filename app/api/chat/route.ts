@@ -4,7 +4,7 @@ import {
   toUIMessageStream,
 } from "ai";
 
-import { GetChatModel, GetFreeChatModels } from "@/data/chat";
+import { GetChatModel, GetAvailableChatModels } from "@/data/chat";
 import {
   buildChatInstructions,
   parseChatMessages,
@@ -13,9 +13,9 @@ import {
 import { clientIp } from "@/lib/client-ip";
 import { allowChat } from "@/lib/gateway";
 
-export const maxDuration = 60;
+export const maxDuration = 300;
 
-const MAX_OUTPUT_TOKENS = 2000;
+const MAX_OUTPUT_TOKENS = 8000;
 const UNAVAILABLE =
   "The chat is unavailable right now. Please try again later.";
 
@@ -37,12 +37,12 @@ function isSameOrigin(request: Request): boolean {
 
 async function loadChatSetup() {
   try {
-    const [configured, free, instructions] = await Promise.all([
+    const [configured, available, instructions] = await Promise.all([
       GetChatModel(),
-      GetFreeChatModels(),
+      GetAvailableChatModels(),
       buildChatInstructions(),
     ]);
-    const models = pickChatModels(configured, free);
+    const models = pickChatModels(configured, available);
     return models && instructions ? { models, instructions } : null;
   } catch (error) {
     // eslint-disable-next-line no-console

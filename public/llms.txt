@@ -11,11 +11,13 @@
 - [Homepage](/) - Overview of background, technologies, and recent experience.
 - [Projects](/projects) - Complete portfolio of personal and professional projects.
 - [Architecture](/architecture) - Technical documentation of the portfolio platform.
+- [Chat](/chat) - An AI chatbot for visitors that answers questions about Aditya. It needs a browser, so use the pages above for the same information.
 - [Contact](/contact) - Ways to get in touch.
+- [Privacy](/privacy) - Privacy policy.
 
 ## Optional resources
 - [Full Resume](/resume) - PDF version of the resume.
 
 ## Notes
-- All pages on this site support the `Accept: text/markdown` header, which returns clean markdown instead of HTML.
+- All pages on this site support the `Accept: text/markdown` header, which returns clean markdown instead of HTML. You can also append `.md` to any page path, such as `/chat.md` or `/projects.md`.
 - For full agent instructions and complete context, fetch [/llms-full.txt](/llms-full.txt).

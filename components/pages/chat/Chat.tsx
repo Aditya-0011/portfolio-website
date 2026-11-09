@@ -1,5 +1,7 @@
 "use client";
 
+import "@/lib/zod-jitless";
+
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
@@ -41,8 +43,13 @@ export default function Chat() {
     stop,
     regenerate,
     setMessages,
-  } = useChat({ transport });
+  } = useChat({
+    transport,
+    onFinish: ({ finishReason, isAbort, isError }) =>
+      setWasCut(!isAbort && !isError && finishReason !== "stop"),
+  });
   const [input, setInput] = useState("");
+  const [wasCut, setWasCut] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef(true);
 
@@ -73,6 +80,7 @@ export default function Chat() {
 
   const send = (text: string) => {
     pinnedRef.current = true;
+    setWasCut(false);
     void sendMessage({ text });
     setInput("");
   };
@@ -121,7 +129,7 @@ export default function Chat() {
               ) : (
                 <div
                   key={message.id}
-                  className="prose prose-invert prose-sm prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-strong:text-white max-w-none text-[15px] leading-relaxed wrap-anywhere text-white/85"
+                  className="prose prose-invert prose-sm prose-code:before:content-none prose-code:after:content-none prose-p:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-0.5 prose-strong:text-white max-w-none text-[15px] leading-relaxed wrap-anywhere text-white/85"
                 >
                   <ReactMarkdown
                     components={defaultMarkdownComponents}
@@ -145,6 +153,12 @@ export default function Chat() {
               <span className="size-1.5 rounded-full bg-white/40 [animation-delay:150ms] motion-safe:animate-pulse" />
               <span className="size-1.5 rounded-full bg-white/40 [animation-delay:300ms] motion-safe:animate-pulse" />
             </div>
+          )}
+
+          {wasCut && !isBusy && (
+            <p className="text-xs text-amber-300/80">
+              This answer was cut short. Ask a follow-up to get the rest.
+            </p>
           )}
 
           {error && (
@@ -236,7 +250,10 @@ export default function Chat() {
             {messages.length > 0 && !isBusy && (
               <button
                 type="button"
-                onClick={() => setMessages([])}
+                onClick={() => {
+                  setMessages([]);
+                  setWasCut(false);
+                }}
                 className="underline underline-offset-2 hover:text-white/70"
               >
                 New chat

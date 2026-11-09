@@ -34,7 +34,7 @@ export async function GetChatModel(): Promise<string> {
   return chat_model.trim();
 }
 
-export async function GetFreeChatModels(): Promise<string[]> {
+export async function GetAvailableChatModels(): Promise<string[]> {
   "use cache";
   cacheLife({ stale: 60, revalidate: 300, expire: 3600 });
 

@@ -25,6 +25,7 @@ This section explains the technologies and physical layout of the portfolio webs
 - `app/`: Next.js App Router pages, layouts, and global styles
 - `actions/`: Server actions (`message.ts` handles the contact form)
 - `components/`: Reusable React components for UI elements
+- `app/api/chat/`: The streaming chatbot route, with its instructions and limits in `lib/chat.ts`
 - `data/`: Server-side data fetching and integration logic
 - `lib/`: Utility functions and Valibot schemas
 - `public/`: Static assets
@@ -37,6 +38,8 @@ This section outlines the capabilities of the portfolio website.
 - **Design**: Fully responsive, mobile-first design using Tailwind CSS.
 - **Installable app**: Supports Progressive Web App (PWA) standards for native-like installation.
 - **Type-safe validation**: Server API responses and contact forms validate strictly using `valibot`.
+- **AI chatbot**: Streams answers about Aditya using the AI SDK and Vercel AI Gateway. The model is picked in Manager, questions are rate limited through the gateway, and chats are not saved.
+- **Agent-friendly**: Every page is available as markdown through `Accept: text/markdown`, with `llms.txt` and `llms-full.txt` for AI agents.
 - **Search Engine Optimization**: Optimized for search engines with server-side rendering and automatic metadata.
 
 ## Platform routing
@@ -44,9 +47,9 @@ This section outlines the capabilities of the portfolio website.
 The portfolio maps to the public-facing routes:
 
 - `/`: The home page featuring the profile, work timeline, and core technologies
-- `/projects`: The dedicated showcase of featured applications and services
+- `/projects`: The full list of applications and services
 - `/contact`: A secure contact form protected by Cloudflare Turnstile
-- `/chat`: An AI chatbot that answers questions about Aditya. It uses the AI SDK and free AI Gateway models, the model is chosen in Manager, and chats are not saved
+- `/chat`: An AI chatbot that answers questions about Aditya. It uses the AI SDK and Vercel AI Gateway, the model is chosen in Manager, and chats are not saved
 - `/architecture`: The platform architecture write-up, fetched from `ARCHITECTURE_URL`
 - `/privacy`: The privacy policy
 
@@ -74,8 +77,8 @@ Export these variables directly in your `.env` file:
 | `MAIL_FROM`                      | Email address to send contact form submissions from     | **Yes**  |
 | `MAIL_TO`                        | Email address to receive contact form submissions       | **Yes**  |
 | `ARCHITECTURE_URL`               | URL to fetch the dynamic architecture README            | **Yes**  |
-| `AI_GATEWAY_API_KEY` | Optional. Only for local chat development; Vercel deployments authenticate automatically |
-| `CLARITY_KEY`                    | Microsoft Clarity analytics ID                          | **Yes**  |
+| `AI_GATEWAY_API_KEY`             | Only for local chat development; Vercel authenticates itself | No |
+| `NEXT_PUBLIC_CLARITY_KEY`        | Microsoft Clarity analytics ID                          | **Yes**  |
 | `G_TAG`                          | Google Analytics tag ID                                 |    No    |
 
 ### Running locally

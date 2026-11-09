@@ -11,10 +11,12 @@
 - [Homepage](/) - The main entry point. Provides a high-level overview.
 - [Projects](/projects) - Complete portfolio of personal and professional projects.
 - [Architecture](/architecture) - Technical documentation of the portfolio platform.
+- [Chat](/chat) - An AI chatbot for visitors that answers questions about Aditya. It needs a browser, so use the other pages for the same information.
 - [Contact](/contact) - Ways to get in touch, including social links and an email form.
+- [Privacy](/privacy) - Privacy policy.
 
 ## API & Markdown Negotiation
-This site fully supports `Accept: text/markdown` content negotiation. AI agents can request any HTML page route with the `Accept: text/markdown` header to receive a clean, token-efficient markdown version of the content, skipping the Next.js app shell and UI components.
+This site fully supports `Accept: text/markdown` content negotiation. AI agents can request any HTML page route with the `Accept: text/markdown` header to receive a clean, token-efficient markdown version of the content, skipping the Next.js app shell and UI components. You can also append `.md` to any page path, such as `/chat.md` or `/projects.md`.
 
 ## Technical Stack
 This portfolio is built with:
@@ -22,6 +24,8 @@ This portfolio is built with:
 - React 19
 - TailwindCSS (v4)
 - Bun
+- Valibot and Formisch for validation and forms
+- AI SDK with Vercel AI Gateway for the chatbot
 
 It implements best practices for Agentic Web Readiness, including structured data, clean markdown endpoints, and explicit agent instructions.
 

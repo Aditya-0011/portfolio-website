@@ -23,7 +23,7 @@ export const envSchema = v.object({
   API_KEY: required("API_KEY"),
   TURNSTILE_SECRET_KEY: required("TURNSTILE_SECRET_KEY"),
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: required("NEXT_PUBLIC_TURNSTILE_SITE_KEY"),
-  CLARITY_KEY: required("CLARITY_KEY"),
+  NEXT_PUBLIC_CLARITY_KEY: required("NEXT_PUBLIC_CLARITY_KEY"),
   G_TAG: optionalId(/^G-[A-Z0-9]+$/),
 });
 

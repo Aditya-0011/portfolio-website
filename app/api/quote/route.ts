@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { isIP } from "node:net";
 
+import { clientIp } from "@/lib/client-ip";
 import { env } from "@/lib/env";
 
 const FALLBACK_QUOTE = [
@@ -11,13 +11,6 @@ const FALLBACK_QUOTE = [
 const NO_STORE = { "Cache-Control": "no-store" };
 
 const QUOTE_PATH = "/random";
-
-function clientIp(request: NextRequest): string | null {
-  const candidate =
-    request.headers.get("x-real-ip") ??
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return candidate && isIP(candidate) ? candidate : null;
-}
 
 function fallback() {
   return NextResponse.json({ quote: FALLBACK_QUOTE }, { headers: NO_STORE });

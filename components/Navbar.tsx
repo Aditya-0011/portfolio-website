@@ -7,6 +7,7 @@ const navItems = [
   { href: "/", label: "Home", activeColor: "blue" },
   { href: "/architecture", label: "Architecture", activeColor: "rose" },
   { href: "/projects", label: "Projects", activeColor: "emerald" },
+  { href: "/chat", label: "Chat", activeColor: "violet" },
   { href: "/contact", label: "Contact", activeColor: "sky" },
 ] as const;
 
@@ -22,6 +23,10 @@ const colorMap = {
   sky: {
     active:
       "bg-sky-500/10 text-sky-400 sm:ring sm:ring-sky-500/50 inset-ring inset-ring-sky-500/50",
+  },
+  violet: {
+    active:
+      "bg-violet-500/10 text-violet-400 sm:ring sm:ring-violet-500/50 inset-ring inset-ring-violet-500/50",
   },
   rose: {
     active:
@@ -63,9 +68,13 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    prefetch={item.href === "/contact" ? false : undefined}
+                    prefetch={
+                      item.href === "/contact" || item.href === "/chat"
+                        ? false
+                        : undefined
+                    }
                     aria-current={isActive ? "page" : undefined}
-                    className={`relative flex items-center justify-center rounded-lg px-1.5 py-1.5 text-sm font-medium transition-[color,background-color,transform] duration-200 active:scale-[0.97] min-[360px]:px-2 sm:px-4 sm:py-2 sm:text-lg ${
+                    className={`relative flex items-center justify-center rounded-lg px-1 py-1.5 text-xs font-medium transition-[color,background-color,transform] duration-200 active:scale-[0.97] min-[360px]:px-1.5 min-[400px]:px-2 min-[400px]:text-sm sm:px-4 sm:py-2 sm:text-lg ${
                       isActive
                         ? colors.active
                         : "text-white/70 hover:bg-neutral-800/50 hover:text-white"

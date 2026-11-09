@@ -21,6 +21,10 @@ export type ActionResult = {
 const httpUrl = v.pipe(v.string(), v.url(), v.regex(/^https?:\/\//i));
 const optionalLink = v.fallback(v.optional(httpUrl), undefined);
 
+export const ChatConfigSchema = v.object({
+  chat_model: v.optional(v.string(), ""),
+});
+
 export const UserDetailsResponseSchema = v.object({
   about: trimmedTextOrEmpty,
   cover_image: httpUrl,

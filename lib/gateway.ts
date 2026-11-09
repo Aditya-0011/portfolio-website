@@ -6,6 +6,7 @@ import { env } from "@/lib/env";
 import { GatewayError } from "@/lib/objects";
 
 const TIMEOUT_MS = 10_000;
+const CHAT_ALLOW_TIMEOUT_MS = 3_000;
 
 export async function gatewayGet<S extends v.GenericSchema>(
   path: string,
@@ -39,4 +40,23 @@ export async function gatewayGet<S extends v.GenericSchema>(
   }
 
   return parsed.output;
+}
+
+export type ChatAllowance = "allowed" | "limited" | "unavailable";
+
+export async function allowChat(ip: string | null): Promise<ChatAllowance> {
+  try {
+    const response = await fetch(`${env.MANAGER_BACKEND_URL}/chat/allow`, {
+      method: "POST",
+      headers: {
+        "X-API-KEY": env.API_KEY,
+        ...(ip ? { "X-Visitor-IP": ip } : {}),
+      },
+      signal: AbortSignal.timeout(CHAT_ALLOW_TIMEOUT_MS),
+    });
+    if (response.ok) return "allowed";
+    return response.status === 429 ? "limited" : "unavailable";
+  } catch {
+    return "unavailable";
+  }
 }

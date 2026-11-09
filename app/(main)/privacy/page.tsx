@@ -38,6 +38,13 @@ export default function Privacy() {
               with third parties.
             </li>
             <li>
+              <strong>Chat:</strong> Questions you ask on the chat page are sent
+              to third-party AI model providers to generate answers, and those
+              providers may keep or use them to train their models. We do not
+              save your conversations. Please don&apos;t share personal
+              information in the chat.
+            </li>
+            <li>
               <strong>Cookies:</strong> Our analytics providers and
               spam-protection services (like Cloudflare Turnstile) may use
               cookies or similar technologies to function properly.
@@ -54,6 +61,7 @@ export default function Privacy() {
             <li>Google Analytics</li>
             <li>Microsoft Clarity</li>
             <li>Cloudflare Turnstile (Bot protection)</li>
+            <li>Vercel AI Gateway and its AI model providers (Chat)</li>
           </ul>
 
           <h2>Contact</h2>

@@ -46,6 +46,7 @@ The portfolio maps to the public-facing routes:
 - `/`: The home page featuring the profile, work timeline, and core technologies
 - `/projects`: The dedicated showcase of featured applications and services
 - `/contact`: A secure contact form protected by Cloudflare Turnstile
+- `/chat`: An AI chatbot that answers questions about Aditya. It uses the AI SDK and free AI Gateway models, the model is chosen in Manager, and chats are not saved
 - `/architecture`: The platform architecture write-up, fetched from `ARCHITECTURE_URL`
 - `/privacy`: The privacy policy
 
@@ -73,6 +74,7 @@ Export these variables directly in your `.env` file:
 | `MAIL_FROM`                      | Email address to send contact form submissions from     | **Yes**  |
 | `MAIL_TO`                        | Email address to receive contact form submissions       | **Yes**  |
 | `ARCHITECTURE_URL`               | URL to fetch the dynamic architecture README            | **Yes**  |
+| `AI_GATEWAY_API_KEY` | Optional. Only for local chat development; Vercel deployments authenticate automatically |
 | `CLARITY_KEY`                    | Microsoft Clarity analytics ID                          | **Yes**  |
 | `G_TAG`                          | Google Analytics tag ID                                 |    No    |
 

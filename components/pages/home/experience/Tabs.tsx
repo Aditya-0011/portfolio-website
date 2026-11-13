@@ -65,7 +65,7 @@ export default function Tabs({ tabs }: Props) {
             id={`${baseId}-panel-${i}`}
             role="tabpanel"
             aria-labelledby={`${baseId}-tab-${i}`}
-            className={`group mb-10 ml-6 md:m-0 ${active === i ? "md:tab-content-enter" : "md:hidden"}`}
+            className={`group mb-10 ml-5 sm:ml-6 md:m-0 ${active === i ? "md:tab-content-enter" : "md:hidden"}`}
           >
             <div className="absolute -left-2.5 h-5 w-5 rounded-full border-4 border-neutral-950 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-[background-color,box-shadow] duration-200 ease-out group-hover:bg-emerald-500 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.8)] md:hidden"></div>
             <div className="mb-2 ml-1 text-sm leading-none font-normal text-blue-300/80 md:hidden">

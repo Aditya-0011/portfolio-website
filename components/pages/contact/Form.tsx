@@ -21,11 +21,22 @@ import { Github, Linkedin } from "@/lib/brand-icons";
 
 const FIELD_NAMES = ["name", "email", "message"] as const;
 
+type FieldName = (typeof FIELD_NAMES)[number];
+
 export default function Form() {
   const turnstileRef = useRef<TurnstileInstance | undefined>(undefined);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const messageForm = useForm({ schema: MessageSchema, validate: "input" });
+  const [visited, setVisited] = useState<Partial<Record<FieldName, boolean>>>(
+    {},
+  );
+
+  const markVisited = (name: FieldName) =>
+    setVisited((prev) => (prev[name] ? prev : { ...prev, [name]: true }));
+
+  const showErrors = (name: FieldName, errors: unknown) =>
+    Boolean(errors) && Boolean(visited[name] || messageForm.isSubmitted);
 
   const sendMessage: SubmitHandler<typeof MessageSchema> = async (output) => {
     try {
@@ -40,6 +51,7 @@ export default function Form() {
       } else if (result.status === 200) {
         toast.success(result.message[0], { duration: 3000 });
         reset(messageForm);
+        setVisited({});
       } else {
         result.message.forEach((msg) => toast.error(msg, { duration: 3000 }));
       }
@@ -171,7 +183,7 @@ export default function Form() {
           <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 sm:gap-y-6">
             <Field of={messageForm} path={["name"]}>
               {(field) => {
-                const hasError = Boolean(field.errors);
+                const hasError = showErrors("name", field.errors);
                 return (
                   <div className="sm:col-span-2">
                     <label
@@ -184,6 +196,10 @@ export default function Form() {
                       <input
                         id="name"
                         {...field.props}
+                        onBlur={() => {
+                          field.props.onBlur();
+                          markVisited("name");
+                        }}
                         value={field.input ?? ""}
                         maxLength={MESSAGE_LIMITS.name}
                         required
@@ -214,7 +230,7 @@ export default function Form() {
 
             <Field of={messageForm} path={["email"]}>
               {(field) => {
-                const hasError = Boolean(field.errors);
+                const hasError = showErrors("email", field.errors);
                 return (
                   <div className="sm:col-span-2">
                     <label
@@ -227,6 +243,10 @@ export default function Form() {
                       <input
                         id="email"
                         {...field.props}
+                        onBlur={() => {
+                          field.props.onBlur();
+                          markVisited("email");
+                        }}
                         value={field.input ?? ""}
                         maxLength={MESSAGE_LIMITS.email}
                         required
@@ -258,7 +278,7 @@ export default function Form() {
 
             <Field of={messageForm} path={["message"]}>
               {(field) => {
-                const hasError = Boolean(field.errors);
+                const hasError = showErrors("message", field.errors);
                 return (
                   <div className="sm:col-span-2">
                     <label
@@ -271,6 +291,10 @@ export default function Form() {
                       <textarea
                         id="message"
                         {...field.props}
+                        onBlur={() => {
+                          field.props.onBlur();
+                          markVisited("message");
+                        }}
                         value={field.input ?? ""}
                         maxLength={MESSAGE_LIMITS.message}
                         required
@@ -331,27 +355,38 @@ export default function Form() {
             ) : (
               <div
                 suppressHydrationWarning
-                className="w-full max-w-full overflow-x-auto overflow-y-hidden sm:overflow-hidden"
+                className="flex w-full max-w-full flex-col gap-3 overflow-hidden"
               >
                 {isMounted && userInteracted ? (
-                  <Turnstile
-                    ref={turnstileRef}
-                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                    options={{
-                      size: window.innerWidth < 400 ? "compact" : "flexible",
-                      theme: "dark",
-                    }}
-                    onSuccess={setTurnstileToken}
-                    onExpire={() => setTurnstileToken(null)}
-                    onError={() => setTurnstileToken(null)}
-                  />
-                ) : (
-                  <div className="flex h-16.25 w-full items-center justify-center gap-2 rounded-xl border border-white/5 bg-neutral-900/30 px-4 text-xs text-white/55">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500/50" />
-                    Spam protection will initialize when you interact with the
-                    form
+                  <div className="max-[389px]:[zoom:0.9] max-[359px]:[zoom:0.76]">
+                    <Turnstile
+                      ref={turnstileRef}
+                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                      options={{
+                        size: "flexible",
+                        theme: "dark",
+                        appearance: "interaction-only",
+                      }}
+                      onSuccess={setTurnstileToken}
+                      onExpire={() => setTurnstileToken(null)}
+                      onError={() => setTurnstileToken(null)}
+                    />
                   </div>
-                )}
+                ) : null}
+                <p className="flex items-center gap-2 text-xs text-white/55">
+                  <span
+                    className={`h-2 w-2 shrink-0 rounded-full ${
+                      turnstileToken
+                        ? "bg-emerald-500"
+                        : "animate-pulse bg-emerald-500/50"
+                    }`}
+                  />
+                  {turnstileToken
+                    ? "Spam check passed"
+                    : userInteracted
+                      ? "Checking you're not a bot…"
+                      : "Spam protection starts when you use the form"}
+                </p>
               </div>
             )}
             <div className="group relative">

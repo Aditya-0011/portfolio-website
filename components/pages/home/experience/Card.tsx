@@ -14,7 +14,7 @@ interface Props {
 
 export default function Card({ experience }: Props) {
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-white/5 bg-neutral-900/40 p-6 text-pretty shadow-lg backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]">
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-white/5 bg-neutral-900/40 p-4 text-pretty shadow-lg backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)] sm:p-6">
       <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
       <div className="relative z-10">
         <div className="flex items-start justify-between">
@@ -38,11 +38,11 @@ export default function Card({ experience }: Props) {
       <div className="relative z-10 mt-5 flex flex-col gap-y-8">
         {experience.positions.map((position, idx) => (
           <div key={idx} className="relative">
-            <div className="flex items-start justify-between">
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
               <h4 className="text-base font-semibold text-blue-400">
                 {position.role}
               </h4>
-              <div className="shrink-0 text-right text-sm font-medium text-white/50">
+              <div className="shrink-0 text-sm font-medium text-white/50 sm:text-right">
                 {formatMonthYear(position.start)}&nbsp;-&nbsp;
                 {position.end ? formatMonthYear(position.end) : "Present"}
               </div>
@@ -52,23 +52,23 @@ export default function Card({ experience }: Props) {
               <span className="text-sm font-medium text-emerald-400">
                 Details:
               </span>
-              <div className="prose prose-invert prose-emerald prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 mt-1 ml-1 max-w-none text-sm text-white/75 marker:text-white/40">
+              <div className="prose prose-invert prose-emerald prose-p:my-1.5 prose-ul:my-1.5 prose-li:my-0.5 max-sm:prose-ul:ps-4 mt-1 ml-1 max-w-none text-sm text-white/75 marker:text-white/40 max-sm:ml-0">
                 <ReactMarkdown components={experienceMarkdownComponents}>
                   {position.work_done}
                 </ReactMarkdown>
               </div>
             </div>
 
-            <div className="mt-3">
-              <span className="text-sm font-medium text-emerald-400">
-                Projects:
-              </span>
-              <ul
-                role="list"
-                className="mt-2 ml-1 flex flex-wrap items-center gap-2"
-              >
-                {position.projects && position.projects.length > 0 ? (
-                  position.projects.map((project) => (
+            {position.projects && position.projects.length > 0 ? (
+              <div className="mt-3">
+                <span className="text-sm font-medium text-emerald-400">
+                  Projects:
+                </span>
+                <ul
+                  role="list"
+                  className="mt-2 ml-1 flex flex-wrap items-center gap-2"
+                >
+                  {position.projects.map((project) => (
                     <li key={project.id}>
                       <Link
                         href={`/projects#${project.id}`}
@@ -77,14 +77,10 @@ export default function Card({ experience }: Props) {
                         {project.name}
                       </Link>
                     </li>
-                  ))
-                ) : (
-                  <li className="ml-1 text-sm text-white/55">
-                    No projects listed
-                  </li>
-                )}
-              </ul>
-            </div>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         ))}
       </div>

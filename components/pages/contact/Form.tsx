@@ -177,7 +177,7 @@ export default function Form() {
         onSubmit={sendMessage}
         onFocusCapture={() => setUserInteracted(true)}
         onPointerEnter={() => setUserInteracted(true)}
-        className="flex flex-col justify-center p-5 sm:p-10 lg:p-12"
+        className="flex flex-col justify-center px-3 py-5 sm:p-10 lg:p-12"
       >
         <div className="mx-auto w-full max-w-xl lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 sm:gap-y-6">
@@ -355,17 +355,16 @@ export default function Form() {
             ) : (
               <div
                 suppressHydrationWarning
-                className="flex w-full max-w-full flex-col gap-3 overflow-hidden"
+                className="flex w-full flex-col gap-3"
               >
                 {isMounted && userInteracted ? (
-                  <div className="max-[389px]:[zoom:0.9] max-[359px]:[zoom:0.76]">
+                  <div className="min-h-[65px] max-[374px]:-mx-2">
                     <Turnstile
                       ref={turnstileRef}
                       siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
                       options={{
                         size: "flexible",
                         theme: "dark",
-                        appearance: "interaction-only",
                       }}
                       onSuccess={setTurnstileToken}
                       onExpire={() => setTurnstileToken(null)}

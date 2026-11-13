@@ -107,16 +107,14 @@ export default function Card({ experience, compact }: Props) {
                 className="relative h-8 w-8 transition-transform duration-200 hover:scale-110"
               >
                 <div
-                  className="group/tech inline-block h-full w-full cursor-pointer rounded-md border border-white/5 bg-white/5 p-1 transition-colors duration-300 hover:border-emerald-500/50"
+                  className="group/tech tech-tile inline-block cursor-pointer p-1 duration-300"
                   tabIndex={0}
                 >
                   <TechnologyIcon
                     technology={technology}
                     className="h-full w-full object-contain"
                   />
-                  <span className="pointer-events-none absolute -top-8 left-1/2 z-20 mb-1 w-max -translate-x-1/2 transform rounded-md bg-neutral-800/90 px-2 py-1 text-xs font-semibold text-emerald-300 opacity-0 shadow-xl ring ring-emerald-400/50 backdrop-blur-md transition-opacity duration-200 group-focus-within/tech:opacity-100 group-hover/tech:opacity-100 group-active/tech:opacity-100">
-                    {technology.name}
-                  </span>
+                  <span className="tech-tooltip -top-8">{technology.name}</span>
                 </div>
               </li>
             ))

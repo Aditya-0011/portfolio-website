@@ -1,8 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Image from "next/image";
-
 import { type TechnologySummary } from "@/lib/objects";
 
 type Props = {
@@ -15,36 +10,20 @@ type Props = {
 export default function TechnologyIcon({
   technology,
   className,
-  height,
-  width,
+  height = 32,
+  width = 32,
 }: Props) {
-  const [imgError, setImgError] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (loaded || imgError) return;
-
-    const timer = setTimeout(() => {
-      setImgError(true);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, [loaded, imgError]);
-
-  const currentSrc = imgError
-    ? technology.fallback_image_url
-    : technology.image_url;
-
   return (
-    <Image
-      src={currentSrc}
-      height={height ?? 32}
-      width={width ?? 32}
+    <img
+      src={technology.image_url}
+      data-fallback={technology.fallback_image_url}
+      height={height}
+      width={width}
       className={className}
       alt=""
-      unoptimized
-      onError={() => setImgError(true)}
-      onLoad={() => setLoaded(true)}
+      loading="lazy"
+      decoding="async"
+      suppressHydrationWarning
     />
   );
 }

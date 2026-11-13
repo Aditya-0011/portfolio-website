@@ -9,6 +9,7 @@ import { env } from "@/lib/env";
 import { SITE_NAME, SITE_URL } from "@/lib/metadata";
 
 import Clarity from "@/components/Clarity";
+import IconFallbackScript from "@/components/IconFallbackScript";
 
 import "./globals.css";
 
@@ -81,6 +82,7 @@ export default function RootLayout({
     >
       {env.G_TAG ? <GoogleAnalytics gaId={env.G_TAG} /> : null}
       <body className="overflow-x-clip">
+        <IconFallbackScript />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

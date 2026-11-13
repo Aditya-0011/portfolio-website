@@ -29,6 +29,12 @@ const eslintConfig = defineConfig([
     },
     ignores: ["lib/env.ts"],
   },
+  {
+    files: ["components/TechnologyIcon.tsx"],
+    rules: {
+      "@next/next/no-img-element": "off",
+    },
+  },
   globalIgnores([
     ".next/**",
     "out/**",

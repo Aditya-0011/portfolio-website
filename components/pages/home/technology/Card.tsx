@@ -40,7 +40,7 @@ export default function Card({ Category, Technologies }: Props) {
                 className="h-8 w-8 rounded-xs object-contain transition-transform duration-300 group-hover/tech:scale-110"
               />
             </div>
-            <span className="pointer-events-none absolute -top-6 left-1/2 z-20 mb-1 w-max -translate-x-1/2 transform rounded-md bg-neutral-800/90 px-2 py-1 text-xs font-semibold text-emerald-300 opacity-0 shadow-xl ring ring-emerald-400/50 backdrop-blur-md transition-opacity duration-200 group-focus-within/tech:opacity-100 group-hover/tech:opacity-100 group-active/tech:opacity-100 sm:-top-8">
+            <span className="tech-tooltip -top-6 sm:-top-8">
               {technology.name}
             </span>
           </li>

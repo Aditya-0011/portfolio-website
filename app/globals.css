@@ -31,6 +31,14 @@
   }
 }
 
+@utility tech-tooltip {
+  @apply pointer-events-none absolute left-1/2 z-20 mb-1 w-max -translate-x-1/2 transform rounded-md bg-neutral-800/90 px-2 py-1 text-xs font-semibold text-emerald-300 opacity-0 shadow-xl ring ring-emerald-400/50 backdrop-blur-md transition-opacity duration-200 group-focus-within/tech:opacity-100 group-hover/tech:opacity-100 group-active/tech:opacity-100;
+}
+
+@utility tech-tile {
+  @apply h-full w-full rounded-md border border-white/5 bg-white/5 transition-colors hover:border-emerald-500/50;
+}
+
 @layer base {
   *,
   ::after,

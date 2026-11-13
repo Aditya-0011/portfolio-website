@@ -15,7 +15,6 @@
     "@formisch/react": "^1.2.0",
     "@marsidev/react-turnstile": "^1.6.3",
     "@next/third-parties": "^16.4.5",
-    "@tanstack/redact": "^0.3.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.1.0",
     "ai": "^7.0.166",

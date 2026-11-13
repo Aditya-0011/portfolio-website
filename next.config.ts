@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { NextConfig } from "next";
-import { withRedact } from "@tanstack/redact/next";
 
 import { parseEnv } from "./lib/env-schema";
 
@@ -123,4 +122,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withRedact(nextConfig);
+export default nextConfig;

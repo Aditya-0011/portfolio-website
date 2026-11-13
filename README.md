@@ -14,7 +14,7 @@ The portfolio website acts as the public-facing presentation layer for the platf
 
 This section explains the technologies and physical layout of the portfolio website.
 
-- **Framework**: Built with React 19 and Next.js 16 (App Router), with `@tanstack/redact` as the React runtime (`withRedact` in `next.config.ts`)
+- **Framework**: Built with React 19 and Next.js 16 (App Router)
 - **Package manager**: Managed and executed using `bun`
 - **Styling**: Styled with Tailwind CSS v4 and `lucide-react` icons, with Inter loaded through `next/font` using `display: optional`
 - **State**: Uses Next.js Server Components and aggressive server-side caching for data fetching. Uses `@formisch/react` with Valibot and the `actions/message.ts` server action for the contact form.
@@ -65,21 +65,21 @@ This section explains how to run the portfolio website locally.
 
 Export these variables directly in your `.env` file:
 
-| Variable                         | Description                                             | Required |
-| :------------------------------- | :------------------------------------------------------ | :------: |
-| `MANAGER_BACKEND_URL`            | Base URL of the API Gateway / manager service           | **Yes**  |
-| `API_KEY`                        | Long-lived API key to authenticate with the API Gateway | **Yes**  |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile public key                         | **Yes**  |
-| `TURNSTILE_SECRET_KEY`           | Cloudflare Turnstile secret key                         | **Yes**  |
-| `MAIL_HOST`                      | SMTP server host                                        | **Yes**  |
-| `MAIL_USER`                      | SMTP server user                                        | **Yes**  |
-| `MAIL_PASS`                      | SMTP server password                                    | **Yes**  |
-| `MAIL_FROM`                      | Email address to send contact form submissions from     | **Yes**  |
-| `MAIL_TO`                        | Email address to receive contact form submissions       | **Yes**  |
-| `ARCHITECTURE_URL`               | URL to fetch the dynamic architecture README            | **Yes**  |
-| `AI_GATEWAY_API_KEY`             | Only for local chat development; Vercel authenticates itself | No |
-| `NEXT_PUBLIC_CLARITY_KEY`        | Microsoft Clarity analytics ID                          | **Yes**  |
-| `G_TAG`                          | Google Analytics tag ID                                 |    No    |
+| Variable                         | Description                                                  | Required |
+| :------------------------------- | :----------------------------------------------------------- | :------: |
+| `MANAGER_BACKEND_URL`            | Base URL of the API Gateway / manager service                | **Yes**  |
+| `API_KEY`                        | Long-lived API key to authenticate with the API Gateway      | **Yes**  |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile public key                              | **Yes**  |
+| `TURNSTILE_SECRET_KEY`           | Cloudflare Turnstile secret key                              | **Yes**  |
+| `MAIL_HOST`                      | SMTP server host                                             | **Yes**  |
+| `MAIL_USER`                      | SMTP server user                                             | **Yes**  |
+| `MAIL_PASS`                      | SMTP server password                                         | **Yes**  |
+| `MAIL_FROM`                      | Email address to send contact form submissions from          | **Yes**  |
+| `MAIL_TO`                        | Email address to receive contact form submissions            | **Yes**  |
+| `ARCHITECTURE_URL`               | URL to fetch the dynamic architecture README                 | **Yes**  |
+| `AI_GATEWAY_API_KEY`             | Only for local chat development; Vercel authenticates itself |    No    |
+| `NEXT_PUBLIC_CLARITY_KEY`        | Microsoft Clarity analytics ID                               | **Yes**  |
+| `G_TAG`                          | Google Analytics tag ID                                      |    No    |
 
 ### Running locally
 

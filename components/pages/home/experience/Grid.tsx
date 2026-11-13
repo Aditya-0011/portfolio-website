@@ -19,19 +19,6 @@ export default async function Grid() {
           </p>
         </div>
 
-        <div className="relative mt-8 border-l-2 border-blue-500/30 md:hidden">
-          {experiences.map((experience) => (
-            <div key={experience.id} className="group mb-10 ml-6">
-              <div className="absolute -left-2.5 h-5 w-5 rounded-full border-4 border-neutral-950 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-[background-color,box-shadow] duration-200 ease-out group-hover:bg-emerald-500 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.8)]"></div>
-              <div className="mb-2 ml-1 text-sm leading-none font-normal text-blue-300/80">
-                {formatMonthYear(experience.start)}&nbsp;-&nbsp;
-                {experience.end ? formatMonthYear(experience.end) : "Present"}
-              </div>
-              <Card experience={experience} compact={true} />
-            </div>
-          ))}
-        </div>
-
         <Tabs
           tabs={experiences.map((experience) => ({
             id: experience.id,
@@ -50,6 +37,12 @@ export default async function Grid() {
                   </p>
                 </div>
               </div>
+            ),
+            dates: (
+              <>
+                {formatMonthYear(experience.start)}&nbsp;-&nbsp;
+                {experience.end ? formatMonthYear(experience.end) : "Present"}
+              </>
             ),
             panel: <Card experience={experience} />,
           }))}

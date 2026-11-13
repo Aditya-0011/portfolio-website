@@ -10,10 +10,9 @@ import TechnologyIcon from "@/components/TechnologyIcon";
 
 interface Props {
   experience: Experience;
-  compact?: boolean;
 }
 
-export default function Card({ experience, compact }: Props) {
+export default function Card({ experience }: Props) {
   return (
     <div className="group relative flex flex-col justify-between rounded-2xl border border-white/5 bg-neutral-900/40 p-6 text-pretty shadow-lg backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]">
       <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -22,12 +21,10 @@ export default function Card({ experience, compact }: Props) {
           <h3 className="flex-1 pr-4 text-xl font-bold tracking-tight text-white">
             {experience.company.split(",")[0]}
           </h3>
-          {!compact ? (
-            <div className="shrink-0 text-right text-sm font-medium text-white/60">
-              {formatMonthYear(experience.start)}&nbsp;-&nbsp;
-              {experience.end ? formatMonthYear(experience.end) : "Present"}
-            </div>
-          ) : null}
+          <div className="hidden shrink-0 text-right text-sm font-medium text-white/60 md:block">
+            {formatMonthYear(experience.start)}&nbsp;-&nbsp;
+            {experience.end ? formatMonthYear(experience.end) : "Present"}
+          </div>
         </div>
         <div className="mt-1 flex flex-col justify-center text-sm text-white/60">
           <span>{experience.company.split(",")[1]?.trim()}</span>
@@ -102,17 +99,11 @@ export default function Card({ experience, compact }: Props) {
         >
           {experience.technologies && experience.technologies.length > 0 ? (
             experience.technologies.map((technology) => (
-              <li
-                key={technology.id}
-                className="relative h-8 w-8 transition-transform duration-200 hover:scale-110"
-              >
-                <div
-                  className="group/tech tech-tile inline-block cursor-pointer p-1 duration-300"
-                  tabIndex={0}
-                >
+              <li key={technology.id} className="tech-chip size-8">
+                <div className="group/tech tech-tile-sm" tabIndex={0}>
                   <TechnologyIcon
                     technology={technology}
-                    className="h-full w-full object-contain"
+                    className="tech-img"
                   />
                   <span className="tech-tooltip -top-8">{technology.name}</span>
                 </div>

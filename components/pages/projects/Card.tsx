@@ -83,18 +83,9 @@ export default function Card({
         className="relative z-10 mt-6 flex flex-wrap items-center gap-3"
       >
         {project.technologies?.map((technology) => (
-          <li
-            key={technology.id}
-            className="group/tech relative h-10 w-10 cursor-pointer transition-transform duration-200 hover:scale-110"
-          >
-            <div
-              className="tech-tile p-1.5 duration-200 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
-              tabIndex={0}
-            >
-              <TechnologyIcon
-                technology={technology}
-                className="h-full w-full object-contain"
-              />
+          <li key={technology.id} className="group/tech tech-chip size-10">
+            <div className="tech-tile-md" tabIndex={0}>
+              <TechnologyIcon technology={technology} className="tech-img" />
               <span className="tech-tooltip -top-8">{technology.name}</span>
             </div>
           </li>

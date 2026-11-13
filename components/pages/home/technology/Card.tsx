@@ -27,17 +27,14 @@ export default function Card({ Category, Technologies }: Props) {
         className="relative z-10 mx-auto mt-6 grid grid-cols-3 place-items-center gap-6 text-center lg:mx-0 lg:max-w-none"
       >
         {Technologies.map((technology: Technology) => (
-          <li
-            key={technology.id}
-            className="group/tech relative flex w-full cursor-pointer items-center justify-center rounded-xl p-2 transition-colors duration-300 sm:hover:bg-white/5"
-          >
+          <li key={technology.id} className="group/tech tech-cell">
             <div
               className="flex w-full items-center justify-center"
               tabIndex={0}
             >
               <TechnologyIcon
                 technology={technology}
-                className="h-8 w-8 rounded-xs object-contain transition-transform duration-300 group-hover/tech:scale-110"
+                className="tech-cell-img"
               />
             </div>
             <span className="tech-tooltip -top-6 sm:-top-8">

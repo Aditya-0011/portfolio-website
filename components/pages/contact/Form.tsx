@@ -355,37 +355,18 @@ export default function Form() {
             ) : (
               <div
                 suppressHydrationWarning
-                className="flex w-full flex-col gap-3"
+                className="min-h-16.25 self-stretch max-[374px]:-mx-2"
               >
                 {isMounted && userInteracted ? (
-                  <div className="min-h-[65px] max-[374px]:-mx-2">
-                    <Turnstile
-                      ref={turnstileRef}
-                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                      options={{
-                        size: "flexible",
-                        theme: "dark",
-                      }}
-                      onSuccess={setTurnstileToken}
-                      onExpire={() => setTurnstileToken(null)}
-                      onError={() => setTurnstileToken(null)}
-                    />
-                  </div>
-                ) : null}
-                <p className="flex items-center gap-2 text-xs text-white/55">
-                  <span
-                    className={`h-2 w-2 shrink-0 rounded-full ${
-                      turnstileToken
-                        ? "bg-emerald-500"
-                        : "animate-pulse bg-emerald-500/50"
-                    }`}
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    options={{ size: "flexible", theme: "dark" }}
+                    onSuccess={setTurnstileToken}
+                    onExpire={() => setTurnstileToken(null)}
+                    onError={() => setTurnstileToken(null)}
                   />
-                  {turnstileToken
-                    ? "Spam check passed"
-                    : userInteracted
-                      ? "Checking you're not a bot…"
-                      : "Spam protection starts when you use the form"}
-                </p>
+                ) : null}
               </div>
             )}
             <div className="group relative">

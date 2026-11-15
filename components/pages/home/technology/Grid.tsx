@@ -19,6 +19,13 @@ export default async function Grid() {
       return leftOrder - rightOrder;
     });
 
+  const groups = categories
+    .map((category) => ({
+      category,
+      items: technologies.filter((tech) => tech.category === category),
+    }))
+    .filter(({ items }) => items.length > 0);
+
   return (
     <div className="py-8 sm:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8" id="technologies">
@@ -30,18 +37,17 @@ export default async function Grid() {
             Here’s what I typically work with.
           </p>
         </div>
+        {groups.length === 0 ? (
+          <p className="mt-6 text-sm text-white/55">
+            No technologies listed yet.
+          </p>
+        ) : null}
         <ul
           role="list"
           className="mx-auto mt-6 box-border columns-1 gap-[1em] space-y-4 md:columns-2 lg:columns-3"
         >
-          {categories.map((category) => (
-            <Card
-              key={category}
-              Category={category}
-              Technologies={technologies.filter(
-                (tech) => tech.category === category,
-              )}
-            />
+          {groups.map(({ category, items }) => (
+            <Card key={category} Category={category} Technologies={items} />
           ))}
         </ul>
       </div>

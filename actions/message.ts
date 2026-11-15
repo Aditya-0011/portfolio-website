@@ -21,12 +21,18 @@ const PRODUCTION_HOSTNAMES = new Set([
 ]);
 const GENERIC_FAILURE = "Something went wrong. Please try again later.";
 
-async function verifyTurnstile(token: string): Promise<boolean> {
+async function visitorIp(): Promise<string | undefined> {
   const requestHeaders = await headers();
-  const remoteIp =
+  return (
     requestHeaders.get("x-real-ip") ??
-    requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim();
+    requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim()
+  );
+}
 
+async function verifyTurnstile(
+  token: string,
+  remoteIp: string | undefined,
+): Promise<boolean> {
   const body = new URLSearchParams({
     secret: env.TURNSTILE_SECRET_KEY,
     response: token,
@@ -65,7 +71,8 @@ export async function AddMessage(
       };
     }
 
-    if (!(await verifyTurnstile(token))) {
+    const remoteIp = await visitorIp();
+    if (!(await verifyTurnstile(token, remoteIp))) {
       return {
         status: 400,
         message: ["Spam check failed. Please try again."],
@@ -87,6 +94,7 @@ export async function AddMessage(
       headers: {
         "Content-Type": "application/json",
         "X-API-KEY": env.API_KEY,
+        ...(remoteIp ? { "X-Visitor-IP": remoteIp } : {}),
       },
       body: JSON.stringify({
         name: data.name,
@@ -99,12 +107,17 @@ export async function AddMessage(
     if (!response.ok) {
       // eslint-disable-next-line no-console
       console.error(`[contact] gateway message/add failed: ${response.status}`);
+      const failureText = await response.text().catch(() => "");
+      const threadFull =
+        response.status === 429 && /limit of messages/i.test(failureText);
       return {
         status: response.status === 429 ? 429 : 502,
         message: [
-          response.status === 429
-            ? "Too many messages right now. Please try again later."
-            : GENERIC_FAILURE,
+          threadFull
+            ? "You've already sent the maximum of 3 messages. I'll reply by email soon."
+            : response.status === 429
+              ? "Too many messages right now. Please try again later."
+              : GENERIC_FAILURE,
         ],
       };
     }

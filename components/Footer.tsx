@@ -1,6 +1,7 @@
 import { JSX, SVGProps } from "react";
 
 import Link from "next/link";
+import { cacheLife } from "next/cache";
 
 import { FileUser, Mail } from "lucide-react";
 
@@ -45,7 +46,12 @@ const navigation = [
   },
 ];
 
-const CURRENT_YEAR = new Date().getFullYear();
+async function CopyrightYear() {
+  "use cache";
+  cacheLife("days");
+
+  return new Date().getFullYear();
+}
 
 export default function Footer() {
   return (
@@ -90,7 +96,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 flex flex-col items-center gap-4 md:order-1 md:mt-0 md:flex-row md:gap-4">
           <p className="text-center text-base leading-5 text-white/50 md:text-left">
-            &copy; {CURRENT_YEAR}{" "}
+            &copy; <CopyrightYear />{" "}
             <span className="font-medium text-white/80">Aditya Punmiya</span>
           </p>
           <span className="hidden text-white/30 md:inline">•</span>

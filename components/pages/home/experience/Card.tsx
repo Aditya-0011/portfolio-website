@@ -96,12 +96,19 @@ export default function Card({ experience }: Props) {
           {experience.technologies && experience.technologies.length > 0 ? (
             experience.technologies.map((technology) => (
               <li key={technology.id} className="tech-chip size-8">
-                <div className="group/tech tech-tile-sm" tabIndex={0}>
+                <div
+                  className="group/tech tech-tile-sm"
+                  tabIndex={0}
+                  role="img"
+                  aria-label={technology.name}
+                >
                   <TechnologyIcon
                     technology={technology}
                     className="tech-img"
                   />
-                  <span className="tech-tooltip -top-8">{technology.name}</span>
+                  <span aria-hidden="true" className="tech-tooltip -top-8">
+                    {technology.name}
+                  </span>
                 </div>
               </li>
             ))

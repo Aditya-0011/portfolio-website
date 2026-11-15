@@ -217,9 +217,19 @@
   *,
   ::before,
   ::after {
-    transform: none !important;
     transition-property:
       color, background-color, border-color, opacity, box-shadow !important;
+  }
+
+  [class*="hover:-translate"]:hover,
+  [class*="hover:scale"]:hover,
+  [class*="active:scale"]:active,
+  .tech-chip:hover,
+  .group:hover [class*="group-hover:scale"],
+  .group\/tech:hover .tech-cell-img {
+    translate: none !important;
+    scale: none !important;
+    rotate: none !important;
   }
 
   ::view-transition-old(*),
@@ -232,13 +242,13 @@
 
 /* Gate hover-only transformations to devices with fine pointing/hover capability */
 @media (hover: none) or (pointer: coarse) {
-  .hover\:-translate-y-1:hover,
-  .hover\:-translate-y-0\.5:hover,
-  .hover\:scale-110:hover,
-  .hover\:scale-\[1\.02\]:hover,
-  .group:hover .group-hover\:scale-105,
-  .group:hover .group-hover\:scale-\[1\.02\],
-  .group\/tech:hover .group-hover\/tech\:scale-110 {
-    transform: none !important;
+  [class*="hover:-translate"]:hover,
+  [class*="hover:scale"]:hover,
+  .tech-chip:hover,
+  .group:hover [class*="group-hover:scale"],
+  .group\/tech:hover .tech-cell-img {
+    translate: none !important;
+    scale: none !important;
+    rotate: none !important;
   }
 }

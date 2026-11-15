@@ -1,6 +1,12 @@
 "use client";
 
-import { useId, useState, type KeyboardEvent, type ReactNode } from "react";
+import {
+  useId,
+  useState,
+  useSyncExternalStore,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
 
 type Tab = {
   id: number;
@@ -13,15 +19,36 @@ type Props = {
   tabs: Tab[];
 };
 
+const DESKTOP_QUERY = "(min-width: 48rem)";
+
+const subscribeDesktop = (onChange: () => void) => {
+  const query = window.matchMedia(DESKTOP_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+};
+
+const getDesktop = () => window.matchMedia(DESKTOP_QUERY).matches;
+
+const getServerDesktop = () => false;
+
 export default function Tabs({ tabs }: Props) {
   const [active, setActive] = useState(0);
   const baseId = useId();
+  const isDesktop = useSyncExternalStore(
+    subscribeDesktop,
+    getDesktop,
+    getServerDesktop,
+  );
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+    let next: number;
+    if (event.key === "ArrowDown") next = (active + 1) % tabs.length;
+    else if (event.key === "ArrowUp")
+      next = (active - 1 + tabs.length) % tabs.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = tabs.length - 1;
+    else return;
     event.preventDefault();
-    const delta = event.key === "ArrowDown" ? 1 : -1;
-    const next = (active + delta + tabs.length) % tabs.length;
     setActive(next);
     document.getElementById(`${baseId}-tab-${next}`)?.focus();
   };
@@ -63,8 +90,8 @@ export default function Tabs({ tabs }: Props) {
           <div
             key={tab.id}
             id={`${baseId}-panel-${i}`}
-            role="tabpanel"
-            aria-labelledby={`${baseId}-tab-${i}`}
+            role={isDesktop ? "tabpanel" : undefined}
+            aria-labelledby={isDesktop ? `${baseId}-tab-${i}` : undefined}
             className={`group mb-10 ml-5 sm:ml-6 md:m-0 ${active === i ? "md:tab-content-enter" : "md:hidden"}`}
           >
             <div className="absolute -left-2.5 h-5 w-5 rounded-full border-4 border-neutral-950 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-[background-color,box-shadow] duration-200 ease-out group-hover:bg-emerald-500 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.8)] md:hidden"></div>

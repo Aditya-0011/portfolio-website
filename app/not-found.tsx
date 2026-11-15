@@ -5,7 +5,10 @@ import { BackButton } from "@/components/BackButton";
 
 export default function NotFound() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12">
+    <main
+      id="main-content"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12"
+    >
       <div className="relative z-10 w-full max-w-4xl text-center">
         <div className="flex flex-col items-center justify-center gap-8 p-4 sm:p-12">
           <div className="relative">
@@ -58,6 +61,6 @@ export default function NotFound() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

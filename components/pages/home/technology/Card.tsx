@@ -31,13 +31,15 @@ export default function Card({ Category, Technologies }: Props) {
             <div
               className="flex w-full items-center justify-center"
               tabIndex={0}
+              role="img"
+              aria-label={technology.name}
             >
               <TechnologyIcon
                 technology={technology}
                 className="tech-cell-img"
               />
             </div>
-            <span className="tech-tooltip -top-6 sm:-top-8">
+            <span aria-hidden="true" className="tech-tooltip -top-6 sm:-top-8">
               {technology.name}
             </span>
           </li>

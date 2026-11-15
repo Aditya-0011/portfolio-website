@@ -114,13 +114,15 @@ export default function Form() {
             <li className="group/link relative flex items-center rounded-xl border border-white/5 bg-white/5 p-3 transition-[transform,border-color] duration-300 hover:scale-[1.02] hover:border-emerald-500/30">
               <Link
                 href="mailto:adityapunmiya@gmail.com"
-                className="absolute inset-0 z-10"
+                className="absolute inset-0 z-10 rounded-xl focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
               >
                 <span className="sr-only">Email adityapunmiya@gmail.com</span>
               </Link>
-              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-emerald-500/50 focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none sm:h-12 sm:w-12">
-                <span className="sr-only">Email</span>
-                <Mail className="h-5 w-5 text-emerald-400 sm:h-6 sm:w-6" />
+              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-emerald-500/50 sm:h-12 sm:w-12">
+                <Mail
+                  aria-hidden="true"
+                  className="h-5 w-5 text-emerald-400 sm:h-6 sm:w-6"
+                />
               </div>
               <div className="ml-4 min-w-0">
                 <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-emerald-300 sm:text-base">
@@ -134,13 +136,15 @@ export default function Form() {
                 href="https://github.com/Aditya-0011"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute inset-0 z-10"
+                className="absolute inset-0 z-10 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none"
               >
                 <span className="sr-only">Visit Github profile</span>
               </Link>
-              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-blue-500/50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none sm:h-12 sm:w-12">
-                <span className="sr-only">Github</span>
-                <Github className="h-5 w-5 text-blue-400 sm:h-6 sm:w-6" />
+              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-blue-500/50 sm:h-12 sm:w-12">
+                <Github
+                  aria-hidden="true"
+                  className="h-5 w-5 text-blue-400 sm:h-6 sm:w-6"
+                />
               </div>
               <div className="ml-4 min-w-0">
                 <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-blue-300 sm:text-base">
@@ -154,13 +158,15 @@ export default function Form() {
                 href="https://www.linkedin.com/in/aditya-punmiya/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute inset-0 z-10"
+                className="absolute inset-0 z-10 rounded-xl focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none"
               >
                 <span className="sr-only">Visit Linkedin profile</span>
               </Link>
-              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-sky-500/50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:outline-none sm:h-12 sm:w-12">
-                <span className="sr-only">Linkedin</span>
-                <Linkedin className="h-5 w-5 text-sky-400 sm:h-6 sm:w-6" />
+              <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg border border-white/5 bg-neutral-900 transition-colors duration-200 group-hover/link:border-sky-500/50 sm:h-12 sm:w-12">
+                <Linkedin
+                  aria-hidden="true"
+                  className="h-5 w-5 text-sky-400 sm:h-6 sm:w-6"
+                />
               </div>
               <div className="ml-4 min-w-0">
                 <div className="truncate text-sm font-medium text-white transition-colors group-hover/link:text-sky-300 sm:text-base">

@@ -92,11 +92,13 @@ bun run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Build for production
+### Build and run the production server
 
-Compile the application into static HTML, CSS, and JS assets for deployment:
+Build the app and start the Node server. It serves the route handlers (`/api/chat`, `/api/quote`, `/api/markdown`), the contact server action and the proxy, so it is not a static export:
 
 ```bash
 bun run build
 bun start
 ```
+
+The build validates the environment (copy `.env.sample` to `.env` first) and prerenders pages from the gateway, so `MANAGER_BACKEND_URL` and `API_KEY` must point at a reachable gateway with a valid key at build time.

@@ -43,6 +43,7 @@ export default function Chat() {
     stop,
     regenerate,
     setMessages,
+    clearError,
   } = useChat({
     transport,
     onFinish: ({ finishReason, isAbort, isError }) =>
@@ -90,6 +91,7 @@ export default function Chat() {
       <div
         role="log"
         aria-live="polite"
+        aria-busy={isBusy}
         aria-label="Conversation"
         className="flex flex-1 flex-col"
       >
@@ -171,14 +173,16 @@ export default function Chat() {
                   ? error.message
                   : "Something went wrong. Please try again."}
               </span>
-              <button
-                type="button"
-                onClick={() => void regenerate()}
-                className="flex items-center gap-1 underline underline-offset-2"
-              >
-                <RotateCcw aria-hidden="true" size={14} />
-                Retry
-              </button>
+              {messages.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => void regenerate()}
+                  className="flex items-center gap-1 underline underline-offset-2"
+                >
+                  <RotateCcw aria-hidden="true" size={14} />
+                  Retry
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -252,6 +256,7 @@ export default function Chat() {
                 type="button"
                 onClick={() => {
                   setMessages([]);
+                  clearError();
                   setWasCut(false);
                 }}
                 className="underline underline-offset-2 hover:text-white/70"

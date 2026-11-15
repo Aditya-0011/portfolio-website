@@ -25,7 +25,7 @@ export default function Card({
   return (
     <li
       id={project.id.toString()}
-      className="group relative mb-6 break-inside-avoid rounded-2xl border border-white/5 bg-neutral-900/40 p-5 shadow-lg backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]"
+      className="group relative mb-6 scroll-mt-24 break-inside-avoid rounded-2xl border border-white/5 bg-neutral-900/40 p-5 shadow-lg backdrop-blur-xl transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]"
     >
       <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
@@ -84,9 +84,16 @@ export default function Card({
       >
         {project.technologies?.map((technology) => (
           <li key={technology.id} className="group/tech tech-chip size-10">
-            <div className="tech-tile-md" tabIndex={0}>
+            <div
+              className="tech-tile-md"
+              tabIndex={0}
+              role="img"
+              aria-label={technology.name}
+            >
               <TechnologyIcon technology={technology} className="tech-img" />
-              <span className="tech-tooltip -top-8">{technology.name}</span>
+              <span aria-hidden="true" className="tech-tooltip -top-8">
+                {technology.name}
+              </span>
             </div>
           </li>
         ))}
